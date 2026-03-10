@@ -1,11 +1,11 @@
-# app/llm_providers.py
 import os
 from typing import Dict, List
-from openai import OpenAI
-from dotenv import load_dotenv
 
-# load .env once, globally
+from dotenv import load_dotenv
+from openai import OpenAI
+
 load_dotenv()
+
 
 class OpenAILLM:
     def __init__(self):
@@ -21,4 +21,4 @@ class OpenAILLM:
             temperature=0,
             messages=[{"role": "system", "content": system_prompt}] + messages,
         )
-        return resp.choices[0].message.content
+        return resp.choices[0].message.content or ""
