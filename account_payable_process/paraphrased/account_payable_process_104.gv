@@ -1,0 +1,59 @@
+digraph account_payable_process_104 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_PRNV" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_PRNV"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_PRNV" -> "gather the receiving report"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_PRNV" -> "double check a three-way match"
+		"OR_SPLIT--3. Document validation_IGOV" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_SPLIT--3. Document validation_IGOV"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_IGOV" -> "gather the vendors invoice"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_IGOV" -> "report errors to relevant team member"
+		"confirm all documents have been amended" [shape=box]
+		"report errors to relevant team member" -> "confirm all documents have been amended"
+		"OR_JOIN--3. Document validation_IGOV" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_IGOV"
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_IGOV"
+		"OR_JOIN--3. Document validation_PRNV" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_IGOV" -> "OR_JOIN--3. Document validation_PRNV"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_PRNV"
+		"AND_SPLIT--4. Payment_6NE8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_PRNV" -> "AND_SPLIT--4. Payment_6NE8"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_6NE8" -> "create voucher for the documents"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_6NE8" -> "store in paid invoice file"
+		"AND_JOIN--4. Payment_6NE8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_6NE8"
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_6NE8"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_6NE8" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the senior accountant in your department. 
+When sending to the senior accountant in your department is completed, creating a receiving report needs to be done. 
+After creating a receiving report, one or more of the following paths should be executed: gathering the receiving report, doubling check a three-way match. 
+Once gathering the receiving report occurs, one or more of the following paths should be executed: gathering the vendors invoice, reporting errors to relevant team member. 
+When reporting errors to relevant team member is completed, you need to confirm all documents have been amended.
+After that, the next tasks should be creating voucher for the documents and storing in paid invoice file, they should be done in parallel. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the payed account process - it begins when you send the senior accountant in your department.
+When the sending to the senior accountant in your department is completed, a receiving report must be done.
+After creating a receiving report, one or more of the following paths should be executed: the receiving report should be collected, and the double check should a three-way match be conducted.
+Once collecting the receive report is completed, one or more of the following paths should be executed: - collection of the vendor invoice - reporting errors to the relevant team member.
+When reporting errors to the relevant team member is completed, you need to confirm that all documents have been amended.
+After that, the next tasks should be to create a voucher for documents and storing in a paid invoice file, this should be done in parallel.
+The process is now finished.
+"
+}

@@ -1,0 +1,30 @@
+digraph account_payable_process_190 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_9T1D" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_9T1D"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_9T1D" -> "gather the vendors invoice"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_9T1D" -> "gather the receiving report"
+		"OR_JOIN--3. Document validation_9T1D" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_9T1D"
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_9T1D"
+		"store in paid invoice file" [shape=box]
+		"OR_JOIN--3. Document validation_9T1D" -> "store in paid invoice file"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"store in paid invoice file" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, you need to create a receiving report.
+When creating a receiving report is completed, one or more of the following paths should be executed: gathering the vendors invoice, gathering the receiving report. 
+After that, storing in paid invoice file needs to be done. 
+The process is now completed. 
+"
+}

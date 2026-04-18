@@ -1,0 +1,40 @@
+digraph account_payable_process_70 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_29T6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_29T6"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_29T6" -> "gather the receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_29T6" -> "confirm all documents have been amended"
+		"report errors to relevant team member" [shape=box]
+		"gather the receiving report" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_29T6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_29T6"
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_29T6"
+		"OR_SPLIT--4. Payment_NYCP" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_29T6" -> "OR_SPLIT--4. Payment_NYCP"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_NYCP" -> "create voucher for the documents"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_NYCP" -> "store in paid invoice file"
+		"OR_JOIN--4. Payment_NYCP" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_NYCP"
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_NYCP"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_NYCP" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the receiving department. 
+When sending to the receiving department is completed, creating a receiving report should be done. 
+Once creating a receiving report occurs, the next tasks should be gathering the receiving report and confirming all documents have been amended, they should be done in parallel. 
+When gathering the receiving report is completed, reporting errors to relevant team member should be done. 
+Once all pre-tasks are executed, then one or more of the following paths should be executed: creating voucher for the documents, storing in paid invoice file. 
+The process is now completed. 
+"
+}

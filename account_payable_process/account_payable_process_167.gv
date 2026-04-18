@@ -1,0 +1,23 @@
+digraph account_payable_process_167 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"create a receiving report" -> "confirm all documents have been amended"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"confirm all documents have been amended" -> "enter the invoice into the accounts payable account"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"enter the invoice into the accounts payable account" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+Once entering purchase order details occurs, creating a receiving report needs to be done. 
+When creating a receiving report is completed, you need to confirm all documents have been amended.
+Once confirming all documents have been amended occurs, you need to enter the invoice into the accounts payable account.
+The process is now completed. 
+"
+}

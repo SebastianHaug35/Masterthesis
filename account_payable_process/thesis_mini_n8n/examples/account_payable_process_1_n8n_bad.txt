@@ -1,0 +1,1 @@
+The workflow starts by creating a receiving report. Then the vendor invoice is gathered. After that, the invoice is entered into accounts payable. The workflow stops there.

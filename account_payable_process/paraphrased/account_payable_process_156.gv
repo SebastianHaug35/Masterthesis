@@ -1,0 +1,30 @@
+digraph account_payable_process_156 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"stamp all documents" [shape=box]
+		"gather the receiving report" -> "stamp all documents"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"stamp all documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+When entering purchase order details is completed, creating a receiving report needs to be done. 
+After creating a receiving report, you need to gather the receiving report.
+After gathering the receiving report, you need to stamp all documents.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the payment process. It starts when you enter your purchase order details.
+When the entry of the Order Details is completed, a Receiving Report must be created.
+After creating a receiving report, you have to gather the receiving report.
+After gathering the receipt report, you need to stamp all documents.
+The process is now completed.
+"
+}

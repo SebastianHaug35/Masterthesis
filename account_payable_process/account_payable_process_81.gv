@@ -1,0 +1,53 @@
+digraph account_payable_process_81 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_CCXL" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_CCXL"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_CCXL" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_CCXL" -> "gather the vendors invoice"
+		"AND_SPLIT--3. Document validation_L5V6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_SPLIT--3. Document validation_L5V6"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_L5V6" -> "report errors to relevant team member"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_L5V6" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_L5V6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_L5V6"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_L5V6"
+		"OR_JOIN--3. Document validation_CCXL" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_L5V6" -> "OR_JOIN--3. Document validation_CCXL"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_CCXL"
+		"AND_SPLIT--4. Payment_O7Z8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_CCXL" -> "AND_SPLIT--4. Payment_O7Z8"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_O7Z8" -> "enter the invoice into the accounts payable account"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_O7Z8" -> "schedule the payment"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_O7Z8" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"enter the invoice into the accounts payable account" -> "stamp all documents"
+		"AND_JOIN--4. Payment_O7Z8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "AND_JOIN--4. Payment_O7Z8"
+		"schedule the payment" -> "AND_JOIN--4. Payment_O7Z8"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_O7Z8"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_O7Z8" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with filing a copy for internal records. 
+Once filing a copy for internal records occurs, creating a receiving report should be done. 
+Once creating a receiving report occurs, one or more of the following paths should be executed: gathering the receiving report, gathering the vendors invoice. 
+After gathering the receiving report, the process is split into 2 parallel branches: reporting errors to relevant team member and doubling check a three-way match. 
+Afterwards, the next tasks should be entering the invoice into the accounts payable account, scheduling the payment and creating voucher for the documents, they should be done in parallel. 
+Once entering the invoice into the accounts payable account occurs, stamping all documents should be done. 
+The process is now completed. 
+"
+}

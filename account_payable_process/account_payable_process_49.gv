@@ -1,0 +1,43 @@
+digraph account_payable_process_49 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_M6R4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_M6R4"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_M6R4" -> "double check a three-way match"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_M6R4" -> "report errors to relevant team member"
+		"gather the vendors invoice" [shape=box]
+		"report errors to relevant team member" -> "gather the vendors invoice"
+		"AND_JOIN--3. Document validation_M6R4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_M6R4"
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_M6R4"
+		"OR_SPLIT--4. Payment_AZB4" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_M6R4" -> "OR_SPLIT--4. Payment_AZB4"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_AZB4" -> "enter the invoice into the accounts payable account"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_AZB4" -> "stamp all documents"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_AZB4" -> "check dates to avoid penalty charges"
+		"OR_JOIN--4. Payment_AZB4" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_AZB4"
+		"stamp all documents" -> "OR_JOIN--4. Payment_AZB4"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_AZB4"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_AZB4" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with sending to the receiving department. 
+When sending to the receiving department is completed, creating a receiving report needs to be done. 
+After creating a receiving report, the process is split into 2 parallel branches: doubling check a three-way match and reporting errors to relevant team member. 
+Once reporting errors to relevant team member occurs, you need to gather the vendors invoice.
+Once all pre-tasks are executed, then one or more of the following paths should be executed: entering the invoice into the accounts payable account, stamping all documents, checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+}

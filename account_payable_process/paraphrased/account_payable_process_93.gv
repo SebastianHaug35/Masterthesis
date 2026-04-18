@@ -1,0 +1,51 @@
+digraph account_payable_process_93 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_TCQ1" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_TCQ1"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_TCQ1" -> "gather the receiving report"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_TCQ1" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_TCQ1" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_TCQ1"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_TCQ1"
+		"AND_SPLIT--4. Payment_1BVE" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_TCQ1" -> "AND_SPLIT--4. Payment_1BVE"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_1BVE" -> "stamp all documents"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_1BVE" -> "schedule the payment"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_1BVE" -> "create voucher for the documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"schedule the payment" -> "enter the invoice into the accounts payable account"
+		"AND_JOIN--4. Payment_1BVE" [label="+" fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "AND_JOIN--4. Payment_1BVE"
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_1BVE"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_1BVE"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_1BVE" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department. 
+When sending to the senior accountant in your department is completed, creating a receiving report should be done. 
+Once creating a receiving report occurs, the process is split into 2 parallel branches: gathering the receiving report and doubling check a three-way match. 
+Once all pre-tasks are executed, then the next tasks should be stamping all documents, scheduling the payment and creating voucher for the documents, they should be done in parallel. 
+Once scheduling the payment occurs, entering the invoice into the accounts payable account needs to be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process, which begins when you send to the senior accountant in your department.
+When a payment is completed to the senior accountant in your department, a receipt report should be created.
+Once a receiving report has been generated the process is split into 2 parallel branches : collection of the receiving report and double-check a three-way match.
+Once all pre-tasks are executed, then the next tasks should be stamping all documents, scheduling the payment and creating vouchers for the documents, they should be done in parallel.
+Once the payment takes place, the invoice should be entered into the accounts payable account.
+The process is now completed.
+"
+}

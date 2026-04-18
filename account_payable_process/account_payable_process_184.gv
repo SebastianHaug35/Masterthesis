@@ -1,0 +1,43 @@
+digraph account_payable_process_184 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_T5O4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_T5O4"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_T5O4" -> "report errors to relevant team member"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_T5O4" -> "confirm all documents have been amended"
+		"gather the receiving report" [shape=box]
+		"confirm all documents have been amended" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_T5O4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_T5O4"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_T5O4"
+		"AND_SPLIT--4. Payment_EGEI" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_T5O4" -> "AND_SPLIT--4. Payment_EGEI"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_EGEI" -> "stamp all documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_EGEI" -> "enter the invoice into the accounts payable account"
+		"create voucher for the documents" [shape=box]
+		"enter the invoice into the accounts payable account" -> "create voucher for the documents"
+		"AND_JOIN--4. Payment_EGEI" [label="+" fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "AND_JOIN--4. Payment_EGEI"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_EGEI"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_EGEI" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, creating a receiving report needs to be done. 
+After creating a receiving report, the next tasks should be reporting errors to relevant team member and confirming all documents have been amended, they should be done in parallel. 
+Once confirming all documents have been amended occurs, you need to gather the receiving report.
+Once all pre-tasks are executed, then the process is split into 2 parallel branches: stamping all documents and entering the invoice into the accounts payable account. 
+Once entering the invoice into the accounts payable account occurs, creating voucher for the documents needs to be done. 
+The process is now completed. 
+"
+}

@@ -1,0 +1,41 @@
+digraph account_payable_process_132 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"OR_SPLIT--4. Payment_5B0A" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_SPLIT--4. Payment_5B0A"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_5B0A" -> "stamp all documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_5B0A" -> "enter the invoice into the accounts payable account"
+		"store in paid invoice file" [shape=box]
+		"stamp all documents" -> "store in paid invoice file"
+		"OR_JOIN--4. Payment_5B0A" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_5B0A"
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_5B0A"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_5B0A" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, creating a receiving report needs to be done. 
+After creating a receiving report, you need to report errors to relevant team member.
+After reporting errors to relevant team member, one or more of the following paths should be executed: stamping all documents, entering the invoice into the accounts payable account. 
+When stamping all documents is completed, storing in paid invoice file needs to be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the account payable process that starts when you send the receiving department.
+Once a sender occurs to the receiving department, it needs to produce a receiving report.
+After creating a receiving report, you need to report errors to the relevant member of the team.
+After reporting errors to the relevant team member, one or more of the following paths should be executed : stamping all documents, inserting the invoice into the Accounts payable account.
+When the stamping is complete, the storage of invoices must be done in paid file.
+The process is now completed.
+"
+}

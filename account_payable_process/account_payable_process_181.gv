@@ -1,0 +1,50 @@
+digraph account_payable_process_181 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_3QDO" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_3QDO"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_3QDO" -> "double check a three-way match"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_3QDO" -> "report errors to relevant team member"
+		"OR_SPLIT--3. Document validation_OFDD" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_SPLIT--3. Document validation_OFDD"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_OFDD" -> "confirm all documents have been amended"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_OFDD" -> "gather the vendors invoice"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_OFDD" -> "gather the receiving report"
+		"OR_JOIN--3. Document validation_OFDD" [label=O fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_OFDD"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_OFDD"
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_OFDD"
+		"AND_JOIN--3. Document validation_3QDO" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_3QDO"
+		"OR_JOIN--3. Document validation_OFDD" -> "AND_JOIN--3. Document validation_3QDO"
+		"OR_SPLIT--4. Payment_Q44L" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_3QDO" -> "OR_SPLIT--4. Payment_Q44L"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_Q44L" -> "create voucher for the documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_Q44L" -> "enter the invoice into the accounts payable account"
+		"OR_JOIN--4. Payment_Q44L" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_Q44L"
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_Q44L"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_Q44L" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department. 
+After sending to the senior accountant in your department, creating a receiving report should be done. 
+After creating a receiving report, the next tasks should be doubling check a three-way match and reporting errors to relevant team member, they should be done in parallel. 
+When reporting errors to relevant team member is completed, one or more of the following paths should be executed: confirming all documents have been amended, gathering the vendors invoice, gathering the receiving report. 
+Once all pre-tasks are executed, then one or more of the following paths should be executed: creating voucher for the documents, entering the invoice into the accounts payable account. 
+The process is now completed. 
+"
+}

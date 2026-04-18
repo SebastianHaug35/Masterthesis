@@ -1,0 +1,30 @@
+digraph account_payable_process_44 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_PXYJ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_PXYJ"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_PXYJ" -> "gather the receiving report"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_PXYJ" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_PXYJ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_PXYJ"
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_PXYJ"
+		"create voucher for the documents" [shape=box]
+		"AND_JOIN--3. Document validation_PXYJ" -> "create voucher for the documents"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"create voucher for the documents" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with sending to the receiving department. 
+When sending to the receiving department is completed, you need to create a receiving report.
+When creating a receiving report is completed, the process is split into 2 parallel branches: gathering the receiving report and reporting errors to relevant team member. 
+Once all pre-tasks are executed, then creating voucher for the documents needs to be done. 
+The process is now completed. 
+"
+}

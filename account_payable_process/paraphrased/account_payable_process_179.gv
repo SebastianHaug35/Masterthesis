@@ -1,0 +1,76 @@
+digraph account_payable_process_179 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_7QR4" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_7QR4"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_7QR4" -> "report errors to relevant team member"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_7QR4" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_7QR4" -> "gather the vendors invoice"
+		"OR_SPLIT--3. Document validation_RNIL" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_SPLIT--3. Document validation_RNIL"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_RNIL" -> "double check a three-way match"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_RNIL" -> "confirm all documents have been amended"
+		"OR_JOIN--3. Document validation_RNIL" [label=O fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_RNIL"
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_RNIL"
+		"OR_JOIN--3. Document validation_7QR4" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_7QR4"
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_7QR4"
+		"OR_JOIN--3. Document validation_RNIL" -> "OR_JOIN--3. Document validation_7QR4"
+		"AND_SPLIT--4. Payment_JC2P" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_7QR4" -> "AND_SPLIT--4. Payment_JC2P"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_JC2P" -> "stamp all documents"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_JC2P" -> "store in paid invoice file"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_JC2P" -> "check dates to avoid penalty charges"
+		"create voucher for the documents" [shape=box]
+		"stamp all documents" -> "create voucher for the documents"
+		"OR_SPLIT--4. Payment_FTTD" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_SPLIT--4. Payment_FTTD"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_FTTD" -> "enter the invoice into the accounts payable account"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_FTTD" -> "schedule the payment"
+		"OR_JOIN--4. Payment_FTTD" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_FTTD"
+		"schedule the payment" -> "OR_JOIN--4. Payment_FTTD"
+		"AND_JOIN--4. Payment_JC2P" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_JC2P"
+		"OR_JOIN--4. Payment_FTTD" -> "AND_JOIN--4. Payment_JC2P"
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_JC2P"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_JC2P" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+After entering purchase order details, you need to create a receiving report.
+Once creating a receiving report occurs, one or more of the following paths should be executed: reporting errors to relevant team member, gathering the receiving report, gathering the vendors invoice. 
+Once gathering the vendors invoice occurs, one or more of the following paths should be executed: doubling check a three-way match, confirming all documents have been amended. 
+Then, the process is split into 3 parallel branches: stamping all documents, storing in paid invoice file and checking dates to avoid penalty charges. 
+After stamping all documents, you need to create voucher for the documents.
+After storing in paid invoice file, one or more of the following paths should be executed: entering the invoice into the accounts payable account, scheduling the payment. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process which begins when you enter the details of the purchase order.
+After entering the purchase order details, you need to create a receiving report.
+Once a receiving report occurs, one or more of the following paths should be executed: reporting errors to the relevant team member, collecting the receiving report, collecting the invoices of vendors.
+Once the vendor bill gathering occurs, one or more of the following paths should be executed: Double checking a three-way match, confirming all documents have been amended.
+Then the process is split into 3 parallel branches : stamping all documents, storing in the paid invoice file and checking dates to avoid penalty charges.
+After stamping all the documents, you need to create a voucher for the documents.
+After storing in the paid invoice file, one or more of the following paths should be executed : entering the invoice into the accounts payable account and scheduling the payment.
+Now the process has been completed.
+"
+}

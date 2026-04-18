@@ -1,0 +1,116 @@
+{
+  "name": "account_payable_process_1_n8n_workflow_good",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "parameters": {}
+    },
+    {
+      "id": "2",
+      "name": "Create Receiving Report",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [250, 0],
+      "parameters": {}
+    },
+    {
+      "id": "3",
+      "name": "Invoice Path Decision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [520, 0],
+      "parameters": {}
+    },
+    {
+      "id": "4",
+      "name": "Gather Vendor Invoice",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [780, -120],
+      "parameters": {}
+    },
+    {
+      "id": "5",
+      "name": "Double Check Three-Way Match",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [780, 120],
+      "parameters": {}
+    },
+    {
+      "id": "6",
+      "name": "Merge Validation Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [1040, 0],
+      "parameters": {}
+    },
+    {
+      "id": "7",
+      "name": "Schedule Payment",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1300, -180],
+      "parameters": {}
+    },
+    {
+      "id": "8",
+      "name": "Store In Paid Invoice File",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1300, 0],
+      "parameters": {}
+    },
+    {
+      "id": "9",
+      "name": "Create Voucher For Documents",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1300, 180],
+      "parameters": {}
+    },
+    {
+      "id": "10",
+      "name": "Enter Invoice Into Accounts Payable",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1560, -180],
+      "parameters": {}
+    },
+    {
+      "id": "11",
+      "name": "Merge Payment Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [1820, 0],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Create Receiving Report", "type": "main", "index": 0 }]] },
+    "Create Receiving Report": { "main": [[{ "node": "Invoice Path Decision", "type": "main", "index": 0 }]] },
+    "Invoice Path Decision": {
+      "main": [
+        [{ "node": "Gather Vendor Invoice", "type": "main", "index": 0 }],
+        [{ "node": "Double Check Three-Way Match", "type": "main", "index": 0 }]
+      ]
+    },
+    "Gather Vendor Invoice": { "main": [[{ "node": "Merge Validation Paths", "type": "main", "index": 0 }]] },
+    "Double Check Three-Way Match": { "main": [[{ "node": "Merge Validation Paths", "type": "main", "index": 1 }]] },
+    "Merge Validation Paths": {
+      "main": [[
+        { "node": "Schedule Payment", "type": "main", "index": 0 },
+        { "node": "Store In Paid Invoice File", "type": "main", "index": 0 },
+        { "node": "Create Voucher For Documents", "type": "main", "index": 0 }
+      ]]
+    },
+    "Schedule Payment": { "main": [[{ "node": "Enter Invoice Into Accounts Payable", "type": "main", "index": 0 }]] },
+    "Enter Invoice Into Accounts Payable": { "main": [[{ "node": "Merge Payment Paths", "type": "main", "index": 0 }]] },
+    "Store In Paid Invoice File": { "main": [[{ "node": "Merge Payment Paths", "type": "main", "index": 1 }]] },
+    "Create Voucher For Documents": { "main": [[{ "node": "Merge Payment Paths", "type": "main", "index": 2 }]] }
+  }
+}

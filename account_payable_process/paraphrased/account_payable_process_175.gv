@@ -1,0 +1,30 @@
+digraph account_payable_process_175 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"schedule the payment" [shape=box]
+		"double check a three-way match" -> "schedule the payment"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the vendor accounting department. 
+When sending to the vendor accounting department is completed, you need to create a receiving report.
+When creating a receiving report is completed, you need to double check a three-way match.
+After doubling check a three-way match, you need to schedule the payment.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process: it starts with sending to vendor accounting department.
+When the processing of sending to the vendor accounting department is completed, you need to create a receipt report.
+When a receiving report is completed you must check a three-way match twice.
+After doubling a three-way match, you need to schedule the payment.
+The process is now complete.
+"
+}

@@ -1,0 +1,33 @@
+digraph account_payable_process_91 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_HEN9" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_HEN9"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_HEN9" -> "report errors to relevant team member"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_HEN9" -> "double check a three-way match"
+		"confirm all documents have been amended" [shape=box]
+		"report errors to relevant team member" -> "confirm all documents have been amended"
+		"AND_JOIN--3. Document validation_HEN9" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_HEN9"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_HEN9"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_JOIN--3. Document validation_HEN9" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the vendor accounting department. 
+When sending to the vendor accounting department is completed, creating a receiving report needs to be done. 
+After creating a receiving report, the process is split into 2 parallel branches: reporting errors to relevant team member and doubling check a three-way match. 
+Once reporting errors to relevant team member occurs, you need to confirm all documents have been amended.
+Once all pre-tasks are executed, then you need to check dates to avoid penalty charges.
+The process is now completed. 
+"
+}

@@ -1,0 +1,37 @@
+digraph account_payable_process_40 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_PDPX" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_PDPX"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_PDPX" -> "double check a three-way match"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_PDPX" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_PDPX" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_PDPX"
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_PDPX"
+		"OR_SPLIT--4. Payment_YMOQ" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_PDPX" -> "OR_SPLIT--4. Payment_YMOQ"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_YMOQ" -> "create voucher for the documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_YMOQ" -> "enter the invoice into the accounts payable account"
+		"OR_JOIN--4. Payment_YMOQ" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_YMOQ"
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_YMOQ"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_YMOQ" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the receiving department. 
+Once sending to the receiving department occurs, creating a receiving report needs to be done. 
+When creating a receiving report is completed, the process is split into 2 parallel branches: doubling check a three-way match and reporting errors to relevant team member. 
+Once all pre-tasks are executed, then one or more of the following paths should be executed: creating voucher for the documents, entering the invoice into the accounts payable account. 
+The process is now completed. 
+"
+}

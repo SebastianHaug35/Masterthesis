@@ -1,0 +1,37 @@
+digraph account_payable_process_95 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_J1V6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_J1V6"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_J1V6" -> "double check a three-way match"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_J1V6" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_J1V6" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_J1V6"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_J1V6"
+		"schedule the payment" [shape=box]
+		"AND_JOIN--3. Document validation_J1V6" -> "schedule the payment"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, creating a receiving report should be done. 
+Once creating a receiving report occurs, the next tasks should be doubling check a three-way match and gathering the receiving report, they should be done in parallel. 
+Once all pre-tasks are executed, then scheduling the payment needs to be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the billing process that starts when you send to the recipient department.
+Once sending to the receiving department occurs, creating a receiving report should be done.
+Once a receiving report has been created the next task should double check a three-way match and gather the receiving report, they should be done in parallel.
+Once all pre-tasks are completed, the payment schedule - need to be done.
+The process is now finished.
+"
+}

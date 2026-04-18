@@ -1,0 +1,37 @@
+digraph account_payable_process_196 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"AND_SPLIT--4. Payment_1I50" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_SPLIT--4. Payment_1I50"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_1I50" -> "schedule the payment"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_1I50" -> "stamp all documents"
+		"AND_JOIN--4. Payment_1I50" [label="+" fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "AND_JOIN--4. Payment_1I50"
+		"stamp all documents" -> "AND_JOIN--4. Payment_1I50"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_1I50" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the vendor accounting department. 
+When sending to the vendor accounting department is completed, creating a receiving report needs to be done. 
+Once creating a receiving report occurs, gathering the receiving report should be done. 
+After gathering the receiving report, the next tasks should be scheduling the payment and stamping all documents, they should be done in parallel. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following is about the account payable process. It begins when you send your invoice to the vendor accounting department.
+When the invoice sent to the vendor accounting department is completed, a receiving report needs to be created.
+Once a receipt report is created, capturing the receipt report should be done.
+After collecting the receiving report, the next task should be coordinating the payment and stamping all documents. These should be done in parallel.
+The process is now finished.
+"
+}

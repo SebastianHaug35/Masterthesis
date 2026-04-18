@@ -1,0 +1,44 @@
+digraph account_payable_process_52 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_PIEE" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_PIEE"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_PIEE" -> "report errors to relevant team member"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_PIEE" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_PIEE" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_PIEE"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_PIEE"
+		"OR_SPLIT--4. Payment_U3NF" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_PIEE" -> "OR_SPLIT--4. Payment_U3NF"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_U3NF" -> "store in paid invoice file"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_U3NF" -> "check dates to avoid penalty charges"
+		"OR_JOIN--4. Payment_U3NF" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_U3NF"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_U3NF"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_U3NF" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you enter purchase order details. 
+Once entering purchase order details occurs, creating a receiving report needs to be done. 
+When creating a receiving report is completed, one or more of the following paths should be executed: reporting errors to relevant team member, doubling check a three-way match. 
+After that, one or more of the following paths should be executed: storing in paid invoice file, checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the payee process. It begins when you enter purchase order details.
+Once purchasing order details are entered, the creation of a receipt report is done.
+When a receiving report is created, one or more of the following paths should be executed : reporting errors to the relevant team member, double checking a three-way match.
+After that, one or more of the following paths should be executed: storing in the paid invoice file, checking the dates to avoid penalties.
+The process is now complete.
+"
+}

@@ -1,0 +1,40 @@
+digraph account_payable_process_56 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_SR7Y" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_SR7Y"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_SR7Y" -> "double check a three-way match"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_SR7Y" -> "report errors to relevant team member"
+		"AND_SPLIT--3. Document validation_HNK3" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_SPLIT--3. Document validation_HNK3"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_HNK3" -> "gather the receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_HNK3" -> "confirm all documents have been amended"
+		"AND_JOIN--3. Document validation_HNK3" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_HNK3"
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_HNK3"
+		"OR_JOIN--3. Document validation_SR7Y" [label=O fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_SR7Y"
+		"AND_JOIN--3. Document validation_HNK3" -> "OR_JOIN--3. Document validation_SR7Y"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_JOIN--3. Document validation_SR7Y" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with entering purchase order details. 
+Once entering purchase order details occurs, creating a receiving report needs to be done. 
+When creating a receiving report is completed, one or more of the following paths should be executed: doubling check a three-way match, reporting errors to relevant team member. 
+After reporting errors to relevant team member, the next tasks should be gathering the receiving report and confirming all documents have been amended, they should be done in parallel. 
+Afterwards, you need to check dates to avoid penalty charges.
+The process is now completed. 
+"
+}

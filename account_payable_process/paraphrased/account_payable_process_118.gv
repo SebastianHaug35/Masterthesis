@@ -1,0 +1,40 @@
+digraph account_payable_process_118 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"OR_SPLIT--4. Payment_2BUN" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_SPLIT--4. Payment_2BUN"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_2BUN" -> "enter the invoice into the accounts payable account"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_2BUN" -> "check dates to avoid penalty charges"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_2BUN" -> "store in paid invoice file"
+		"OR_JOIN--4. Payment_2BUN" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_2BUN"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_2BUN"
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_2BUN"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_2BUN" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with entering purchase order details. 
+After entering purchase order details, you need to create a receiving report.
+Once creating a receiving report occurs, gathering the receiving report needs to be done. 
+After gathering the receiving report, one or more of the following paths should be executed: entering the invoice into the accounts payable account, checking dates to avoid penalty charges, storing in paid invoice file. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the account payable process and begins with entering the order details.
+After entering purchase order details, you need to create a receipt report.
+Once a receiving report is created, the receiving report needs to be made.
+After gathering the receiving report one or more of the following paths should be executed: transferring the invoice into the accounts payable account, checking dated charges to avoid penalty charges, and storing in the paid invoice file.
+The process is now finished.
+"
+}

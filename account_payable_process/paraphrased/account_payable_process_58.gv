@@ -1,0 +1,37 @@
+digraph account_payable_process_58 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"AND_SPLIT--4. Payment_KQTD" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_SPLIT--4. Payment_KQTD"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_KQTD" -> "check dates to avoid penalty charges"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_KQTD" -> "schedule the payment"
+		"AND_JOIN--4. Payment_KQTD" [label="+" fixedsize=true shape=diamond width=0.5]
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_KQTD"
+		"schedule the payment" -> "AND_JOIN--4. Payment_KQTD"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_KQTD" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, creating a receiving report should be done. 
+After creating a receiving report, gathering the receiving report needs to be done. 
+After gathering the receiving report, the next tasks should be checking dates to avoid penalty charges and scheduling the payment, they should be done in parallel. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts when you send an envelope to the senior accountant in your department.
+Once a request for a submission to the senior accountant in your department occurs, a receipt should be created.
+After creating a receiving report, gathering needs to be done.
+After gathering the receiving report, the next tasks should be to check the dates to avoid penalty charges and schedule the payment, these should be done in parallel.
+The process is now complete.
+"
+}

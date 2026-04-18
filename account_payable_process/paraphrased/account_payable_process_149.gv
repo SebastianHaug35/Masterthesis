@@ -1,0 +1,41 @@
+digraph account_payable_process_149 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"OR_SPLIT--4. Payment_84E3" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_SPLIT--4. Payment_84E3"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_84E3" -> "schedule the payment"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_84E3" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"schedule the payment" -> "stamp all documents"
+		"OR_JOIN--4. Payment_84E3" [label=O fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "OR_JOIN--4. Payment_84E3"
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_84E3"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_84E3" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with sending to the receiving department. 
+When sending to the receiving department is completed, creating a receiving report needs to be done. 
+After creating a receiving report, you need to gather the receiving report.
+Once gathering the receiving report occurs, one or more of the following paths should be executed: scheduling the payment, creating voucher for the documents. 
+Once scheduling the payment occurs, stamping all documents should be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process which starts with sending to the receiving department.
+When the sending to the receiving department is completed, a receiving report needs to be created.
+After generating a receive report, gather the receipt report.
+Once the receiving report gathering occurs, one or more of the following paths should be executed: the scheduling of payments, creation of a voucher for the documents.
+Once the payment is scheduled, stamping should be done of all documents.
+The process is now completed.
+"
+}

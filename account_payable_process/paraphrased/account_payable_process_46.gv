@@ -1,0 +1,37 @@
+digraph account_payable_process_46 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"AND_SPLIT--4. Payment_GXKS" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_SPLIT--4. Payment_GXKS"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_GXKS" -> "store in paid invoice file"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_GXKS" -> "schedule the payment"
+		"AND_JOIN--4. Payment_GXKS" [label="+" fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_GXKS"
+		"schedule the payment" -> "AND_JOIN--4. Payment_GXKS"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_GXKS" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the vendor accounting department. 
+When sending to the vendor accounting department is completed, creating a receiving report needs to be done. 
+When creating a receiving report is completed, you need to double check a three-way match.
+When doubling check a three-way match is completed, the next tasks should be storing in paid invoice file and scheduling the payment, they should be done in parallel. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the receivable process that begins when you send to the vendor accounting department.
+When sending to the vendor accounting department is completed, a receiving report needs to be created.
+When a receiving report is completed you need to double check a three-way match.
+When doubling the check a three-way match is completed, the next tasks should be storing in paid invoice file and scheduling payment, they should be done in parallel.
+The process has now been completed.
+"
+}

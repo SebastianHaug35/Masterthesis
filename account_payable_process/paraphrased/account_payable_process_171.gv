@@ -1,0 +1,59 @@
+digraph account_payable_process_171 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_UX2A" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_UX2A"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_UX2A" -> "confirm all documents have been amended"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_UX2A" -> "gather the receiving report"
+		"AND_SPLIT--3. Document validation_N9P0" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_SPLIT--3. Document validation_N9P0"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_N9P0" -> "report errors to relevant team member"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_N9P0" -> "double check a three-way match"
+		"gather the vendors invoice" [shape=box]
+		"report errors to relevant team member" -> "gather the vendors invoice"
+		"AND_JOIN--3. Document validation_N9P0" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_N9P0"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_N9P0"
+		"AND_JOIN--3. Document validation_UX2A" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_UX2A"
+		"AND_JOIN--3. Document validation_N9P0" -> "AND_JOIN--3. Document validation_UX2A"
+		"OR_SPLIT--4. Payment_OBPR" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_UX2A" -> "OR_SPLIT--4. Payment_OBPR"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_OBPR" -> "store in paid invoice file"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_OBPR" -> "schedule the payment"
+		"OR_JOIN--4. Payment_OBPR" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_OBPR"
+		"schedule the payment" -> "OR_JOIN--4. Payment_OBPR"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_OBPR" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the receiving department. 
+When sending to the receiving department is completed, creating a receiving report needs to be done. 
+After creating a receiving report, the process is split into 2 parallel branches: confirming all documents have been amended and gathering the receiving report. 
+Once gathering the receiving report occurs, the process is split into 2 parallel branches: reporting errors to relevant team member and doubling check a three-way match. 
+When reporting errors to relevant team member is completed, gathering the vendors invoice needs to be done. 
+Once all pre-tasks are executed, then one or more of the following paths should be executed: storing in paid invoice file, scheduling the payment. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the payable process which starts when you send to the receiving department.
+When sending to the receiving department is completed, a receiving report needs to be created.
+After creating a receiving report, the process is split into 2 parallel branches : confirming that all documents have been amended and gathering the receiving report.
+Once the gathering of receiving report occurs, the process is split into 2 parallel branches : reporting the errors to the relevant team member and doubling check a three-way match.
+When the reporting of errors to the relevant team member is completed, the vendors invoice needs to be done.
+When all pre-tasks are executed, then one or more of the following paths should be executed: filing the invoice to pay and scheduling the payment.
+The process is completed now.
+"
+}

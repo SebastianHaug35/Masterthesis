@@ -1,0 +1,37 @@
+digraph account_payable_process_106 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_C0WY" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_C0WY"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_C0WY" -> "gather the receiving report"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_C0WY" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_C0WY" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_C0WY"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_C0WY"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_JOIN--3. Document validation_C0WY" -> "enter the invoice into the accounts payable account"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"enter the invoice into the accounts payable account" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the receiving department. 
+After sending to the receiving department, creating a receiving report should be done. 
+Once creating a receiving report occurs, one or more of the following paths should be executed: gathering the receiving report, doubling check a three-way match. 
+Then, entering the invoice into the accounts payable account should be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The above text is about the account payable process, which starts with the sending of the letters to the receiving department.
+Create a receipt report after sending to the receiving department.
+Once a receiving report is created, one or more of the following paths should be executed: gathering the receiving report, doubling a three way match.
+Then, the invoice should be entered in the payables account.
+The process is now completed.
+"
+}

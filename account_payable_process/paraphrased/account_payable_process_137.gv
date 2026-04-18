@@ -1,0 +1,30 @@
+digraph account_payable_process_137 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"store in paid invoice file" [shape=box]
+		"double check a three-way match" -> "store in paid invoice file"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"store in paid invoice file" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the vendor accounting department. 
+When sending to the vendor accounting department is completed, creating a receiving report needs to be done. 
+Once creating a receiving report occurs, doubling check a three-way match should be done. 
+After doubling check a three-way match, you need to store in paid invoice file.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the payment process which starts with sending to the vendor account department.
+When sending to the vendor accounts department is completed, the creating of a receiving report needs to be done.
+Once a Receiving Report occurs, the Double check should create a three-way match.
+After double check a three-way match, you need to keep payed invoice file in the system.
+The process is now completed.
+"
+}

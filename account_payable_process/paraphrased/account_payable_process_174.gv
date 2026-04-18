@@ -1,0 +1,37 @@
+digraph account_payable_process_174 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"create a receiving report" -> "confirm all documents have been amended"
+		"OR_SPLIT--4. Payment_5VYL" [label=O fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "OR_SPLIT--4. Payment_5VYL"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_5VYL" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_5VYL" -> "stamp all documents"
+		"OR_JOIN--4. Payment_5VYL" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_5VYL"
+		"stamp all documents" -> "OR_JOIN--4. Payment_5VYL"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_5VYL" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the vendor accounting department. 
+After sending to the vendor accounting department, you need to create a receiving report.
+When creating a receiving report is completed, confirming all documents have been amended needs to be done. 
+After confirming all documents have been amended, one or more of the following paths should be executed: creating voucher for the documents, stamping all documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The below text is about the account payable process. It starts when you send the vendor accounting department.
+After you send the vendor accounting department, you must create a receiving report.
+When creating a receipt report is completed, it needs to confirm that all documents have been amended.
+After confirming that all documents have been amended, a or more of the following paths should be executed: creating a voucher for the documents, stamping all documents.
+The process is now completed.
+"
+}

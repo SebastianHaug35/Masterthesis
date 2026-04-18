@@ -1,0 +1,51 @@
+digraph account_payable_process_74 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_IEIR" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_IEIR"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_IEIR" -> "gather the receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_IEIR" -> "confirm all documents have been amended"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_IEIR" -> "gather the vendors invoice"
+		"report errors to relevant team member" [shape=box]
+		"confirm all documents have been amended" -> "report errors to relevant team member"
+		"OR_JOIN--3. Document validation_IEIR" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_IEIR"
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_IEIR"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_IEIR"
+		"OR_SPLIT--4. Payment_HKKP" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_IEIR" -> "OR_SPLIT--4. Payment_HKKP"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_HKKP" -> "schedule the payment"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_HKKP" -> "check dates to avoid penalty charges"
+		"OR_JOIN--4. Payment_HKKP" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_JOIN--4. Payment_HKKP"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_HKKP"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_HKKP" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with filing a copy for internal records. 
+Once filing a copy for internal records occurs, you need to create a receiving report.
+When creating a receiving report is completed, one or more of the following paths should be executed: gathering the receiving report, confirming all documents have been amended, gathering the vendors invoice. 
+Once confirming all documents have been amended occurs, reporting errors to relevant team member needs to be done. 
+Then, one or more of the following paths should be executed: scheduling the payment, checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process : it begins with file a copy for internal documents.
+Once a copy of internal records is made, you need to create a receipt report.
+When creating a receiving report is completed, one or more of the following paths should be executed: collecting the receiving report, confirming all documents have been amended, obtaining the vendor invoice.
+Once all documents have been updated, it needs to be reported to the relevant team member for errors.
+Then one or more of the following paths should be executed : the payment schedule, checking the deadlines to avoid penalty charges.
+Now the process is completed.
+"
+}

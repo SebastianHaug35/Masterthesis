@@ -1,0 +1,30 @@
+digraph account_payable_process_182 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_O1XM" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_O1XM"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_O1XM" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_O1XM" -> "gather the vendors invoice"
+		"OR_JOIN--3. Document validation_O1XM" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_O1XM"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_O1XM"
+		"create voucher for the documents" [shape=box]
+		"OR_JOIN--3. Document validation_O1XM" -> "create voucher for the documents"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"create voucher for the documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the senior accountant in your department. 
+After sending to the senior accountant in your department, creating a receiving report should be done. 
+Once creating a receiving report occurs, one or more of the following paths should be executed: gathering the receiving report, gathering the vendors invoice. 
+Then, you need to create voucher for the documents.
+The process is now completed. 
+"
+}

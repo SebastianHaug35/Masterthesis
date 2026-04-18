@@ -1,0 +1,30 @@
+digraph account_payable_process_27 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"report errors to relevant team member" -> "enter the invoice into the accounts payable account"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"enter the invoice into the accounts payable account" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you file a copy for internal records. 
+When filing a copy for internal records is completed, creating a receiving report needs to be done. 
+Once creating a receiving report occurs, reporting errors to relevant team member needs to be done. 
+When reporting errors to relevant team member is completed, you need to enter the invoice into the accounts payable account.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the account payable process, which begins when you file a copy for internal records.
+When a copy of a paper form is completed for internal records, a receipt report needs to be created.
+Once a receiving report is created, a report to the relevant team member needs to be done.
+When reporting errors to the relevant team member is completed, you must enter the invoice into the Accounts payable account.
+The process is now complete.
+"
+}

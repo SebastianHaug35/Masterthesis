@@ -1,0 +1,59 @@
+digraph account_payable_process_32 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_HYL2" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_HYL2"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_HYL2" -> "report errors to relevant team member"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_HYL2" -> "confirm all documents have been amended"
+		"double check a three-way match" [shape=box]
+		"confirm all documents have been amended" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_HYL2" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_HYL2"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_HYL2"
+		"OR_SPLIT--4. Payment_2T4F" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_HYL2" -> "OR_SPLIT--4. Payment_2T4F"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_2T4F" -> "store in paid invoice file"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_2T4F" -> "create voucher for the documents"
+		"OR_SPLIT--4. Payment_5019" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_SPLIT--4. Payment_5019"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_5019" -> "enter the invoice into the accounts payable account"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_5019" -> "stamp all documents"
+		"OR_JOIN--4. Payment_5019" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_5019"
+		"stamp all documents" -> "OR_JOIN--4. Payment_5019"
+		"OR_JOIN--4. Payment_2T4F" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--4. Payment_5019" -> "OR_JOIN--4. Payment_2T4F"
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_2T4F"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_2T4F" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the senior accountant in your department. 
+When sending to the senior accountant in your department is completed, creating a receiving report should be done. 
+Once creating a receiving report occurs, one or more of the following paths should be executed: reporting errors to relevant team member, confirming all documents have been amended. 
+When confirming all documents have been amended is completed, doubling check a three-way match should be done. 
+Afterwards, one or more of the following paths should be executed: storing in paid invoice file, creating voucher for the documents. 
+Once storing in paid invoice file occurs, one or more of the following paths should be executed: entering the invoice into the accounts payable account, stamping all documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the account payable process and starts with sending it to the senior accountant in your department.
+When sending to the senior accountant in your department is completed, a receiving report should be generated.
+Once creation of the receiving report occurs, one or more of the following paths should be executed : reporting errors to relevant team member, confirming that all documents have been amended.
+During confirmation all documents have been amended a three-way match should be double checked.
+Afterwards, one or more of the following paths should be executed: the storing of invoice in the paid file, the creation of the voucher for documents.
+Once storing of paid invoice file occurs, one or more of the following paths should be executed: entering the invoice in the accounts payable account, stamping all documents.
+The process is now done.
+"
+}

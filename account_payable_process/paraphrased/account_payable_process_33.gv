@@ -1,0 +1,55 @@
+digraph account_payable_process_33 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_M0AL" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_M0AL"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_M0AL" -> "report errors to relevant team member"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_M0AL" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_M0AL" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_M0AL"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_M0AL"
+		"OR_SPLIT--4. Payment_Y9ZM" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_M0AL" -> "OR_SPLIT--4. Payment_Y9ZM"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_Y9ZM" -> "schedule the payment"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_Y9ZM" -> "check dates to avoid penalty charges"
+		"OR_SPLIT--4. Payment_I2ND" [label=O fixedsize=true shape=diamond width=0.5]
+		"check dates to avoid penalty charges" -> "OR_SPLIT--4. Payment_I2ND"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_I2ND" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_I2ND" -> "stamp all documents"
+		"OR_JOIN--4. Payment_I2ND" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_I2ND"
+		"stamp all documents" -> "OR_JOIN--4. Payment_I2ND"
+		"OR_JOIN--4. Payment_Y9ZM" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_JOIN--4. Payment_Y9ZM"
+		"OR_JOIN--4. Payment_I2ND" -> "OR_JOIN--4. Payment_Y9ZM"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_Y9ZM" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, you need to create a receiving report.
+When creating a receiving report is completed, one or more of the following paths should be executed: reporting errors to relevant team member, doubling check a three-way match. 
+Then, one or more of the following paths should be executed: scheduling the payment, checking dates to avoid penalty charges. 
+After checking dates to avoid penalty charges, one or more of the following paths should be executed: creating voucher for the documents, stamping all documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the Account Receivable process, which starts when you send to the receiving department.
+Once the sender passes to the receiving department, you must create a receiving report.
+When a receiving report creation is completed one or more of the following paths should be executed: Reporting errors to the relevant team member, doubling a three-way match.
+Then one or more of the following paths should be executed: scheduling the payment, checking the dates to avoid penalty charges.
+After checking dates to avoid penalties, one or more of the following paths should be performed: creating vouchers for the documents, stamping all documents.
+The process is now finished.
+"
+}

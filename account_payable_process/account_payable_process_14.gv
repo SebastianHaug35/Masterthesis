@@ -1,0 +1,43 @@
+digraph account_payable_process_14 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_W58D" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_W58D"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_W58D" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_W58D" -> "gather the vendors invoice"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_W58D" -> "report errors to relevant team member"
+		"OR_SPLIT--3. Document validation_RGJR" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_SPLIT--3. Document validation_RGJR"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_RGJR" -> "double check a three-way match"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_RGJR" -> "confirm all documents have been amended"
+		"OR_JOIN--3. Document validation_RGJR" [label=O fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_RGJR"
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_RGJR"
+		"OR_JOIN--3. Document validation_W58D" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_RGJR" -> "OR_JOIN--3. Document validation_W58D"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_W58D"
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_W58D"
+		"schedule the payment" [shape=box]
+		"OR_JOIN--3. Document validation_W58D" -> "schedule the payment"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, you need to create a receiving report.
+When creating a receiving report is completed, one or more of the following paths should be executed: gathering the receiving report, gathering the vendors invoice, reporting errors to relevant team member. 
+When gathering the receiving report is completed, one or more of the following paths should be executed: doubling check a three-way match, confirming all documents have been amended. 
+Then, you need to schedule the payment.
+The process is now completed. 
+"
+}

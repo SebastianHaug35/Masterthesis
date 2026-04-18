@@ -1,0 +1,40 @@
+digraph account_payable_process_78 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_Y79Z" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_Y79Z"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_Y79Z" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_Y79Z" -> "gather the vendors invoice"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_Y79Z" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_Y79Z" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_Y79Z"
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_Y79Z"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_Y79Z"
+		"schedule the payment" [shape=box]
+		"OR_JOIN--3. Document validation_Y79Z" -> "schedule the payment"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you enter purchase order details. 
+After entering purchase order details, creating a receiving report needs to be done. 
+When creating a receiving report is completed, one or more of the following paths should be executed: gathering the receiving report, gathering the vendors invoice, doubling check a three-way match. 
+Afterwards, you need to schedule the payment.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process and begins when you enter purchase order details.
+After entering the order details, a receiving report is created.
+When a receiving report is completed, one or more of the following paths should be executed: collection of the receiving report, gathering the vendor invoice, and double a three way match.
+You may then schedule the payment.
+The process is now completed.
+"
+}

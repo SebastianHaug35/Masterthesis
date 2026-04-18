@@ -1,0 +1,56 @@
+{
+  "process_id": "account_payable_process_1",
+  "process_name": "Account Payable Process 1",
+  "description": "The following description is about the account payable process. It starts with sending to the receiving department. Once sending to the receiving department occurs, creating a receiving report should be done. When creating a receiving report is completed, one or more of the following paths should be executed: gathering the vendors invoice, doubling check a three-way match. Then, the process is split into 3 parallel branches: scheduling the payment, storing in paid invoice file and creating voucher for the documents. When scheduling the payment is completed, entering the invoice into the accounts payable account should be done. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "purchasing.department@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "purchase_order_package",
+      "fields": {
+        "purchase_order_id": "PO-2026-0001",
+        "vendor_id": "VENDOR-81",
+        "vendor_name": "Northwind Supplies Ltd.",
+        "currency": "EUR",
+        "gross_amount": 12850.0,
+        "expected_delivery_date": "2026-04-20",
+        "message_purpose": "trigger_receiving_report_creation"
+      },
+      "attachments": [
+        {
+          "name": "purchase_order.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account-payable.workflow",
+    "receiver": "erp.accounts-payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_entry",
+      "fields": {
+        "purchase_order_id": "PO-2026-0001",
+        "receiving_report_created": true,
+        "vendor_invoice_gathered": true,
+        "three_way_match_checked": true,
+        "payment_scheduled": true,
+        "paid_invoice_file_stored": true,
+        "voucher_created": true,
+        "erp_entry_status": "created"
+      },
+      "attachments": [
+        {
+          "name": "voucher.pdf",
+          "type": "application/pdf"
+        },
+        {
+          "name": "receiving_report.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    }
+  }
+}

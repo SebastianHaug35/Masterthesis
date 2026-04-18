@@ -1,0 +1,30 @@
+digraph account_payable_process_145 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"OR_SPLIT--4. Payment_L4GA" [label=O fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "OR_SPLIT--4. Payment_L4GA"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_L4GA" -> "stamp all documents"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_L4GA" -> "check dates to avoid penalty charges"
+		"OR_JOIN--4. Payment_L4GA" [label=O fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "OR_JOIN--4. Payment_L4GA"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_L4GA"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_L4GA" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with sending to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, creating a receiving report should be done. 
+When creating a receiving report is completed, reporting errors to relevant team member needs to be done. 
+Once reporting errors to relevant team member occurs, one or more of the following paths should be executed: stamping all documents, checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+}

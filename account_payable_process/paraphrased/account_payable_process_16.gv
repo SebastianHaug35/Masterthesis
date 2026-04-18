@@ -1,0 +1,30 @@
+digraph account_payable_process_16 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"schedule the payment" [shape=box]
+		"gather the vendors invoice" -> "schedule the payment"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you file a copy for internal records. 
+When filing a copy for internal records is completed, you need to create a receiving report.
+When creating a receiving report is completed, gathering the vendors invoice should be done. 
+When gathering the vendors invoice is completed, scheduling the payment should be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following is about the Account payable process, which starts when you submit a copy for internal records.
+When a copy of internal records is completed, you should create a Receiving Report
+When creating a receipt report is completed, the Vendors should receive invoices.
+When the invoice with vendors is completed, the payment should be scheduled.
+The process is now complete.
+"
+}

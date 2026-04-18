@@ -1,0 +1,37 @@
+digraph account_payable_process_117 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"create a receiving report" -> "confirm all documents have been amended"
+		"OR_SPLIT--4. Payment_WM41" [label=O fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "OR_SPLIT--4. Payment_WM41"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_WM41" -> "check dates to avoid penalty charges"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_WM41" -> "create voucher for the documents"
+		"OR_JOIN--4. Payment_WM41" [label=O fixedsize=true shape=diamond width=0.5]
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_WM41"
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_WM41"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_WM41" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+After entering purchase order details, you need to create a receiving report.
+Once creating a receiving report occurs, confirming all documents have been amended needs to be done. 
+Once confirming all documents have been amended occurs, one or more of the following paths should be executed: checking dates to avoid penalty charges, creating voucher for the documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process, which starts when you enter your purchase order details.
+After entering a purchase order, you need to create a receiving report.
+Once a receiving report is created, confirming all documents have been amended '' should be done.
+Once confirming all documents have been amended, one or more of the following routes should be executed: Checking dates to avoid penalty charges, creating a voucher for the documents.
+The process is now finished.
+"
+}

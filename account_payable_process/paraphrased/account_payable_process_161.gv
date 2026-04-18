@@ -1,0 +1,48 @@
+digraph account_payable_process_161 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_JMAO" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_JMAO"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_JMAO" -> "gather the receiving report"
+		"gather the vendors invoice" [shape=box]
+		"AND_SPLIT--3. Document validation_JMAO" -> "gather the vendors invoice"
+		"double check a three-way match" [shape=box]
+		"gather the receiving report" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_JMAO" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_JMAO"
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_JMAO"
+		"OR_SPLIT--4. Payment_3KVA" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_JMAO" -> "OR_SPLIT--4. Payment_3KVA"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_3KVA" -> "store in paid invoice file"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_3KVA" -> "create voucher for the documents"
+		"OR_JOIN--4. Payment_3KVA" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_3KVA"
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_3KVA"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_3KVA" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, you need to create a receiving report.
+When creating a receiving report is completed, the process is split into 2 parallel branches: gathering the receiving report and gathering the vendors invoice. 
+After gathering the receiving report, you need to double check a three-way match.
+Once all pre-tasks are executed, then one or more of the following paths should be executed: storing in paid invoice file, creating voucher for the documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following is a description of the Account payable Process, which begins when you send to the Receiving department.
+Once sending occurs to the receiving department, you need to create a receipt report.
+When the creation of a receiving report is completed, the process is divided into 2 parallel branches : the receiving report and the vendor invoice.
+After gathering the receipt report, you need to double check a three-way match.
+Once all pre-tasks are executed, one or more of the following paths should be executed: storing in a paid invoice file, creating voucher for the documents
+The process is now complete.
+"
+}

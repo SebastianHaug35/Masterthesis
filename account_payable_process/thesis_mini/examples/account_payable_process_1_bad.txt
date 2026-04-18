@@ -1,0 +1,1 @@
+The process starts with sending the document to the receiving department. After that, a receiving report is created. Then the vendor invoice is gathered. Next, the invoice is entered into the accounts payable account. Finally, the process ends.

@@ -1,0 +1,30 @@
+digraph account_payable_process_83 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_WS4F" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_WS4F"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_WS4F" -> "gather the receiving report"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_WS4F" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_WS4F" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_WS4F"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_WS4F"
+		"store in paid invoice file" [shape=box]
+		"AND_JOIN--3. Document validation_WS4F" -> "store in paid invoice file"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"store in paid invoice file" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with filing a copy for internal records. 
+After filing a copy for internal records, creating a receiving report should be done. 
+After creating a receiving report, the next tasks should be gathering the receiving report and doubling check a three-way match, they should be done in parallel. 
+Once all pre-tasks are executed, then storing in paid invoice file needs to be done. 
+The process is now completed. 
+"
+}

@@ -1,0 +1,37 @@
+digraph account_payable_process_165 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"AND_SPLIT--4. Payment_N76O" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_SPLIT--4. Payment_N76O"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_N76O" -> "stamp all documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_N76O" -> "enter the invoice into the accounts payable account"
+		"AND_JOIN--4. Payment_N76O" [label="+" fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "AND_JOIN--4. Payment_N76O"
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_N76O"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_N76O" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, you need to create a receiving report.
+When creating a receiving report is completed, reporting errors to relevant team member needs to be done. 
+After reporting errors to relevant team member, the process is split into 2 parallel branches: stamping all documents and entering the invoice into the accounts payable account. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department.
+Once a copy is sent to the senior accountant in your department, you have to create a receiving report.
+When creating a receiving report is completed, errors need to be reported to the relevant team member.
+After reporting errors to the relevant team member, the process is split into 2 parallel branches: stamping all documents and entering the invoice into the payable account.
+Now the process is complete.
+"
+}

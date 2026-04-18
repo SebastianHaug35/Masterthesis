@@ -1,0 +1,37 @@
+digraph account_payable_process_177 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"OR_SPLIT--4. Payment_I3CW" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_SPLIT--4. Payment_I3CW"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_I3CW" -> "schedule the payment"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_I3CW" -> "store in paid invoice file"
+		"OR_JOIN--4. Payment_I3CW" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_JOIN--4. Payment_I3CW"
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_I3CW"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_I3CW" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the receiving department. 
+After sending to the receiving department, creating a receiving report needs to be done. 
+After creating a receiving report, gathering the vendors invoice should be done. 
+After gathering the vendors invoice, one or more of the following paths should be executed: scheduling the payment, storing in paid invoice file. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the process of the account payable, which starts with sending to the receiving department.
+After sending to the receiving department, a receiving report must be created.
+After creating a receiving report, the vendors invoice should be done.
+After gathering vendor invoice, one or more of the following paths should be executed: scheduling the payment, storing in the prepaid invoice file.
+The process is now completed.
+"
+}

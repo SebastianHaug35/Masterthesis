@@ -1,0 +1,23 @@
+digraph account_payable_process_186 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"check dates to avoid penalty charges" [shape=box]
+		"double check a three-way match" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you file a copy for internal records. 
+After filing a copy for internal records, you need to create a receiving report.
+After creating a receiving report, doubling check a three-way match should be done. 
+When doubling check a three-way match is completed, you need to check dates to avoid penalty charges.
+The process is now completed. 
+"
+}

@@ -1,0 +1,56 @@
+digraph account_payable_process_61 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"AND_SPLIT--4. Payment_JIKJ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_SPLIT--4. Payment_JIKJ"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_JIKJ" -> "schedule the payment"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_JIKJ" -> "create voucher for the documents"
+		"OR_SPLIT--4. Payment_C5TT" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_SPLIT--4. Payment_C5TT"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_C5TT" -> "stamp all documents"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_C5TT" -> "store in paid invoice file"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"stamp all documents" -> "enter the invoice into the accounts payable account"
+		"check dates to avoid penalty charges" [shape=box]
+		"store in paid invoice file" -> "check dates to avoid penalty charges"
+		"OR_JOIN--4. Payment_C5TT" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_C5TT"
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_C5TT"
+		"AND_JOIN--4. Payment_JIKJ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--4. Payment_C5TT" -> "AND_JOIN--4. Payment_JIKJ"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_JIKJ"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_JIKJ" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the receiving department. 
+After sending to the receiving department, you need to create a receiving report.
+After creating a receiving report, you need to double check a three-way match.
+After doubling check a three-way match, the process is split into 2 parallel branches: scheduling the payment and creating voucher for the documents. 
+When scheduling the payment is completed, one or more of the following paths should be executed: stamping all documents, storing in paid invoice file. 
+Once stamping all documents occurs, you need to enter the invoice into the accounts payable account.
+After storing in paid invoice file, checking dates to avoid penalty charges needs to be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The below text is about the account payable process which begins when you send an order to the receiving department.
+After sending the notification to the Receiving department, you must create a Receiving report.
+After creating a Receiver Report, you need to double check a three-way match.
+After doubling a three-way match, the process is split into 2 parallel branches: billing and creating vouchers for the documents.
+When the payment is completed, one or more of the following paths should be executed: stamping all documents, storing in the paid invoice file.
+Once stamping all documents occurs, you should enter the invoice into the accounts payable account.
+After storing in paid invoice file, a check to avoid penalty charges must be done.
+The process is now completed.
+"
+}

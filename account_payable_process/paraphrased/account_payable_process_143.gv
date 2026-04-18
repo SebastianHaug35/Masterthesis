@@ -1,0 +1,63 @@
+digraph account_payable_process_143 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_9LNV" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_9LNV"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_9LNV" -> "confirm all documents have been amended"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_9LNV" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_9LNV" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_9LNV"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_9LNV"
+		"AND_SPLIT--4. Payment_PNU4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_9LNV" -> "AND_SPLIT--4. Payment_PNU4"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_PNU4" -> "create voucher for the documents"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_PNU4" -> "store in paid invoice file"
+		"OR_SPLIT--4. Payment_U99V" [label=O fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "OR_SPLIT--4. Payment_U99V"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_U99V" -> "stamp all documents"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_U99V" -> "schedule the payment"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"schedule the payment" -> "enter the invoice into the accounts payable account"
+		"OR_JOIN--4. Payment_U99V" [label=O fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "OR_JOIN--4. Payment_U99V"
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_U99V"
+		"check dates to avoid penalty charges" [shape=box]
+		"store in paid invoice file" -> "check dates to avoid penalty charges"
+		"AND_JOIN--4. Payment_PNU4" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--4. Payment_U99V" -> "AND_JOIN--4. Payment_PNU4"
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_PNU4"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_PNU4" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the receiving department. 
+When sending to the receiving department is completed, you need to create a receiving report.
+Once creating a receiving report occurs, the next tasks should be confirming all documents have been amended and doubling check a three-way match, they should be done in parallel. 
+Once all pre-tasks are executed, then the process is split into 2 parallel branches: creating voucher for the documents and storing in paid invoice file. 
+Once creating voucher for the documents occurs, one or more of the following paths should be executed: stamping all documents, scheduling the payment. 
+After scheduling the payment, entering the invoice into the accounts payable account should be done. 
+After storing in paid invoice file, checking dates to avoid penalty charges should be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the Account payable process which starts with the sending to the receiving department.
+When a sending to the receiving department is completed, a receiving report needs to be created.
+When a receiving report is created, the next tasks should be verifying that all documents have been modified and double check a three-way match, and that they should be done parallel to this.
+Once all pre-tasks are completed, the process is split into 2 parallel branches: creating the vouchers and storing them in the paid invoice file.
+Once a voucher creation occurs for the documents, one or more of the following paths should be executed : - Posting all documents ; - Schedule the payment.
+After planning the payment, the invoice should be entered into the Accounts payable.
+After recording in paid invoice file, a check should be done to avoid penalties.
+The process is completed now.
+"
+}

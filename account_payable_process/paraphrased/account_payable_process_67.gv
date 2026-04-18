@@ -1,0 +1,37 @@
+digraph account_payable_process_67 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"create a receiving report" -> "confirm all documents have been amended"
+		"AND_SPLIT--4. Payment_EZTR" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_SPLIT--4. Payment_EZTR"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_EZTR" -> "create voucher for the documents"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_EZTR" -> "check dates to avoid penalty charges"
+		"AND_JOIN--4. Payment_EZTR" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_EZTR"
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_EZTR"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_EZTR" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with filing a copy for internal records. 
+After filing a copy for internal records, creating a receiving report should be done. 
+When creating a receiving report is completed, you need to confirm all documents have been amended.
+Once confirming all documents have been amended occurs, the process is split into 2 parallel branches: creating voucher for the documents and checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the accounts payable process - it begins with filing a copy for internal records.
+After filing a copy for internal records, a receiving report should be created.
+When creating a receiving report is completed, you need to confirm that all documents have been modified.
+Once the amended documents have confirmed, the process is split into 2 parallel branches: Creating a voucher for the documents and checking date to avoid penalty charges.
+The process is now finished.
+"
+}

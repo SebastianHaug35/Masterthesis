@@ -1,0 +1,48 @@
+digraph account_payable_process_53 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_BY0I" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_BY0I"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_BY0I" -> "double check a three-way match"
+		"gather the vendors invoice" [shape=box]
+		"AND_SPLIT--3. Document validation_BY0I" -> "gather the vendors invoice"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_BY0I" -> "confirm all documents have been amended"
+		"gather the receiving report" [shape=box]
+		"gather the vendors invoice" -> "gather the receiving report"
+		"report errors to relevant team member" [shape=box]
+		"confirm all documents have been amended" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_BY0I" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_BY0I"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_BY0I"
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_BY0I"
+		"schedule the payment" [shape=box]
+		"AND_JOIN--3. Document validation_BY0I" -> "schedule the payment"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the receiving department. 
+Once sending to the receiving department occurs, you need to create a receiving report.
+When creating a receiving report is completed, the process is split into 3 parallel branches: doubling check a three-way match, gathering the vendors invoice and confirming all documents have been amended. 
+After gathering the vendors invoice, gathering the receiving report should be done. 
+Once confirming all documents have been amended occurs, reporting errors to relevant team member should be done. 
+Once all pre-tasks are executed, then you need to schedule the payment.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process that begins when you send to the receiving department.
+Once the sending occurs to the receiving department, you need to create a receiving report.
+When the creation of a receiving report is completed, the process is divided into 3 parallel branches : Double check a three-way match, Gathering the vendor invoice and confirming that all documents have been amended.
+After collecting the vendors invoice, the receiving report should be done.
+Once all documents have been amended, reporting errors should be done to the appropriate team member.
+Once all pre-projects are executed, then you need to schedule the payment.
+The process is now completed.
+"
+}

@@ -1,0 +1,40 @@
+digraph account_payable_process_94 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"AND_SPLIT--4. Payment_U75K" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_SPLIT--4. Payment_U75K"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_U75K" -> "store in paid invoice file"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_U75K" -> "schedule the payment"
+		"AND_SPLIT--4. Payment_XIKM" [label="+" fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "AND_SPLIT--4. Payment_XIKM"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_XIKM" -> "create voucher for the documents"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_XIKM" -> "check dates to avoid penalty charges"
+		"AND_JOIN--4. Payment_XIKM" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_XIKM"
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_XIKM"
+		"AND_JOIN--4. Payment_U75K" [label="+" fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_U75K"
+		"AND_JOIN--4. Payment_XIKM" -> "AND_JOIN--4. Payment_U75K"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_U75K" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the receiving department. 
+After sending to the receiving department, you need to create a receiving report.
+Once creating a receiving report occurs, gathering the vendors invoice needs to be done. 
+Once gathering the vendors invoice occurs, the next tasks should be storing in paid invoice file and scheduling the payment, they should be done in parallel. 
+Once scheduling the payment occurs, the next tasks should be creating voucher for the documents and checking dates to avoid penalty charges, they should be done in parallel. 
+The process is now completed. 
+"
+}

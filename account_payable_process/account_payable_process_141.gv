@@ -1,0 +1,33 @@
+digraph account_payable_process_141 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_2KQ9" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_2KQ9"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_2KQ9" -> "report errors to relevant team member"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_2KQ9" -> "confirm all documents have been amended"
+		"gather the receiving report" [shape=box]
+		"confirm all documents have been amended" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_2KQ9" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_2KQ9"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_2KQ9"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_JOIN--3. Document validation_2KQ9" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It begins when you send to the receiving department. 
+After sending to the receiving department, creating a receiving report should be done. 
+After creating a receiving report, the process is split into 2 parallel branches: reporting errors to relevant team member and confirming all documents have been amended. 
+When confirming all documents have been amended is completed, you need to gather the receiving report.
+Once all pre-tasks are executed, then checking dates to avoid penalty charges needs to be done. 
+The process is now completed. 
+"
+}

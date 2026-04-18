@@ -1,0 +1,44 @@
+digraph account_payable_process_99 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_771F" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_771F"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_771F" -> "confirm all documents have been amended"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_771F" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_771F" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_771F"
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_771F"
+		"OR_SPLIT--4. Payment_YS2G" [label=O fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_771F" -> "OR_SPLIT--4. Payment_YS2G"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_YS2G" -> "schedule the payment"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_YS2G" -> "stamp all documents"
+		"OR_JOIN--4. Payment_YS2G" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_JOIN--4. Payment_YS2G"
+		"stamp all documents" -> "OR_JOIN--4. Payment_YS2G"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_YS2G" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with entering purchase order details. 
+After entering purchase order details, creating a receiving report should be done. 
+Once creating a receiving report occurs, the process is split into 2 parallel branches: confirming all documents have been amended and reporting errors to relevant team member. 
+Once all pre-tasks are executed, then one or more of the following paths should be executed: scheduling the payment, stamping all documents. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following is a description of the account payable process : It starts with the payment details.
+After entering the purchase order details, the sending report should be created.
+Once creating a receiving report is completed, the process is split into 2 parallel branches : confirming that all documents have been amended and reporting errors to the relevant team member.
+Once all pre-tasks are executed then one or more of the following routes should be executed: scheduling payment, stamping all documents.
+The process is now completed.
+"
+}

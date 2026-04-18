@@ -1,0 +1,33 @@
+digraph account_payable_process_4 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_BTU3" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_BTU3"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_BTU3" -> "double check a three-way match"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_BTU3" -> "confirm all documents have been amended"
+		"report errors to relevant team member" [shape=box]
+		"OR_SPLIT--3. Document validation_BTU3" -> "report errors to relevant team member"
+		"OR_JOIN--3. Document validation_BTU3" [label=O fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_BTU3"
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_BTU3"
+		"report errors to relevant team member" -> "OR_JOIN--3. Document validation_BTU3"
+		"create voucher for the documents" [shape=box]
+		"OR_JOIN--3. Document validation_BTU3" -> "create voucher for the documents"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"create voucher for the documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the senior accountant in your department. 
+Once sending to the senior accountant in your department occurs, creating a receiving report needs to be done. 
+After creating a receiving report, one or more of the following paths should be executed: doubling check a three-way match, confirming all documents have been amended, reporting errors to relevant team member. 
+Afterwards, creating voucher for the documents needs to be done. 
+The process is now completed. 
+"
+}

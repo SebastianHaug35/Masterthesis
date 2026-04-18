@@ -1,0 +1,63 @@
+digraph account_payable_process_2 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_HW44" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_HW44"
+		"gather the vendors invoice" [shape=box]
+		"AND_SPLIT--3. Document validation_HW44" -> "gather the vendors invoice"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_HW44" -> "double check a three-way match"
+		"AND_SPLIT--3. Document validation_HH2D" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_SPLIT--3. Document validation_HH2D"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_HH2D" -> "gather the receiving report"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_HH2D" -> "report errors to relevant team member"
+		"AND_JOIN--3. Document validation_HH2D" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_HH2D"
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_HH2D"
+		"AND_JOIN--3. Document validation_HW44" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_HW44"
+		"AND_JOIN--3. Document validation_HH2D" -> "AND_JOIN--3. Document validation_HW44"
+		"AND_SPLIT--4. Payment_DPR7" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_HW44" -> "AND_SPLIT--4. Payment_DPR7"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_DPR7" -> "check dates to avoid penalty charges"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_DPR7" -> "store in paid invoice file"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_DPR7" -> "enter the invoice into the accounts payable account"
+		"AND_SPLIT--4. Payment_8BMY" [label="+" fixedsize=true shape=diamond width=0.5]
+		"check dates to avoid penalty charges" -> "AND_SPLIT--4. Payment_8BMY"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_8BMY" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_8BMY" -> "stamp all documents"
+		"schedule the payment" [shape=box]
+		"create voucher for the documents" -> "schedule the payment"
+		"AND_JOIN--4. Payment_8BMY" [label="+" fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "AND_JOIN--4. Payment_8BMY"
+		"stamp all documents" -> "AND_JOIN--4. Payment_8BMY"
+		"AND_JOIN--4. Payment_DPR7" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--4. Payment_8BMY" -> "AND_JOIN--4. Payment_DPR7"
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_DPR7"
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_DPR7"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_DPR7" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the vendor accounting department. 
+When sending to the vendor accounting department is completed, you need to create a receiving report.
+When creating a receiving report is completed, the next tasks should be gathering the vendors invoice and doubling check a three-way match, they should be done in parallel. 
+When doubling check a three-way match is completed, the process is split into 2 parallel branches: gathering the receiving report and reporting errors to relevant team member. 
+Once all pre-tasks are executed, then the next tasks should be checking dates to avoid penalty charges, storing in paid invoice file and entering the invoice into the accounts payable account, they should be done in parallel. 
+When checking dates to avoid penalty charges is completed, the next tasks should be creating voucher for the documents and stamping all documents, they should be done in parallel. 
+When creating voucher for the documents is completed, scheduling the payment should be done. 
+The process is now completed. 
+"
+}

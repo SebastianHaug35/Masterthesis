@@ -1,0 +1,43 @@
+digraph account_payable_process_1 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_OK0F" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_OK0F"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_OK0F" -> "gather the vendors invoice"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_OK0F" -> "double check a three-way match"
+		"OR_JOIN--3. Document validation_OK0F" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_OK0F"
+		"double check a three-way match" -> "OR_JOIN--3. Document validation_OK0F"
+		"AND_SPLIT--4. Payment_IZVT" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_OK0F" -> "AND_SPLIT--4. Payment_IZVT"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_IZVT" -> "schedule the payment"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_IZVT" -> "store in paid invoice file"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_IZVT" -> "create voucher for the documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"schedule the payment" -> "enter the invoice into the accounts payable account"
+		"AND_JOIN--4. Payment_IZVT" [label="+" fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_IZVT"
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_IZVT"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_IZVT"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_IZVT" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the receiving department. 
+Once sending to the receiving department occurs, creating a receiving report should be done. 
+When creating a receiving report is completed, one or more of the following paths should be executed: gathering the vendors invoice, doubling check a three-way match. 
+Then, the process is split into 3 parallel branches: scheduling the payment, storing in paid invoice file and creating voucher for the documents. 
+When scheduling the payment is completed, entering the invoice into the accounts payable account should be done. 
+The process is now completed. 
+"
+}

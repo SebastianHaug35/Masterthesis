@@ -1,0 +1,48 @@
+digraph account_payable_process_62 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"AND_SPLIT--4. Payment_QKR8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_SPLIT--4. Payment_QKR8"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_QKR8" -> "stamp all documents"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_QKR8" -> "enter the invoice into the accounts payable account"
+		"OR_SPLIT--4. Payment_ICVF" [label=O fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "OR_SPLIT--4. Payment_ICVF"
+		"check dates to avoid penalty charges" [shape=box]
+		"OR_SPLIT--4. Payment_ICVF" -> "check dates to avoid penalty charges"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_ICVF" -> "schedule the payment"
+		"OR_JOIN--4. Payment_ICVF" [label=O fixedsize=true shape=diamond width=0.5]
+		"check dates to avoid penalty charges" -> "OR_JOIN--4. Payment_ICVF"
+		"schedule the payment" -> "OR_JOIN--4. Payment_ICVF"
+		"AND_JOIN--4. Payment_QKR8" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--4. Payment_ICVF" -> "AND_JOIN--4. Payment_QKR8"
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_QKR8"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_QKR8" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the senior accountant in your department. 
+When sending to the senior accountant in your department is completed, creating a receiving report should be done. 
+When creating a receiving report is completed, gathering the vendors invoice should be done. 
+When gathering the vendors invoice is completed, the next tasks should be stamping all documents and entering the invoice into the accounts payable account, they should be done in parallel. 
+When stamping all documents is completed, one or more of the following paths should be executed: checking dates to avoid penalty charges, scheduling the payment. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the accounts payable process, which starts with the sending to the senior accountant of your department.
+When a meeting is completed to the senior accountant in your department, a receiving report should be done.
+When creating a receiving report is complete, gathering the vendor invoice should be done.
+When collecting invoices of vendors is completed the next task should be stamping all documents and entering the invoice into the accounts payable account, they should be done in parallel.
+When stamping all documents is completed, one or more of the following paths should be executed: checking the dates to avoid penalty charges, scheduling the payment.
+The process is now finished.
+"
+}

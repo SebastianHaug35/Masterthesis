@@ -1,0 +1,55 @@
+\section{Kleines Evaluationsdesign}
+
+\subsection{Ziel}
+
+In kleiner Form soll geprueft werden, ob eine Textbeschreibung den Inhalt eines Graphviz-Workflows korrekt wiedergibt.
+
+\subsection{Eingabe}
+
+Die Eingabe besteht aus:
+
+\begin{itemize}
+  \item einem Workflow als \texttt{.gv}
+  \item einer Textbeschreibung als \texttt{.txt}
+\end{itemize}
+
+\subsection{Was geprueft wird}
+
+Folgende Eigenschaften werden geprueft:
+
+\begin{itemize}
+  \item Start wird sprachlich erwaehnt
+  \item Ende wird sprachlich erwaehnt
+  \item zentrale Aktivitaeten werden genannt
+  \item OR-Splits werden als Alternative oder optionale Pfade erkennbar
+  \item AND-Splits werden als parallel beschrieben
+\end{itemize}
+
+\subsection{Kleiner Score}
+
+Der einfache Score besteht aus den folgenden Einzelmerkmalen:
+
+\begin{itemize}
+  \item \texttt{start\_mentioned}
+  \item \texttt{end\_mentioned}
+  \item \texttt{tasks\_coverage}
+  \item \texttt{and\_parallel\_mentioned}
+  \item \texttt{or\_alternative\_mentioned}
+\end{itemize}
+
+\subsection{Beispiel-Interpretation}
+
+\begin{itemize}
+  \item \texttt{5/5}: Beschreibung ist fuer einen ersten Prototyp sehr plausibel
+  \item \texttt{3/5}: teilweise passend, aber wichtige Workflow-Eigenschaften fehlen
+  \item \texttt{0--2/5}: Beschreibung ist als Validierungsobjekt unzureichend
+\end{itemize}
+
+\subsection{Limitationen}
+
+\begin{itemize}
+  \item reine Wortsuche ist noch keine echte semantische Validierung
+  \item Synonyme koennen uebersehen werden
+  \item falsche Reihenfolgen werden nur begrenzt erkannt
+  \item spaeter sollte ein LLM- oder Graph-basierter Fehlabgleich ergaenzt werden
+\end{itemize}

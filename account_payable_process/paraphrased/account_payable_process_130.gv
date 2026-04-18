@@ -1,0 +1,48 @@
+digraph account_payable_process_130 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"OR_SPLIT--3. Document validation_CFK5" [label=O fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "OR_SPLIT--3. Document validation_CFK5"
+		"double check a three-way match" [shape=box]
+		"OR_SPLIT--3. Document validation_CFK5" -> "double check a three-way match"
+		"gather the receiving report" [shape=box]
+		"OR_SPLIT--3. Document validation_CFK5" -> "gather the receiving report"
+		"OR_SPLIT--3. Document validation_PEIQ" [label=O fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "OR_SPLIT--3. Document validation_PEIQ"
+		"gather the vendors invoice" [shape=box]
+		"OR_SPLIT--3. Document validation_PEIQ" -> "gather the vendors invoice"
+		"confirm all documents have been amended" [shape=box]
+		"OR_SPLIT--3. Document validation_PEIQ" -> "confirm all documents have been amended"
+		"OR_JOIN--3. Document validation_PEIQ" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_JOIN--3. Document validation_PEIQ"
+		"confirm all documents have been amended" -> "OR_JOIN--3. Document validation_PEIQ"
+		"OR_JOIN--3. Document validation_CFK5" [label=O fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--3. Document validation_PEIQ" -> "OR_JOIN--3. Document validation_CFK5"
+		"gather the receiving report" -> "OR_JOIN--3. Document validation_CFK5"
+		"schedule the payment" [shape=box]
+		"OR_JOIN--3. Document validation_CFK5" -> "schedule the payment"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The following description is about the account payable process. It starts with sending to the senior accountant in your department. 
+After sending to the senior accountant in your department, you need to create a receiving report.
+After creating a receiving report, one or more of the following paths should be executed: doubling check a three-way match, gathering the receiving report. 
+When doubling check a three-way match is completed, one or more of the following paths should be executed: gathering the vendors invoice, confirming all documents have been amended. 
+After that, scheduling the payment needs to be done. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following description is about the account payable process and starts with sending the senior accountant in your department.
+After delivering a deposit to a senior accountant in your department, you should create a receiving report.
+After creating a receipt report, one or more of the following paths should be executed: Double Check a three-way match, collecting the receiving report.
+When a three-way match is completed on a doubling check, one or more of the following paths should be executed : gathering the vendors invoice and confirming that all documents have been modified.
+After that, scheduling must be completed the payment.
+The process is now completed.
+"
+}

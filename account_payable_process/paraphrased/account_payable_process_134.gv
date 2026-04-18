@@ -1,0 +1,41 @@
+digraph account_payable_process_134 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_P5AU" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_P5AU"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_P5AU" -> "gather the receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_P5AU" -> "confirm all documents have been amended"
+		"double check a three-way match" [shape=box]
+		"confirm all documents have been amended" -> "double check a three-way match"
+		"AND_JOIN--3. Document validation_P5AU" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_P5AU"
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_P5AU"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_JOIN--3. Document validation_P5AU" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you send to the senior accountant in your department. 
+After sending to the senior accountant in your department, you need to create a receiving report.
+After creating a receiving report, the next tasks should be gathering the receiving report and confirming all documents have been amended, they should be done in parallel. 
+After confirming all documents have been amended, you need to double check a three-way match.
+Once all pre-tasks are executed, then you need to check dates to avoid penalty charges.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following is the account payable process and begins when you send your financial support to the senior accountant in your department.
+After sending to the senior accountant in your department, create a receipt report.
+After creating a receipt report, the next task should be the gathering of the receiving report and verification that all documents have been amended. This should be done in parallel.
+After verifying all documents have been amended, you need to double-check a three-way match.
+Once all pre-tasks are completed, then you need to check the dates to avoid penalty charges.
+The process is now complete.
+"
+}

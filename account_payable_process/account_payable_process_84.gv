@@ -1,0 +1,33 @@
+digraph account_payable_process_84 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_E7FZ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_E7FZ"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_E7FZ" -> "double check a three-way match"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_E7FZ" -> "gather the receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"double check a three-way match" -> "confirm all documents have been amended"
+		"AND_JOIN--3. Document validation_E7FZ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_E7FZ"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_E7FZ"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_JOIN--3. Document validation_E7FZ" -> "check dates to avoid penalty charges"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"check dates to avoid penalty charges" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It begins when you enter purchase order details. 
+Once entering purchase order details occurs, you need to create a receiving report.
+Once creating a receiving report occurs, the next tasks should be doubling check a three-way match and gathering the receiving report, they should be done in parallel. 
+When doubling check a three-way match is completed, confirming all documents have been amended needs to be done. 
+Once all pre-tasks are executed, then checking dates to avoid penalty charges should be done. 
+The process is now completed. 
+"
+}

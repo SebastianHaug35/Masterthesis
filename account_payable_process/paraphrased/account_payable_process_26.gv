@@ -1,0 +1,30 @@
+digraph account_payable_process_26 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"confirm all documents have been amended" [shape=box]
+		"create a receiving report" -> "confirm all documents have been amended"
+		"schedule the payment" [shape=box]
+		"confirm all documents have been amended" -> "schedule the payment"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"schedule the payment" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with filing a copy for internal records. 
+When filing a copy for internal records is completed, creating a receiving report needs to be done. 
+After creating a receiving report, you need to confirm all documents have been amended.
+When confirming all documents have been amended is completed, you need to schedule the payment.
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with filing a copy for internal records.
+When a copy for internal records is completed, creating a receiving report needs to be done.
+After creating a receipt report, you need to confirm that all documents have been amended.
+When all documents have been amended, you must arrange the payment.
+The process is now complete.
+"
+}

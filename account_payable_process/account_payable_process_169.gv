@@ -1,0 +1,40 @@
+digraph account_payable_process_169 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"AND_SPLIT--4. Payment_XRK0" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_SPLIT--4. Payment_XRK0"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_XRK0" -> "store in paid invoice file"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_XRK0" -> "schedule the payment"
+		"OR_SPLIT--4. Payment_BN6S" [label=O fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "OR_SPLIT--4. Payment_BN6S"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"OR_SPLIT--4. Payment_BN6S" -> "enter the invoice into the accounts payable account"
+		"stamp all documents" [shape=box]
+		"OR_SPLIT--4. Payment_BN6S" -> "stamp all documents"
+		"OR_JOIN--4. Payment_BN6S" [label=O fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "OR_JOIN--4. Payment_BN6S"
+		"stamp all documents" -> "OR_JOIN--4. Payment_BN6S"
+		"AND_JOIN--4. Payment_XRK0" [label="+" fixedsize=true shape=diamond width=0.5]
+		"OR_JOIN--4. Payment_BN6S" -> "AND_JOIN--4. Payment_XRK0"
+		"schedule the payment" -> "AND_JOIN--4. Payment_XRK0"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_XRK0" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with filing a copy for internal records. 
+When filing a copy for internal records is completed, creating a receiving report needs to be done. 
+Once creating a receiving report occurs, reporting errors to relevant team member needs to be done. 
+When reporting errors to relevant team member is completed, the next tasks should be storing in paid invoice file and scheduling the payment, they should be done in parallel. 
+When storing in paid invoice file is completed, one or more of the following paths should be executed: entering the invoice into the accounts payable account, stamping all documents. 
+The process is now completed. 
+"
+}

@@ -1,0 +1,30 @@
+digraph account_payable_process_129 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_GBLQ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_GBLQ"
+		"report errors to relevant team member" [shape=box]
+		"AND_SPLIT--3. Document validation_GBLQ" -> "report errors to relevant team member"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_GBLQ" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_GBLQ" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_JOIN--3. Document validation_GBLQ"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_GBLQ"
+		"stamp all documents" [shape=box]
+		"AND_JOIN--3. Document validation_GBLQ" -> "stamp all documents"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"stamp all documents" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with sending to the vendor accounting department. 
+Once sending to the vendor accounting department occurs, you need to create a receiving report.
+When creating a receiving report is completed, the next tasks should be reporting errors to relevant team member and gathering the receiving report, they should be done in parallel. 
+Once all pre-tasks are executed, then you need to stamp all documents.
+The process is now completed. 
+"
+}

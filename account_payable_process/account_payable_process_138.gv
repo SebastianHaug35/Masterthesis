@@ -1,0 +1,33 @@
+digraph account_payable_process_138 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"file a copy for internal records" [shape=box]
+		"create a receiving report" [shape=box]
+		"file a copy for internal records" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"AND_SPLIT--4. Payment_F4W7" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_SPLIT--4. Payment_F4W7"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_F4W7" -> "enter the invoice into the accounts payable account"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_F4W7" -> "create voucher for the documents"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_F4W7" -> "check dates to avoid penalty charges"
+		"AND_JOIN--4. Payment_F4W7" [label="+" fixedsize=true shape=diamond width=0.5]
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_F4W7"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_F4W7"
+		"check dates to avoid penalty charges" -> "AND_JOIN--4. Payment_F4W7"
+	}
+	START_NODE -> "file a copy for internal records"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_F4W7" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with filing a copy for internal records. 
+When filing a copy for internal records is completed, creating a receiving report should be done. 
+After creating a receiving report, you need to gather the vendors invoice.
+After gathering the vendors invoice, the process is split into 3 parallel branches: entering the invoice into the accounts payable account, creating voucher for the documents and checking dates to avoid penalty charges. 
+The process is now completed. 
+"
+}

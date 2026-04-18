@@ -1,0 +1,33 @@
+digraph account_payable_process_105 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"AND_SPLIT--4. Payment_3BJF" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_SPLIT--4. Payment_3BJF"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_3BJF" -> "store in paid invoice file"
+		"create voucher for the documents" [shape=box]
+		"AND_SPLIT--4. Payment_3BJF" -> "create voucher for the documents"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_3BJF" -> "stamp all documents"
+		"AND_JOIN--4. Payment_3BJF" [label="+" fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_3BJF"
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_3BJF"
+		"stamp all documents" -> "AND_JOIN--4. Payment_3BJF"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_3BJF" -> END_NODE
+	fontsize=15 label="\n\n
+The following text is about the account payable process. It starts with entering purchase order details. 
+After entering purchase order details, creating a receiving report should be done. 
+After creating a receiving report, doubling check a three-way match needs to be done. 
+After doubling check a three-way match, the process is split into 3 parallel branches: storing in paid invoice file, creating voucher for the documents and stamping all documents. 
+The process is now completed. 
+"
+}

@@ -1,0 +1,30 @@
+digraph account_payable_process_176 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_W5RA" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_W5RA"
+		"double check a three-way match" [shape=box]
+		"AND_SPLIT--3. Document validation_W5RA" -> "double check a three-way match"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_W5RA" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_W5RA" [label="+" fixedsize=true shape=diamond width=0.5]
+		"double check a three-way match" -> "AND_JOIN--3. Document validation_W5RA"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_W5RA"
+		"stamp all documents" [shape=box]
+		"AND_JOIN--3. Document validation_W5RA" -> "stamp all documents"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"stamp all documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+When entering purchase order details is completed, you need to create a receiving report.
+When creating a receiving report is completed, the process is split into 2 parallel branches: doubling check a three-way match and gathering the receiving report. 
+Once all pre-tasks are executed, then stamping all documents needs to be done. 
+The process is now completed. 
+"
+}

@@ -1,0 +1,30 @@
+digraph account_payable_process_0 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_L67E" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_L67E"
+		"gather the vendors invoice" [shape=box]
+		"AND_SPLIT--3. Document validation_L67E" -> "gather the vendors invoice"
+		"confirm all documents have been amended" [shape=box]
+		"AND_SPLIT--3. Document validation_L67E" -> "confirm all documents have been amended"
+		"AND_JOIN--3. Document validation_L67E" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_L67E"
+		"confirm all documents have been amended" -> "AND_JOIN--3. Document validation_L67E"
+		"stamp all documents" [shape=box]
+		"AND_JOIN--3. Document validation_L67E" -> "stamp all documents"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"stamp all documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with entering purchase order details. 
+Once entering purchase order details occurs, creating a receiving report should be done. 
+When creating a receiving report is completed, the process is split into 2 parallel branches: gathering the vendors invoice and confirming all documents have been amended. 
+Once all pre-tasks are executed, then stamping all documents should be done. 
+The process is now completed. 
+"
+}

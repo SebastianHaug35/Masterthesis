@@ -1,0 +1,33 @@
+digraph account_payable_process_98 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the senior accountant in your department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the senior accountant in your department" -> "create a receiving report"
+		"gather the vendors invoice" [shape=box]
+		"create a receiving report" -> "gather the vendors invoice"
+		"OR_SPLIT--4. Payment_ZWKA" [label=O fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "OR_SPLIT--4. Payment_ZWKA"
+		"schedule the payment" [shape=box]
+		"OR_SPLIT--4. Payment_ZWKA" -> "schedule the payment"
+		"store in paid invoice file" [shape=box]
+		"OR_SPLIT--4. Payment_ZWKA" -> "store in paid invoice file"
+		"create voucher for the documents" [shape=box]
+		"OR_SPLIT--4. Payment_ZWKA" -> "create voucher for the documents"
+		"OR_JOIN--4. Payment_ZWKA" [label=O fixedsize=true shape=diamond width=0.5]
+		"schedule the payment" -> "OR_JOIN--4. Payment_ZWKA"
+		"store in paid invoice file" -> "OR_JOIN--4. Payment_ZWKA"
+		"create voucher for the documents" -> "OR_JOIN--4. Payment_ZWKA"
+	}
+	START_NODE -> "send to the senior accountant in your department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"OR_JOIN--4. Payment_ZWKA" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the senior accountant in your department. 
+After sending to the senior accountant in your department, creating a receiving report should be done. 
+When creating a receiving report is completed, gathering the vendors invoice should be done. 
+Once gathering the vendors invoice occurs, one or more of the following paths should be executed: scheduling the payment, storing in paid invoice file, creating voucher for the documents. 
+The process is now completed. 
+"
+}

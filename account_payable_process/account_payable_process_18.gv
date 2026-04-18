@@ -1,0 +1,23 @@
+digraph account_payable_process_18 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"double check a three-way match" [shape=box]
+		"create a receiving report" -> "double check a three-way match"
+		"create voucher for the documents" [shape=box]
+		"double check a three-way match" -> "create voucher for the documents"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"create voucher for the documents" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you enter purchase order details. 
+When entering purchase order details is completed, creating a receiving report needs to be done. 
+Once creating a receiving report occurs, you need to double check a three-way match.
+Once doubling check a three-way match occurs, creating voucher for the documents should be done. 
+The process is now completed. 
+"
+}

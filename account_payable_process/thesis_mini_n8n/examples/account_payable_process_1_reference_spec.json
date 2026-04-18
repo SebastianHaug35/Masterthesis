@@ -1,0 +1,19 @@
+{
+  "startTask": "Manual Trigger",
+  "requiredTasks": [
+    "Create Receiving Report",
+    "Gather Vendor Invoice",
+    "Double Check Three-Way Match",
+    "Schedule Payment",
+    "Store In Paid Invoice File",
+    "Create Voucher For Documents",
+    "Enter Invoice Into Accounts Payable"
+  ],
+  "requiresDecision": true,
+  "requiresParallel": true,
+  "endKeywords": [
+    "end",
+    "completed",
+    "complete"
+  ]
+}

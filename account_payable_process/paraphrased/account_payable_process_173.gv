@@ -1,0 +1,44 @@
+digraph account_payable_process_173 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the receiving department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the receiving department" -> "create a receiving report"
+		"AND_SPLIT--3. Document validation_DRIT" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create a receiving report" -> "AND_SPLIT--3. Document validation_DRIT"
+		"gather the vendors invoice" [shape=box]
+		"AND_SPLIT--3. Document validation_DRIT" -> "gather the vendors invoice"
+		"gather the receiving report" [shape=box]
+		"AND_SPLIT--3. Document validation_DRIT" -> "gather the receiving report"
+		"AND_JOIN--3. Document validation_DRIT" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the vendors invoice" -> "AND_JOIN--3. Document validation_DRIT"
+		"gather the receiving report" -> "AND_JOIN--3. Document validation_DRIT"
+		"AND_SPLIT--4. Payment_DHJI" [label="+" fixedsize=true shape=diamond width=0.5]
+		"AND_JOIN--3. Document validation_DRIT" -> "AND_SPLIT--4. Payment_DHJI"
+		"stamp all documents" [shape=box]
+		"AND_SPLIT--4. Payment_DHJI" -> "stamp all documents"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_DHJI" -> "store in paid invoice file"
+		"AND_JOIN--4. Payment_DHJI" [label="+" fixedsize=true shape=diamond width=0.5]
+		"stamp all documents" -> "AND_JOIN--4. Payment_DHJI"
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_DHJI"
+	}
+	START_NODE -> "send to the receiving department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_DHJI" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It begins when you send to the receiving department. 
+After sending to the receiving department, creating a receiving report should be done. 
+Once creating a receiving report occurs, the process is split into 2 parallel branches: gathering the vendors invoice and gathering the receiving report. 
+Once all pre-tasks are executed, then the next tasks should be stamping all documents and storing in paid invoice file, they should be done in parallel. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process that begins when you send the sending department to.
+ After sending to the receiving department, a receiving report should be created.
+Once a receiving report is created, the process is split into 2 parallel branches: gather the invoice and capture the receiving report.
+Once all pre-tasks are done the next tasks should be stamping all documents and storing in paid invoice file, which should be done in parallel.
+The process is now completed.
+"
+}

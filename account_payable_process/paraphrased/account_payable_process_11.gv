@@ -1,0 +1,37 @@
+digraph account_payable_process_11 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"send to the vendor accounting department" [shape=box]
+		"create a receiving report" [shape=box]
+		"send to the vendor accounting department" -> "create a receiving report"
+		"report errors to relevant team member" [shape=box]
+		"create a receiving report" -> "report errors to relevant team member"
+		"AND_SPLIT--4. Payment_VD19" [label="+" fixedsize=true shape=diamond width=0.5]
+		"report errors to relevant team member" -> "AND_SPLIT--4. Payment_VD19"
+		"store in paid invoice file" [shape=box]
+		"AND_SPLIT--4. Payment_VD19" -> "store in paid invoice file"
+		"schedule the payment" [shape=box]
+		"AND_SPLIT--4. Payment_VD19" -> "schedule the payment"
+		"AND_JOIN--4. Payment_VD19" [label="+" fixedsize=true shape=diamond width=0.5]
+		"store in paid invoice file" -> "AND_JOIN--4. Payment_VD19"
+		"schedule the payment" -> "AND_JOIN--4. Payment_VD19"
+	}
+	START_NODE -> "send to the vendor accounting department"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_VD19" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with sending to the vendor accounting department. 
+After sending to the vendor accounting department, creating a receiving report should be done. 
+After creating a receiving report, reporting errors to relevant team member should be done. 
+When reporting errors to relevant team member is completed, the process is split into 2 parallel branches: storing in paid invoice file and scheduling the payment. 
+The process is now completed. 
+"
+	fontsize=15 label="\n\n
+The text below is about the account payable process that starts with a send to the vendor accounting department.
+After sending to the vendor accounting department, a receiving report should be created.
+After creating a receiving report, the report to the relevant team member should be done.
+When reporting of errors is completed to the relevant team member, the process is split into 2 parallel branches : storing in paid invoice file and scheduling the payment.
+The process is now completed.
+"
+}

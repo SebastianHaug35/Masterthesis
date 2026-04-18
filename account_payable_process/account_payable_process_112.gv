@@ -1,0 +1,33 @@
+digraph account_payable_process_112 {
+	graph [rankdir=LR]
+	START_NODE [label="" shape=circle width=0.3]
+	subgraph CLUSTER_0 {
+		"enter purchase order details" [shape=box]
+		"create a receiving report" [shape=box]
+		"enter purchase order details" -> "create a receiving report"
+		"gather the receiving report" [shape=box]
+		"create a receiving report" -> "gather the receiving report"
+		"AND_SPLIT--4. Payment_IBG5" [label="+" fixedsize=true shape=diamond width=0.5]
+		"gather the receiving report" -> "AND_SPLIT--4. Payment_IBG5"
+		"check dates to avoid penalty charges" [shape=box]
+		"AND_SPLIT--4. Payment_IBG5" -> "check dates to avoid penalty charges"
+		"enter the invoice into the accounts payable account" [shape=box]
+		"AND_SPLIT--4. Payment_IBG5" -> "enter the invoice into the accounts payable account"
+		"create voucher for the documents" [shape=box]
+		"check dates to avoid penalty charges" -> "create voucher for the documents"
+		"AND_JOIN--4. Payment_IBG5" [label="+" fixedsize=true shape=diamond width=0.5]
+		"create voucher for the documents" -> "AND_JOIN--4. Payment_IBG5"
+		"enter the invoice into the accounts payable account" -> "AND_JOIN--4. Payment_IBG5"
+	}
+	START_NODE -> "enter purchase order details"
+	END_NODE [label="" shape=doublecircle width=0.2]
+	"AND_JOIN--4. Payment_IBG5" -> END_NODE
+	fontsize=15 label="\n\n
+The text below is about the account payable process. It starts with entering purchase order details. 
+Once entering purchase order details occurs, creating a receiving report needs to be done. 
+After creating a receiving report, gathering the receiving report should be done. 
+When gathering the receiving report is completed, the process is split into 2 parallel branches: checking dates to avoid penalty charges and entering the invoice into the accounts payable account. 
+Once checking dates to avoid penalty charges occurs, creating voucher for the documents needs to be done. 
+The process is now completed. 
+"
+}
