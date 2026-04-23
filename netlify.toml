@@ -7,6 +7,7 @@ publish = "build"
 ADAPTER = "netlify"
 NODE_VERSION = "22"
 SECRETS_SCAN_OMIT_KEYS = "OPENAI_BASE_URL"
+MONGODB_DB_NAME = "masterthesis-buddy"
 
 [functions]
 node_bundler = "esbuild"

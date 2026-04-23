@@ -25,6 +25,8 @@ import { config } from "$lib/server/config";
 
 export const CONVERSATION_STATS_COLLECTION = "conversations.stats";
 
+const isNetlifyRuntime = process.env.NETLIFY === "true" || Boolean(process.env.NETLIFY_IMAGES_CDN_DOMAIN);
+
 export class Database {
 	private client?: MongoClient;
 	private mongoServer?: MongoMemoryServer;
@@ -32,11 +34,17 @@ export class Database {
 	private static instance: Database;
 
 	private async init() {
-		const DB_FOLDER =
-			config.MONGO_STORAGE_PATH ||
-			join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
-
 		if (!config.MONGODB_URL) {
+			if (isNetlifyRuntime) {
+				throw new Error(
+					"MONGODB_URL is required on Netlify. Configure a MongoDB Atlas connection string in Netlify environment variables."
+				);
+			}
+
+			const DB_FOLDER =
+				config.MONGO_STORAGE_PATH ||
+				join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
+
 			logger.warn("No MongoDB URL found, using in-memory server");
 
 			logger.info(`Using database path: ${DB_FOLDER}`);

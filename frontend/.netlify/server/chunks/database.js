@@ -18,10 +18,16 @@ function findRepoRoot(startPath) {
   throw new Error("Could not find repository root (no package.json found)");
 }
 const CONVERSATION_STATS_COLLECTION = "conversations.stats";
+const isNetlifyRuntime = process.env.NETLIFY === "true" || Boolean(process.env.NETLIFY_IMAGES_CDN_DOMAIN);
 class Database {
   async init() {
-    const DB_FOLDER = config.MONGO_STORAGE_PATH || join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
     if (!config.MONGODB_URL) {
+      if (isNetlifyRuntime) {
+        throw new Error(
+          "MONGODB_URL is required on Netlify. Configure a MongoDB Atlas connection string in Netlify environment variables."
+        );
+      }
+      const DB_FOLDER = config.MONGO_STORAGE_PATH || join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
       logger.warn("No MongoDB URL found, using in-memory server");
       logger.info(`Using database path: ${DB_FOLDER}`);
       if (!existsSync(DB_FOLDER)) {

@@ -34,13 +34,14 @@ PUBLIC_ORIGIN=https://deine-netlify-site.netlify.app
 ```
 
 Empfohlen fuer produktive Deployments:
+Erforderlich fuer Netlify Functions:
 
 ```text
 MONGODB_URL=mongodb+srv://...
 MONGODB_DB_NAME=masterthesis-buddy
 ```
 
-Ohne `MONGODB_URL` versucht die App auf eine lokale Datenbank-Fallback-Logik auszuweichen. Das ist fuer Netlify Functions nicht geeignet, weil Functions kurzlebig sind und kein dauerhaftes lokales Dateisystem bieten.
+Ohne `MONGODB_URL` versucht die App lokal auf eine eingebettete MongoDB-Fallback-Logik auszuweichen. Das ist fuer Netlify Functions nicht geeignet, weil Functions kurzlebig sind und kein dauerhaftes lokales Dateisystem bieten. Deshalb bricht der Serverstart auf Netlify bewusst mit einem klaren `MONGODB_URL is required on Netlify`-Fehler ab, wenn die Variable fehlt.
 
 Optionale Router-Variablen, falls der Omni-/Arch-Router genutzt wird:
 
