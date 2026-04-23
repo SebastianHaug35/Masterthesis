@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_62",
+  "process_name": "Account Payable Process 62",
+  "description": "The text below is about the accounts payable process, which starts with the sending to the senior accountant of your department. When a meeting is completed to the senior accountant in your department, a receiving report should be done. When creating a receiving report is complete, gathering the vendor invoice should be done. When collecting invoices of vendors is completed the next task should be stamping all documents and entering the invoice into the accounts payable account, they should be done in parallel. When stamping all documents is completed, one or more of the following paths should be executed: checking the dates to avoid penalty charges, scheduling the payment. The process is now finished.",
+  "input": {
+    "channel": "email",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_62",
+        "trigger_step": "sending to the senior accountant of your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_62-CASE-001",
+        "business_domain": "accounts_payable",
+        "message_purpose": "trigger_sending_to_the_senior_accountant_of_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_62_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounts_payable.workflow",
+    "receiver": "erp.accounts_payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_62",
+        "completion_step": "scheduling the payment",
+        "business_domain": "accounts_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "scheduling_the_payment"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_62_scheduling_the_payment.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

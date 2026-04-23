@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_101",
+  "process_name": "Account Payable Process 101",
+  "description": "The text below is about the account payable process that begins when you email to the vendor's accounting department. Once the sending to the vendor accounting department occurs, creating a receiving report should be made. Once creation of a receiving report occurs, one or more of the following path should be executed: confirming all documents have been amended, reporting error to the relevant team member. After confirming all documents have been amended, the double check should do a three-way match. Afterwards, checking of dates to avoid penalty fees must be done. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_101",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_101-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_101_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_101",
+        "completion_step": "checking of dates to avoid penalty fees must be done",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "checking_of_dates_to_avoid_penalty_fees_must_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_101_checking_of_dates_to_avoid_penalty_fees_must_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

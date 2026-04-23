@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_22",
+  "process_name": "Account Payable Process 22",
+  "description": "The following text is about the process of the account payable, which starts when you send the senior accountant in your department. Once sending to the senior accountant in your department occurs, there is a receipt report to be created. Once a receiving report is created, one or more of the following paths should be executed: Double checking a three-way match, gathering the receiving report and reporting errors to the relevant team member. Once the receiving report is completed, you must confirm that all documents have been amended. When reporting errors is completed to the relevant team member, the invoice should be collected by vendor. Lastly, scheduling of the payment has to be done. The procedure is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_22",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_22-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_22_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_22",
+        "completion_step": "procedure is now completed",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "procedure_is_now_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_22_procedure_is_now_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

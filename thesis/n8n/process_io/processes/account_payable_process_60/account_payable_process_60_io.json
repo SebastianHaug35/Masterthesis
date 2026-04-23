@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_60",
+  "process_name": "Account Payable Process 60",
+  "description": "The following text is about the account payable process, which begins when you send to the vendor accounting department. After sending to vendor accounting department you need to create a receiving report. Once the report creation occurs, the errors should be reported to the relevant team member. After reporting errors to the appropriate team member the next tasks should be storing in paid invoice file and checking dates to avoid penalties ; they should be done in parallel. Now the process is completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_60",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_60-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_60_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_60",
+        "completion_step": "Now the process is completed",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "now_the_process_is_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_60_now_the_process_is_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

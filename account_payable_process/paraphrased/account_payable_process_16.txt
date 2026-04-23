@@ -1,1 +1,0 @@
-﻿The following is about the Account payable process, which starts when you submit a copy for internal records. When a copy of internal records is completed, you should create a Receiving Report When creating a receipt report is completed, the Vendors should receive invoices. When the invoice with vendors is completed, the payment should be scheduled. The process is now complete.

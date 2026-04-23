@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_9",
+  "process_name": "Account Payable Process 9",
+  "description": "The following description is about the account payable process, which starts with sending to the receiving department. Once the sending department is launched, a receiving report should be generated. Once a receipt reports is created, all documents must be amended. When confirmation that all documents have been amended is completed, one or more of the following paths should be completed: creating a voucher for the documents, checking dates to avoid penalties. After checking the dates to avoid unforeseen penalties, the invoice is entered into the accounts payable account. Now the process is completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_9",
+        "trigger_step": "sending to the receiving department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_9-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_sending_to_the_receiving_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_9_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_9",
+        "completion_step": "Now the process is completed",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "now_the_process_is_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_9_now_the_process_is_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

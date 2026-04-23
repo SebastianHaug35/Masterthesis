@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_38",
+  "process_name": "Account Payable Process 38",
+  "description": "The following text is about the account payable process, which starts when you send to the receiving department. When the sending is completed to the receiving department, a receiving report needs to be created. Once a Receiver Report exists, the vendors should pay invoices. When the vendor's invoice is created, stamping should be done all documents. The process has now been completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_38",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_38-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_38_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_38",
+        "completion_step": "process has now been completed",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "process_has_now_been_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_38_process_has_now_been_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

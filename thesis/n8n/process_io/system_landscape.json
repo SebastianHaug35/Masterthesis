@@ -1,0 +1,523 @@
+{
+  "version": "1.0",
+  "description": "General reusable system landscape for workflow-based business process testing. This document contains the shared systems, interfaces, business objects, and extension points that can be reused and expanded across multiple processes.",
+  "system_types": [
+    {
+      "type_id": "erp",
+      "name": "ERP System",
+      "description": "System of record for transactional business data such as purchase orders, invoices, company codes, and accounting context.",
+      "common_capabilities": [
+        "store_master_data",
+        "store_transaction_data",
+        "lookup_business_documents",
+        "expose_business_events"
+      ],
+      "common_objects": [
+        "purchase_order",
+        "invoice",
+        "vendor",
+        "company_code",
+        "cost_center"
+      ]
+    },
+    {
+      "type_id": "database",
+      "name": "Database",
+      "description": "Generic persistence layer for workflow state, logs, mappings, and derived data.",
+      "common_capabilities": [
+        "persist_workflow_state",
+        "store_reference_data",
+        "store_audit_logs",
+        "query_case_status"
+      ],
+      "common_objects": [
+        "workflow_case",
+        "audit_log",
+        "mapping_table"
+      ]
+    },
+    {
+      "type_id": "email_system",
+      "name": "Email System",
+      "description": "Inbound and outbound email environment for receiving documents and sending notifications.",
+      "common_capabilities": [
+        "receive_email",
+        "send_email",
+        "store_attachments",
+        "filter_by_mailbox_rules"
+      ],
+      "common_objects": [
+        "email_message",
+        "attachment",
+        "mailbox"
+      ]
+    },
+    {
+      "type_id": "dms",
+      "name": "Document Management System",
+      "description": "Document repository for storing, versioning, validating, stamping, and archiving business documents.",
+      "common_capabilities": [
+        "store_document",
+        "version_document",
+        "tag_metadata",
+        "archive_document_package",
+        "apply_document_stamp"
+      ],
+      "common_objects": [
+        "document",
+        "document_package",
+        "archive_record"
+      ]
+    },
+    {
+      "type_id": "workflow_engine",
+      "name": "Workflow Engine",
+      "description": "Orchestrates business steps, triggers, branching, joins, and system interactions.",
+      "common_capabilities": [
+        "trigger_execution",
+        "route_payloads",
+        "join_parallel_branches",
+        "handle_retries",
+        "record_execution_logs"
+      ],
+      "common_objects": [
+        "workflow_run",
+        "workflow_event",
+        "task_token"
+      ]
+    },
+    {
+      "type_id": "api_service",
+      "name": "API Service",
+      "description": "Generic REST or RPC service used for external integrations.",
+      "common_capabilities": [
+        "receive_requests",
+        "send_responses",
+        "validate_payloads",
+        "publish_events"
+      ],
+      "common_objects": [
+        "request_payload",
+        "response_payload",
+        "event_message"
+      ]
+    },
+    {
+      "type_id": "queue",
+      "name": "Queue or Task Inbox",
+      "description": "Asynchronous handoff target for downstream teams or systems.",
+      "common_capabilities": [
+        "enqueue_case",
+        "dequeue_case",
+        "track_processing_status"
+      ],
+      "common_objects": [
+        "queue_item",
+        "processing_status"
+      ]
+    }
+  ],
+  "shared_interfaces": [
+    {
+      "interface_id": "erp_lookup",
+      "source_type": "workflow_engine",
+      "target_type": "erp",
+      "purpose": "Load master and transaction data for a referenced business object."
+    },
+    {
+      "interface_id": "email_ingest",
+      "source_type": "email_system",
+      "target_type": "workflow_engine",
+      "purpose": "Trigger workflows from inbound emails and attachments."
+    },
+    {
+      "interface_id": "document_archive",
+      "source_type": "workflow_engine",
+      "target_type": "dms",
+      "purpose": "Store, tag, stamp, and archive final document packages."
+    },
+    {
+      "interface_id": "state_persistence",
+      "source_type": "workflow_engine",
+      "target_type": "database",
+      "purpose": "Persist workflow state, execution logs, and correlation identifiers."
+    },
+    {
+      "interface_id": "downstream_handoff",
+      "source_type": "workflow_engine",
+      "target_type": "queue",
+      "purpose": "Hand off finalized or exception cases to downstream processing."
+    }
+  ],
+  "shared_business_objects": [
+    {
+      "object_id": "workflow_case",
+      "description": "Unified case envelope used to correlate process state across systems.",
+      "minimum_fields": [
+        "case_id",
+        "process_id",
+        "status",
+        "created_at"
+      ]
+    },
+    {
+      "object_id": "document_reference",
+      "description": "Generic reference to a business document across systems.",
+      "minimum_fields": [
+        "document_id",
+        "document_type",
+        "source_system",
+        "linked_case_id"
+      ]
+    },
+    {
+      "object_id": "event_message",
+      "description": "Standard event payload for workflow triggers and status changes.",
+      "minimum_fields": [
+        "event_id",
+        "event_type",
+        "source_system",
+        "timestamp"
+      ]
+    }
+  ],
+  "process_required_components": {
+    "required_process_metadata": [
+      "process_id",
+      "process_name",
+      "process_description",
+      "business_domain",
+      "complexity_class",
+      "primary_trigger_type"
+    ],
+    "required_artifacts_per_process": [
+      {
+        "artifact_type": "markdown_contract",
+        "file_pattern": "<process_id>.md",
+        "purpose": "Human-readable process description, involved systems, trigger points, and business data expectations."
+      },
+      {
+        "artifact_type": "graphviz_process_graph",
+        "file_pattern": "<process_id>.gv",
+        "purpose": "Machine-readable graph of the business process flow."
+      },
+      {
+        "artifact_type": "rendered_process_graph",
+        "file_pattern": "<process_id>.pdf",
+        "purpose": "Visual rendering of the process graph for inspection and documentation."
+      },
+      {
+        "artifact_type": "io_contract",
+        "file_pattern": "<process_id>_io.json",
+        "purpose": "Structured input and output envelope used for workflow execution and validation."
+      }
+    ],
+    "optional_artifacts_per_process": [
+      {
+        "artifact_type": "system_contract",
+        "file_pattern": "<process_id>_system_contract.md",
+        "purpose": "Detailed process-specific system, trigger, and data contract when a richer view than the IO contract is needed."
+      },
+      {
+        "artifact_type": "system_graph",
+        "file_pattern": "<process_id>_system_graph.gv",
+        "purpose": "Graph of system interactions for the process."
+      },
+      {
+        "artifact_type": "test_case_bundle",
+        "file_pattern": "<process_id>_test_cases.json",
+        "purpose": "Concrete runnable test cases with expected outputs and validation rules."
+      },
+      {
+        "artifact_type": "reference_workflow",
+        "file_pattern": "<process_id>_reference_workflow.json",
+        "purpose": "Reference or gold workflow used for comparison."
+      }
+    ],
+    "required_model_sections": [
+      "participating_systems",
+      "trigger_points",
+      "workflow_functions",
+      "business_objects",
+      "state_transitions",
+      "validation_rules",
+      "mock_interfaces"
+    ]
+  },
+  "process_model_template": {
+    "participating_systems": {
+      "minimum_fields": [
+        "system_id",
+        "system_type",
+        "role_in_process"
+      ],
+      "recommended_fields": [
+        "capabilities_used",
+        "input_objects",
+        "output_objects"
+      ]
+    },
+    "trigger_points": {
+      "minimum_fields": [
+        "trigger_id",
+        "event_name",
+        "source_system",
+        "workflow_reaction"
+      ],
+      "recommended_fields": [
+        "trigger_payload_fields",
+        "preconditions",
+        "postconditions"
+      ]
+    },
+    "workflow_functions": {
+      "minimum_fields": [
+        "function_id",
+        "function_name",
+        "main_input",
+        "main_output"
+      ],
+      "recommended_fields": [
+        "used_systems",
+        "failure_modes",
+        "recovery_strategy"
+      ]
+    },
+    "business_objects": {
+      "minimum_fields": [
+        "object_id",
+        "source_system",
+        "required_fields"
+      ],
+      "recommended_fields": [
+        "field_types",
+        "validation_constraints",
+        "correlation_keys"
+      ]
+    },
+    "state_transitions": {
+      "minimum_fields": [
+        "state",
+        "entry_condition",
+        "exit_condition"
+      ],
+      "recommended_fields": [
+        "blocking_conditions",
+        "timeout_behavior"
+      ]
+    },
+    "validation_rules": {
+      "minimum_fields": [
+        "rule_id",
+        "rule_text"
+      ],
+      "recommended_fields": [
+        "severity",
+        "rule_type",
+        "validation_stage"
+      ]
+    },
+    "mock_interfaces": {
+      "minimum_fields": [
+        "interface_id",
+        "target_system",
+        "expected_behavior"
+      ],
+      "recommended_fields": [
+        "success_response_shape",
+        "failure_response_shape",
+        "latency_profile"
+      ]
+    }
+  },
+  "trigger_taxonomy": [
+    {
+      "trigger_type": "manual_entry",
+      "description": "A process starts because a user enters data in a business application."
+    },
+    {
+      "trigger_type": "email_received",
+      "description": "A process starts because an email or attachment arrives in a monitored mailbox."
+    },
+    {
+      "trigger_type": "document_created",
+      "description": "A process starts because a document is created or uploaded in a repository."
+    },
+    {
+      "trigger_type": "api_request",
+      "description": "A process starts because an external or internal API sends a request."
+    },
+    {
+      "trigger_type": "database_change",
+      "description": "A process starts because a new record or state change is detected in a database."
+    },
+    {
+      "trigger_type": "scheduled_event",
+      "description": "A process starts on a time-based schedule."
+    },
+    {
+      "trigger_type": "queue_message",
+      "description": "A process starts because a new queue item or event message is consumed."
+    }
+  ],
+  "data_requirements_reference": {
+    "minimum_case_level_fields": [
+      "case_id",
+      "process_id",
+      "status",
+      "created_at",
+      "last_updated_at"
+    ],
+    "common_correlation_fields": [
+      "case_id",
+      "process_id",
+      "document_id",
+      "business_object_id",
+      "reference_number",
+      "source_system"
+    ],
+    "common_audit_fields": [
+      "created_by",
+      "created_at",
+      "updated_by",
+      "updated_at",
+      "trace_id"
+    ],
+    "common_validation_dimensions": [
+      "schema_completeness",
+      "business_rule_consistency",
+      "cross-system_identifier_consistency",
+      "required_document_presence",
+      "execution_status"
+    ]
+  },
+  "test_case_reference_model": {
+    "required_test_case_fields": [
+      "test_case_id",
+      "process_id",
+      "scenario_name",
+      "input_payload",
+      "expected_output",
+      "expected_state",
+      "validation_checks"
+    ],
+    "recommended_test_case_fields": [
+      "mocked_system_responses",
+      "intermediate_expectations",
+      "failure_injection",
+      "execution_notes"
+    ],
+    "test_case_categories": [
+      "happy_path",
+      "missing_data",
+      "invalid_reference",
+      "timeout_or_unavailable_system",
+      "parallel_branch_delay",
+      "business_rule_violation",
+      "duplicate_event"
+    ]
+  },
+  "mock_runtime_reference": {
+    "shared_mock_services": [
+      {
+        "service_id": "mock_erp",
+        "supports_system_types": [
+          "erp"
+        ],
+        "core_behaviors": [
+          "return business objects by reference number",
+          "simulate missing master data",
+          "simulate inconsistent line items"
+        ]
+      },
+      {
+        "service_id": "mock_database",
+        "supports_system_types": [
+          "database"
+        ],
+        "core_behaviors": [
+          "persist workflow state",
+          "return previously stored state",
+          "simulate stale or missing records"
+        ]
+      },
+      {
+        "service_id": "mock_email",
+        "supports_system_types": [
+          "email_system"
+        ],
+        "core_behaviors": [
+          "deliver inbound email",
+          "return attachments",
+          "simulate missing attachment or malformed message"
+        ]
+      },
+      {
+        "service_id": "mock_dms",
+        "supports_system_types": [
+          "dms"
+        ],
+        "core_behaviors": [
+          "store document",
+          "version document",
+          "apply document stamp",
+          "return archive location"
+        ]
+      },
+      {
+        "service_id": "mock_api",
+        "supports_system_types": [
+          "api_service"
+        ],
+        "core_behaviors": [
+          "return success response",
+          "return validation error",
+          "return timeout or server error"
+        ]
+      },
+      {
+        "service_id": "mock_queue",
+        "supports_system_types": [
+          "queue"
+        ],
+        "core_behaviors": [
+          "enqueue item",
+          "dequeue item",
+          "simulate delayed consumption"
+        ]
+      }
+    ],
+    "mock_configuration_dimensions": [
+      "availability",
+      "latency",
+      "payload_shape",
+      "business_rule_outcome",
+      "error_mode"
+    ]
+  },
+  "extension_rules": {
+    "per_process_extension": [
+      "add process-specific systems if shared system types are not enough",
+      "add process-specific business objects and required fields",
+      "add process-specific validation rules",
+      "add process-specific test cases and expected results"
+    ],
+    "modeling_guideline": "Keep shared system definitions stable and extend by referencing them from per-process contract documents."
+  },
+  "process_contract_reference_model": {
+    "expected_artifacts": [
+      "process_contract.md",
+      "process_system_graph.gv",
+      "optional test_case JSON files",
+      "process-specific io JSON"
+    ],
+    "reuse_pattern": "Each process contract should reference or align with this shared system landscape instead of redefining generic ERP, database, email, DMS, workflow, API, and queue concepts from scratch.",
+    "folder_pattern": "thesis/n8n/process_io/processes/<process_id>/",
+    "minimum_process_folder_contents": [
+      "<process_id>.md",
+      "<process_id>.gv",
+      "<process_id>.pdf",
+      "<process_id>_io.json"
+    ]
+  }
+}

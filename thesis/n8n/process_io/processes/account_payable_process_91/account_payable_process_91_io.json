@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_91",
+  "process_name": "Account Payable Process 91",
+  "description": "The following description is about the account payable process. It begins when you submit to the vendor accounting department. When the transfer to the vendor accounting department is complete, a Receiving Report must be created. After creating a receiving report, the process is split into 2 parallel branches : reporting errors to the relevant team member and doubling a three-way match. Once the problem has been reported to a member of the relevant team, you need to confirm that all documents have been amended. Once all pre-tasks have been completed, then you must check the dates to avoid penalties. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_91",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_91-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_91_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_91",
+        "completion_step": "then you must check the dates to avoid penalties",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "then_you_must_check_the_dates_to_avoid_penalties"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_91_then_you_must_check_the_dates_to_avoid_penalties.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

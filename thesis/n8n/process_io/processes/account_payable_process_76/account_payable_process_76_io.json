@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_76",
+  "process_name": "Account Payable Process 76",
+  "description": "The following text is about the account payable process, beginning with sending to the vendor accounting department. When the dispatch is completed to the vendor accounting department, you need to create a receiving report. After creating a Receiving Report, gathering must be done the Receiving Report. Once the receipt receipt is collected the process is divided into 2 parallel branches: entering the invoice into the Accounts payable and storing in the pay invoice file. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_76",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_76-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_76_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_76",
+        "completion_step": "receipt receipt is collected the process is divided into 2 parallel branches: entering the invoice into the Accounts payable and storing in the pay invoice file",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "receipt_receipt_is_collected_the_process_is_divided_into_2_parallel_branches_entering_the_invoice_into_the_accounts_payable_and_storing_in_the_pay_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_76_receipt_receipt_is_collected_the_process_is_divided_into_2_parallel_branches_entering_the_invoice_into_the_accounts_payable_and_storing_in_the_pay_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

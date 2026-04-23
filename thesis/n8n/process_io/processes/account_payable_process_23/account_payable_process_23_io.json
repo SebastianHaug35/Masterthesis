@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_23",
+  "process_name": "Account Payable Process 23",
+  "description": "The following text is about the account payable process and starts with filing a copy for internal records. Once a copy of the record is filed for internal records, you need to create a receiving report. When the creation of the Receiving report is completed, one or more of the following paths should be executed: confirming that all documents have been changed, doubling check a three-way match, gathering the Receiving Report After doubling a three-way match, a timely report of errors is to be made to the relevant team member. Then one or more of the following paths should be executed: creating vouchers for the documents, stamping all documents. The process is now complete.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_23",
+        "trigger_step": "filing a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_23-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_filing_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_23_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_23",
+        "completion_step": "stamping all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "stamping_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_23_stamping_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

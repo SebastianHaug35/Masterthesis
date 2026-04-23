@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_92",
+  "process_name": "Account Payable Process 92",
+  "description": "The following description is about the account payable process which starts when you enter the purchase order details. When the purchase order details are entered, a receipt report need to be created. After creating a capturing report you must verify that all documents have been amended. Once confirming that all documents have been changed was completed, the next tasks should be entering the invoice into the accounts payable account, checking dates to avoid penalties and creating the documents voucher, they should be done in parallel. When the entry of the invoice into the accounts payable account is completed, one or more of the following paths should be executed: stamping all documents, storing in the paid invoice file. After checking the dates to avoid penalty charges, the payment should be scheduled. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_92",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_92-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_92_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_92",
+        "completion_step": "payment should be scheduled",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "payment_should_be_scheduled"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_92_payment_should_be_scheduled.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

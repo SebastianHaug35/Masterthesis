@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_2",
+  "process_name": "Account Payable Process 2",
+  "description": "The following description is about the payable process. It starts with the submission to the vendor accounting department. When submitting to the vendor accounting department is completed, you must create a receiving report. When the creation of a receiving report is completed, the next steps should be to collect the vendor invoice and doubling a three-way match, they should be done in parallel. When a triple check is completed, the process is split into 2 parallel branches: gathering the receiving report and reporting errors to the relevant team member. Once all pre-tasks are executed, then the next tasks should be the checking of dates to avoid penalty charges, keeping in paid invoice file, and logging in the invoice into the account payable. These should be done in parallel. When the check dates is complete to avoid penalties, the next tasks should be creating voucher for the documents and stamping all documents. This should be done in parallel. When the voucher creation for the documents is completed, schedule payments should be done. The process is now concluded.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_2",
+        "trigger_step": "submission to the vendor accounting department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_2-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_submission_to_the_vendor_accounting_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_2_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable.workflow",
+    "receiver": "erp.payable.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_2",
+        "completion_step": "schedule payments should be done",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "schedule_payments_should_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_2_schedule_payments_should_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

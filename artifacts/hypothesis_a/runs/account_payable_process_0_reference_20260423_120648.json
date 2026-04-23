@@ -1,0 +1,38 @@
+{
+  "mode": "reference",
+  "process_id": "account_payable_process_0",
+  "results": [
+    {
+      "category": "happy_path",
+      "duration_ms": 2064,
+      "error": "Cannot reach http://127.0.0.1:8088/admin/reset: [WinError 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte",
+      "expected_output": {
+        "archive_location": "dms://archive/AP-2026-0001",
+        "case_id": "AP-2026-0001",
+        "stamp_status": "stamped",
+        "workflow_status": "completed"
+      },
+      "http_interactions": [],
+      "input_payload": {
+        "case_id": "AP-2026-0001",
+        "po_number": "PO-4500012458",
+        "receiving_report_id": "GR-2026-00441"
+      },
+      "mode": "reference",
+      "observed_output": {},
+      "scenario_name": "Complete purchase order, receiving report, vendor invoice, and document stamping",
+      "started_at": "2026-04-23T12:06:46",
+      "status": "error",
+      "test_case_id": "account_payable_process_0_happy_path",
+      "validation_failures": []
+    }
+  ],
+  "run_id": "20260423_120648",
+  "summary": {
+    "error": 1,
+    "failed": 0,
+    "passed": 0,
+    "total": 1
+  },
+  "test_case_file": "thesis\\n8n\\process_io\\processes\\account_payable_process_0\\account_payable_process_0_test_cases.json"
+}

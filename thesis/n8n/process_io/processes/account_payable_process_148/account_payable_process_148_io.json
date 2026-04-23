@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_148",
+  "process_name": "Account Payable Process 148",
+  "description": "The text below is about the account payable process and starts with receipt to the vendor accounting department. When a submittal is completed to the vendor accounting department, you need to create a receiving report. Once a receiving report appears, the gather the vendor's invoice needs to be done. Once the vendor bill comes to a conclusion, you need to create a voucher for the documents. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_148",
+        "trigger_step": "receipt to the vendor accounting department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_148-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_receipt_to_the_vendor_accounting_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_148_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_148",
+        "completion_step": "you need to create a voucher for the documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_need_to_create_a_voucher_for_the_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_148_you_need_to_create_a_voucher_for_the_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

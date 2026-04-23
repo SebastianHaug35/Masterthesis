@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_47",
+  "process_name": "Account Payable Process 47",
+  "description": "The following description is about the payable process. It starts with sending to the senior accountant in your department. After sending a received report to the senior accountant in your department, there needs to be done. Once a receiving report occurs, you must report errors to the relevant team member. When the report of errors to the relevant team member is completed, the storing in the paid invoice file should be done. The process is now complete.",
+  "input": {
+    "channel": "email",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_47",
+        "trigger_step": "sending to the senior accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_47-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_sending_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_47_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable.workflow",
+    "receiver": "erp.payable.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_47",
+        "completion_step": "storing in the paid invoice file should be done",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storing_in_the_paid_invoice_file_should_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_47_storing_in_the_paid_invoice_file_should_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

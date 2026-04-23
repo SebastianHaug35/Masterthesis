@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_89",
+  "process_name": "Account Payable Process 89",
+  "description": "The following description is about the invoice process, it begins when you send to the receiving department. Once the sending happens to the receiving department, it should be done to create a receiving report. Once a receiving report is created, the receiving report must be collected. After collecting the receiving report, the voucher for the documents must be created. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "invoice_request",
+      "fields": {
+        "process_id": "account_payable_process_89",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_89-CASE-001",
+        "business_domain": "invoice",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_89_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.invoice.workflow",
+    "receiver": "erp.invoice.local",
+    "what_is_being_sent": {
+      "business_object": "invoice_result",
+      "fields": {
+        "process_id": "account_payable_process_89",
+        "completion_step": "voucher for the documents must be created",
+        "business_domain": "invoice",
+        "workflow_status": "completed",
+        "result_artifact_key": "voucher_for_the_documents_must_be_created"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_89_voucher_for_the_documents_must_be_created.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

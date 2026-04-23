@@ -1,0 +1,1698 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_environment.js",
+      "_server.js",
+      "_internal.js",
+      "_shared-server.js"
+    ]
+  },
+  "_APIClient.js": {
+    "file": "chunks/APIClient.js",
+    "name": "APIClient",
+    "imports": [
+      "_server.js",
+      "_url.js",
+      "_root.js"
+    ]
+  },
+  "_IconCheap.js": {
+    "file": "chunks/IconCheap.js",
+    "name": "IconCheap",
+    "imports": [
+      "_root.js"
+    ]
+  },
+  "_IconOmni.js": {
+    "file": "chunks/IconOmni.js",
+    "name": "IconOmni",
+    "imports": [
+      "_root.js"
+    ]
+  },
+  "_IconPro.js": {
+    "file": "chunks/IconPro.js",
+    "name": "IconPro",
+    "imports": [
+      "_index.js",
+      "_root.js"
+    ]
+  },
+  "_MessageUpdate.js": {
+    "file": "chunks/MessageUpdate.js",
+    "name": "MessageUpdate"
+  },
+  "_Modal.js": {
+    "file": "chunks/Modal.js",
+    "name": "Modal",
+    "imports": [
+      "_root.js",
+      "_index-server.js",
+      "_close.js"
+    ]
+  },
+  "_PublicConfig.svelte.js": {
+    "file": "chunks/PublicConfig.svelte.js",
+    "name": "PublicConfig.svelte",
+    "imports": [
+      "_root.js",
+      "_index2.js",
+      "_server.js",
+      "_url.js"
+    ]
+  },
+  "_Settings.js": {
+    "file": "chunks/Settings.js",
+    "name": "Settings",
+    "imports": [
+      "_models.js"
+    ]
+  },
+  "_Switch.js": {
+    "file": "chunks/Switch.js",
+    "name": "Switch",
+    "imports": [
+      "_root.js"
+    ]
+  },
+  "_UrlDependency.js": {
+    "file": "chunks/UrlDependency.js",
+    "name": "UrlDependency"
+  },
+  "_abortRegistry.js": {
+    "file": "chunks/abortRegistry.js",
+    "name": "abortRegistry",
+    "imports": [
+      "_logger.js"
+    ]
+  },
+  "_addSibling.js": {
+    "file": "chunks/addSibling.js",
+    "name": "addSibling"
+  },
+  "_adminToken.js": {
+    "file": "chunks/adminToken.js",
+    "name": "adminToken",
+    "imports": [
+      "_config.js",
+      "_logger.js"
+    ]
+  },
+  "_apiToken.js": {
+    "file": "chunks/apiToken.js",
+    "name": "apiToken",
+    "imports": [
+      "_config.js"
+    ]
+  },
+  "_arrow-up-right.js": {
+    "file": "chunks/arrow-up-right.js",
+    "name": "arrow-up-right",
+    "imports": [
+      "_root.js",
+      "_html.js"
+    ]
+  },
+  "_auth.js": {
+    "file": "chunks/auth.js",
+    "name": "auth",
+    "imports": [
+      "_config.js",
+      "src/lib/server/database.ts",
+      "_logger.js",
+      "_adminToken.js",
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "_lock.js"
+    ]
+  },
+  "_buildSubtree.js": {
+    "file": "chunks/buildSubtree.js",
+    "name": "buildSubtree"
+  },
+  "_check.js": {
+    "file": "chunks/check.js",
+    "name": "check",
+    "imports": [
+      "_root.js",
+      "_index-server.js",
+      "_html.js"
+    ]
+  },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "name": "client",
+    "imports": [
+      "_url.js",
+      "_utils.js",
+      "_index.js",
+      "_root.js",
+      "_exports.js"
+    ]
+  },
+  "_close.js": {
+    "file": "chunks/close.js",
+    "name": "close",
+    "imports": [
+      "_root.js",
+      "_html.js"
+    ]
+  },
+  "_config.js": {
+    "file": "chunks/config.js",
+    "name": "config",
+    "imports": [
+      "_shared-server.js",
+      "_environment.js"
+    ],
+    "dynamicImports": [
+      "src/lib/server/database.ts"
+    ]
+  },
+  "_convertLegacyConversation.js": {
+    "file": "chunks/convertLegacyConversation.js",
+    "name": "convertLegacyConversation"
+  },
+  "_downloadFile.js": {
+    "file": "chunks/downloadFile.js",
+    "name": "downloadFile",
+    "imports": [
+      "src/lib/server/database.ts"
+    ]
+  },
+  "_environment.js": {
+    "file": "chunks/environment.js",
+    "name": "environment"
+  },
+  "_errors.js": {
+    "file": "chunks/errors.js",
+    "name": "errors",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_exitHandler.js": {
+    "file": "chunks/exitHandler.js",
+    "name": "exitHandler",
+    "imports": [
+      "_logger.js"
+    ]
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports"
+  },
+  "_false.js": {
+    "file": "chunks/false.js",
+    "name": "false"
+  },
+  "_hammer.js": {
+    "file": "chunks/hammer.js",
+    "name": "hammer",
+    "imports": [
+      "_root.js",
+      "_html.js"
+    ]
+  },
+  "_hf.js": {
+    "file": "chunks/hf.js",
+    "name": "hf"
+  },
+  "_html.js": {
+    "file": "chunks/html.js",
+    "name": "html"
+  },
+  "_image.js": {
+    "file": "chunks/image.js",
+    "name": "image",
+    "imports": [
+      "_root.js",
+      "_html.js"
+    ]
+  },
+  "_index-server.js": {
+    "file": "chunks/index-server.js",
+    "name": "index-server",
+    "imports": [
+      "_root.js"
+    ]
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "name": "index",
+    "imports": [
+      "_root.js"
+    ]
+  },
+  "_index2.js": {
+    "file": "chunks/index2.js",
+    "name": "index",
+    "imports": [
+      "_client.js",
+      "_root.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_root.js",
+      "_environment.js",
+      "_server.js",
+      "_shared-server.js"
+    ],
+    "dynamicImports": [
+      "src/hooks.server.ts",
+      "src/hooks.ts"
+    ]
+  },
+  "_loading.js": {
+    "file": "chunks/loading.js",
+    "name": "loading",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_lock.js": {
+    "file": "chunks/lock.js",
+    "name": "lock",
+    "imports": [
+      "src/lib/server/database.ts"
+    ]
+  },
+  "_logger.js": {
+    "file": "chunks/logger.js",
+    "name": "logger",
+    "imports": [
+      "_config.js"
+    ]
+  },
+  "_messageUpdates.js": {
+    "file": "chunks/messageUpdates.js",
+    "name": "messageUpdates",
+    "imports": [
+      "_MessageUpdate.js"
+    ]
+  },
+  "_metrics.js": {
+    "file": "chunks/metrics.js",
+    "name": "metrics",
+    "imports": [
+      "_logger.js",
+      "_config.js",
+      "_exitHandler.js"
+    ]
+  },
+  "_mime.js": {
+    "file": "chunks/mime.js",
+    "name": "mime"
+  },
+  "_models.AjQovhtO.css": {
+    "file": "_app/immutable/assets/models.AjQovhtO.css",
+    "src": "_models.AjQovhtO.css"
+  },
+  "_models.js": {
+    "file": "chunks/models.js",
+    "name": "models",
+    "isDynamicEntry": true,
+    "imports": [
+      "_environment.js",
+      "_config.js",
+      "_mime.js",
+      "_logger.js",
+      "_apiToken.js"
+    ]
+  },
+  "_models2.js": {
+    "file": "chunks/models2.js",
+    "name": "models",
+    "imports": [
+      "_root.js",
+      "_index-server.js",
+      "_IconOmni.js",
+      "_IconCheap.js",
+      "_html.js",
+      "_url.js",
+      "_utils.js",
+      "_exports.js",
+      "_client.js",
+      "_close.js",
+      "_Modal.js",
+      "_mime.js",
+      "_PublicConfig.svelte.js",
+      "_shareModal.js",
+      "_trash-can.js",
+      "_hammer.js",
+      "_Switch.js",
+      "_server.js",
+      "_index2.js",
+      "_check.js",
+      "_messageUpdates.js",
+      "_MessageUpdate.js",
+      "_settings2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/models.AjQovhtO.css"
+    ]
+  },
+  "_pagination.js": {
+    "file": "chunks/pagination.js",
+    "name": "pagination"
+  },
+  "_pendingMessage.js": {
+    "file": "chunks/pendingMessage.js",
+    "name": "pendingMessage",
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "_refresh-conversation-stats.js": {
+    "file": "chunks/refresh-conversation-stats.js",
+    "name": "refresh-conversation-stats",
+    "imports": [
+      "src/lib/server/database.ts",
+      "_logger.js",
+      "_lock.js",
+      "_config.js"
+    ]
+  },
+  "_registry.js": {
+    "file": "chunks/registry.js",
+    "name": "registry",
+    "imports": [
+      "_logger.js",
+      "src/lib/server/database.ts",
+      "_exitHandler.js",
+      "_config.js",
+      "_urlSafety.js"
+    ]
+  },
+  "_requireAuth.js": {
+    "file": "chunks/requireAuth.js",
+    "name": "requireAuth"
+  },
+  "_resolveConversation.js": {
+    "file": "chunks/resolveConversation.js",
+    "name": "resolveConversation",
+    "imports": [
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_convertLegacyConversation.js"
+    ]
+  },
+  "_resolveModel.js": {
+    "file": "chunks/resolveModel.js",
+    "name": "resolveModel",
+    "dynamicImports": [
+      "_models.js"
+    ]
+  },
+  "_root.js": {
+    "file": "chunks/root.js",
+    "name": "root",
+    "imports": [
+      "_false.js"
+    ]
+  },
+  "_server.js": {
+    "file": "chunks/server.js",
+    "name": "server"
+  },
+  "_settings2.js": {
+    "file": "chunks/settings2.js",
+    "name": "settings",
+    "imports": [
+      "_root.js",
+      "_index.js",
+      "_url.js",
+      "_utils.js",
+      "_exports.js",
+      "_client.js"
+    ]
+  },
+  "_shareModal.js": {
+    "file": "chunks/shareModal.js",
+    "name": "shareModal",
+    "imports": [
+      "_root.js",
+      "_PublicConfig.svelte.js",
+      "_index.js",
+      "_server.js",
+      "_url.js",
+      "_shared-server.js"
+    ]
+  },
+  "_shared-server.js": {
+    "file": "chunks/shared-server.js",
+    "name": "shared-server"
+  },
+  "_shared.js": {
+    "file": "chunks/shared.js",
+    "name": "shared",
+    "imports": [
+      "_utils.js"
+    ]
+  },
+  "_superjsonResponse.js": {
+    "file": "chunks/superjsonResponse.js",
+    "name": "superjsonResponse"
+  },
+  "_trash-can.js": {
+    "file": "chunks/trash-can.js",
+    "name": "trash-can",
+    "imports": [
+      "_root.js",
+      "_html.js"
+    ]
+  },
+  "_url.js": {
+    "file": "chunks/url.js",
+    "name": "url"
+  },
+  "_urlSafety.js": {
+    "file": "chunks/urlSafety.js",
+    "name": "urlSafety"
+  },
+  "_usageLimits.js": {
+    "file": "chunks/usageLimits.js",
+    "name": "usageLimits",
+    "imports": [
+      "_config.js"
+    ]
+  },
+  "_utils.js": {
+    "file": "chunks/utils.js",
+    "name": "utils"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js": {
+    "file": "remote-entry.js",
+    "name": "remote-entry",
+    "src": "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js",
+    "isEntry": true,
+    "imports": [
+      "_shared.js",
+      "_false.js",
+      "_server.js",
+      "_environment.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_false.js",
+      "_server.js",
+      "_shared.js",
+      "_url.js",
+      "_utils.js",
+      "_index.js",
+      "_shared-server.js",
+      "_exports.js",
+      "_internal.js"
+    ]
+  },
+  "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_AMS-Regular.DRggAlZN.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_AMS-Regular.DMm9YOAa.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_AMS-Regular.BQhdFMY1.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Bold.ATXxdsX0.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Bold.BEiXGLvX.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Bold.Dq_IR9rO.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Regular.wX97UBjC.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Regular.CTRA-rTL.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Caligraphic-Regular.Di6jR-x-.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Bold.BdnERNNW.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Bold.BsDP51OF.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Bold.CL6g_b3V.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Regular.CB_wures.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Regular.Dxdc4cR9.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Fraktur-Regular.CTYiF6lA.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Main-Bold.waoOVXN0.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff": {
+    "file": "_app/immutable/assets/KaTeX_Main-Bold.Jm3AIy58.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Main-Bold.Cx986IdX.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Main-BoldItalic.DzxPMmG6.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff": {
+    "file": "_app/immutable/assets/KaTeX_Main-BoldItalic.SpSLRI95.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Main-BoldItalic.DxDJ3AOS.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Main-Italic.3WenGoN9.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff": {
+    "file": "_app/immutable/assets/KaTeX_Main-Italic.BMLOBm91.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Main-Italic.NWA7e6Wa.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Main-Regular.ypZvNtVU.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Main-Regular.Dr94JaBh.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Main-Regular.B22Nviop.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Math-BoldItalic.B3XSjfu4.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff": {
+    "file": "_app/immutable/assets/KaTeX_Math-BoldItalic.iY-2wyZ7.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Math-BoldItalic.CZnvNsCZ.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Math-Italic.flOr_0UB.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff": {
+    "file": "_app/immutable/assets/KaTeX_Math-Italic.DA0__PXp.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Math-Italic.t53AETM-.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Bold.CFMepnvq.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Bold.DbIhKOiC.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Bold.D1sUS0GD.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Italic.YYjJ1zSn.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Italic.DN2j7dab.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Italic.C3H0VqGB.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Regular.BNo7hRIc.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Regular.CS6fqUqJ.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_SansSerif-Regular.DDBCnlJ7.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Script-Regular.C5JkGWo-.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Script-Regular.D5yQViql.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Script-Regular.D3wIWfF6.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Size1-Regular.Dbsnue_I.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Size1-Regular.C195tn64.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Size1-Regular.mCD8mA8B.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Size2-Regular.B7gKUWhC.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Size2-Regular.oD1tc_U0.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Size2-Regular.Dy4dx90m.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Size3-Regular.DgpXs0kz.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Size3-Regular.CTq5MqoE.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Size4-Regular.DWFBv043.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Size4-Regular.BF-4gkZK.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Size4-Regular.Dl5lxZxV.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf": {
+    "file": "_app/immutable/assets/KaTeX_Typewriter-Regular.D3Ib7_Hf.ttf",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff": {
+    "file": "_app/immutable/assets/KaTeX_Typewriter-Regular.C0xS9mPB.woff",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff"
+  },
+  "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2": {
+    "file": "_app/immutable/assets/KaTeX_Typewriter-Regular.CO6r4hn1.woff2",
+    "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"
+  },
+  "src/hooks.server.ts": {
+    "file": "entries/hooks.server.js",
+    "name": "entries/hooks.server",
+    "src": "src/hooks.server.ts",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_environment.js",
+      "_config.js",
+      "_logger.js",
+      "_exitHandler.js",
+      "src/lib/server/database.ts",
+      "_lock.js",
+      "_refresh-conversation-stats.js",
+      "_registry.js",
+      "_adminToken.js",
+      "_metrics.js",
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "_auth.js",
+      "_errors.js"
+    ]
+  },
+  "src/hooks.ts": {
+    "file": "entries/hooks.universal.js",
+    "name": "entries/hooks.universal",
+    "src": "src/hooks.ts",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_PublicConfig.svelte.js"
+    ]
+  },
+  "src/lib/server/database.ts": {
+    "file": "chunks/database.js",
+    "name": "database",
+    "src": "src/lib/server/database.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_logger.js",
+      "_environment.js",
+      "_exitHandler.js",
+      "_config.js"
+    ]
+  },
+  "src/lib/server/fonts/Inter-Bold.ttf": {
+    "file": "_app/immutable/assets/Inter-Bold.zdiomvYZ.ttf",
+    "src": "src/lib/server/fonts/Inter-Bold.ttf"
+  },
+  "src/lib/server/fonts/Inter-Regular.ttf": {
+    "file": "_app/immutable/assets/Inter-Regular.DYjygwQm.ttf",
+    "src": "src/lib/server/fonts/Inter-Regular.ttf"
+  },
+  "src/routes/+error.svelte": {
+    "file": "entries/pages/_error.svelte.js",
+    "name": "entries/pages/_error.svelte",
+    "src": "src/routes/+error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_index2.js"
+    ]
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_index-server.js",
+      "_client.js",
+      "_server.js",
+      "_url.js",
+      "_index2.js",
+      "_errors.js",
+      "_settings2.js",
+      "_loading.js",
+      "_shareModal.js",
+      "_trash-can.js",
+      "_html.js",
+      "_utils.js",
+      "_exports.js",
+      "_PublicConfig.svelte.js",
+      "_APIClient.js",
+      "_IconPro.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.hjIiY4wI.css"
+    ]
+  },
+  "src/routes/+layout.ts": {
+    "file": "entries/pages/_layout.ts.js",
+    "name": "entries/pages/_layout.ts",
+    "src": "src/routes/+layout.ts",
+    "isEntry": true,
+    "imports": [
+      "_UrlDependency.js",
+      "_APIClient.js",
+      "_PublicConfig.svelte.js"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "name": "entries/pages/_page.svelte",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_client.js",
+      "_server.js",
+      "_url.js",
+      "_index2.js",
+      "_PublicConfig.svelte.js",
+      "_models2.js",
+      "_errors.js",
+      "_pendingMessage.js",
+      "_settings2.js",
+      "_loading.js"
+    ]
+  },
+  "src/routes/.well-known/oauth-cimd/+server.ts": {
+    "file": "entries/endpoints/.well-known/oauth-cimd/_server.ts.js",
+    "name": "entries/endpoints/.well-known/oauth-cimd/_server.ts",
+    "src": "src/routes/.well-known/oauth-cimd/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "_auth.js",
+      "_config.js"
+    ]
+  },
+  "src/routes/__debug/openai/+server.ts": {
+    "file": "entries/endpoints/__debug/openai/_server.ts.js",
+    "name": "entries/endpoints/__debug/openai/_server.ts",
+    "src": "src/routes/__debug/openai/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js"
+    ]
+  },
+  "src/routes/admin/export/+server.ts": {
+    "file": "entries/endpoints/admin/export/_server.ts.js",
+    "name": "entries/endpoints/admin/export/_server.ts",
+    "src": "src/routes/admin/export/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js",
+      "src/lib/server/database.ts",
+      "_logger.js"
+    ]
+  },
+  "src/routes/admin/stats/compute/+server.ts": {
+    "file": "entries/endpoints/admin/stats/compute/_server.ts.js",
+    "name": "entries/endpoints/admin/stats/compute/_server.ts",
+    "src": "src/routes/admin/stats/compute/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_logger.js",
+      "_refresh-conversation-stats.js"
+    ]
+  },
+  "src/routes/api/conversation/[id]/+server.ts": {
+    "file": "entries/endpoints/api/conversation/_id_/_server.ts.js",
+    "name": "entries/endpoints/api/conversation/_id_/_server.ts",
+    "src": "src/routes/api/conversation/[id]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "src/lib/server/database.ts",
+      "_auth.js"
+    ]
+  },
+  "src/routes/api/conversation/[id]/message/[messageId]/+server.ts": {
+    "file": "entries/endpoints/api/conversation/_id_/message/_messageId_/_server.ts.js",
+    "name": "entries/endpoints/api/conversation/_id_/message/_messageId_/_server.ts",
+    "src": "src/routes/api/conversation/[id]/message/[messageId]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "src/lib/server/database.ts"
+    ]
+  },
+  "src/routes/api/conversations/+server.ts": {
+    "file": "entries/endpoints/api/conversations/_server.ts.js",
+    "name": "entries/endpoints/api/conversations/_server.ts",
+    "src": "src/routes/api/conversations/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_pagination.js"
+    ]
+  },
+  "src/routes/api/fetch-url/+server.ts": {
+    "file": "entries/endpoints/api/fetch-url/_server.ts.js",
+    "name": "entries/endpoints/api/fetch-url/_server.ts",
+    "src": "src/routes/api/fetch-url/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_logger.js",
+      "_urlSafety.js"
+    ]
+  },
+  "src/routes/api/mcp/health/+server.ts": {
+    "file": "entries/endpoints/api/mcp/health/_server.ts.js",
+    "name": "entries/endpoints/api/mcp/health/_server.ts",
+    "src": "src/routes/api/mcp/health/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js",
+      "_logger.js",
+      "_urlSafety.js",
+      "_hf.js"
+    ]
+  },
+  "src/routes/api/mcp/servers/+server.ts": {
+    "file": "entries/endpoints/api/mcp/servers/_server.ts.js",
+    "name": "entries/endpoints/api/mcp/servers/_server.ts",
+    "src": "src/routes/api/mcp/servers/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js"
+    ]
+  },
+  "src/routes/api/models/+server.ts": {
+    "file": "entries/endpoints/api/models/_server.ts.js",
+    "name": "entries/endpoints/api/models/_server.ts",
+    "src": "src/routes/api/models/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_models.js"
+    ]
+  },
+  "src/routes/api/transcribe/+server.ts": {
+    "file": "entries/endpoints/api/transcribe/_server.ts.js",
+    "name": "entries/endpoints/api/transcribe/_server.ts",
+    "src": "src/routes/api/transcribe/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js",
+      "_apiToken.js",
+      "_logger.js"
+    ]
+  },
+  "src/routes/api/user/+server.ts": {
+    "file": "entries/endpoints/api/user/_server.ts.js",
+    "name": "entries/endpoints/api/user/_server.ts",
+    "src": "src/routes/api/user/+server.ts",
+    "isEntry": true
+  },
+  "src/routes/api/user/validate-token/+server.ts": {
+    "file": "entries/endpoints/api/user/validate-token/_server.ts.js",
+    "name": "entries/endpoints/api/user/validate-token/_server.ts",
+    "src": "src/routes/api/user/validate-token/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_adminToken.js"
+    ]
+  },
+  "src/routes/api/v2/conversations/+server.ts": {
+    "file": "entries/endpoints/api/v2/conversations/_server.ts.js",
+    "name": "entries/endpoints/api/v2/conversations/_server.ts",
+    "src": "src/routes/api/v2/conversations/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_requireAuth.js",
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_pagination.js"
+    ]
+  },
+  "src/routes/api/v2/conversations/[id]/+server.ts": {
+    "file": "entries/endpoints/api/v2/conversations/_id_/_server.ts.js",
+    "name": "entries/endpoints/api/v2/conversations/_id_/_server.ts",
+    "src": "src/routes/api/v2/conversations/[id]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_requireAuth.js",
+      "_resolveConversation.js",
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_models.js"
+    ]
+  },
+  "src/routes/api/v2/conversations/[id]/message/[messageId]/+server.ts": {
+    "file": "entries/endpoints/api/v2/conversations/_id_/message/_messageId_/_server.ts.js",
+    "name": "entries/endpoints/api/v2/conversations/_id_/message/_messageId_/_server.ts",
+    "src": "src/routes/api/v2/conversations/[id]/message/[messageId]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_requireAuth.js",
+      "_resolveConversation.js",
+      "src/lib/server/database.ts",
+      "_auth.js"
+    ]
+  },
+  "src/routes/api/v2/conversations/import-share/+server.ts": {
+    "file": "entries/endpoints/api/v2/conversations/import-share/_server.ts.js",
+    "name": "entries/endpoints/api/v2/conversations/import-share/_server.ts",
+    "src": "src/routes/api/v2/conversations/import-share/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_requireAuth.js",
+      "src/lib/server/database.ts",
+      "_metrics.js",
+      "_auth.js"
+    ]
+  },
+  "src/routes/api/v2/debug/config/+server.ts": {
+    "file": "entries/endpoints/api/v2/debug/config/_server.ts.js",
+    "name": "entries/endpoints/api/v2/debug/config/_server.ts",
+    "src": "src/routes/api/v2/debug/config/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_config.js",
+      "_requireAuth.js"
+    ],
+    "dynamicImports": [
+      "_models.js"
+    ]
+  },
+  "src/routes/api/v2/debug/refresh/+server.ts": {
+    "file": "entries/endpoints/api/v2/debug/refresh/_server.ts.js",
+    "name": "entries/endpoints/api/v2/debug/refresh/_server.ts",
+    "src": "src/routes/api/v2/debug/refresh/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_config.js",
+      "_requireAuth.js"
+    ]
+  },
+  "src/routes/api/v2/export/+server.ts": {
+    "file": "entries/endpoints/api/v2/export/_server.ts.js",
+    "name": "entries/endpoints/api/v2/export/_server.ts",
+    "src": "src/routes/api/v2/export/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_config.js",
+      "_downloadFile.js",
+      "_logger.js"
+    ]
+  },
+  "src/routes/api/v2/feature-flags/+server.ts": {
+    "file": "entries/endpoints/api/v2/feature-flags/_server.ts.js",
+    "name": "entries/endpoints/api/v2/feature-flags/_server.ts",
+    "src": "src/routes/api/v2/feature-flags/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_auth.js",
+      "_config.js"
+    ]
+  },
+  "src/routes/api/v2/models/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/_server.ts",
+    "src": "src/routes/api/v2/models/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js"
+    ],
+    "dynamicImports": [
+      "_models.js"
+    ]
+  },
+  "src/routes/api/v2/models/[namespace]/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/_namespace_/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/_namespace_/_server.ts",
+    "src": "src/routes/api/v2/models/[namespace]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_resolveModel.js"
+    ]
+  },
+  "src/routes/api/v2/models/[namespace]/[model]/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/_namespace_/_model_/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/_namespace_/_model_/_server.ts",
+    "src": "src/routes/api/v2/models/[namespace]/[model]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_resolveModel.js"
+    ]
+  },
+  "src/routes/api/v2/models/[namespace]/[model]/subscribe/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/_namespace_/_model_/subscribe/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/_namespace_/_model_/subscribe/_server.ts",
+    "src": "src/routes/api/v2/models/[namespace]/[model]/subscribe/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_resolveModel.js",
+      "src/lib/server/database.ts",
+      "_auth.js"
+    ]
+  },
+  "src/routes/api/v2/models/[namespace]/subscribe/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/_namespace_/subscribe/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/_namespace_/subscribe/_server.ts",
+    "src": "src/routes/api/v2/models/[namespace]/subscribe/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_resolveModel.js",
+      "src/lib/server/database.ts",
+      "_auth.js"
+    ]
+  },
+  "src/routes/api/v2/models/old/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/old/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/old/_server.ts",
+    "src": "src/routes/api/v2/models/old/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js"
+    ]
+  },
+  "src/routes/api/v2/models/refresh/+server.ts": {
+    "file": "entries/endpoints/api/v2/models/refresh/_server.ts.js",
+    "name": "entries/endpoints/api/v2/models/refresh/_server.ts",
+    "src": "src/routes/api/v2/models/refresh/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_requireAuth.js",
+      "_models.js"
+    ]
+  },
+  "src/routes/api/v2/public-config/+server.ts": {
+    "file": "entries/endpoints/api/v2/public-config/_server.ts.js",
+    "name": "entries/endpoints/api/v2/public-config/_server.ts",
+    "src": "src/routes/api/v2/public-config/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_config.js"
+    ]
+  },
+  "src/routes/api/v2/user/+server.ts": {
+    "file": "entries/endpoints/api/v2/user/_server.ts.js",
+    "name": "entries/endpoints/api/v2/user/_server.ts",
+    "src": "src/routes/api/v2/user/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js"
+    ]
+  },
+  "src/routes/api/v2/user/billing-orgs/+server.ts": {
+    "file": "entries/endpoints/api/v2/user/billing-orgs/_server.ts.js",
+    "name": "entries/endpoints/api/v2/user/billing-orgs/_server.ts",
+    "src": "src/routes/api/v2/user/billing-orgs/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "_config.js",
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_logger.js"
+    ]
+  },
+  "src/routes/api/v2/user/reports/+server.ts": {
+    "file": "entries/endpoints/api/v2/user/reports/_server.ts.js",
+    "name": "entries/endpoints/api/v2/user/reports/_server.ts",
+    "src": "src/routes/api/v2/user/reports/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "src/lib/server/database.ts"
+    ]
+  },
+  "src/routes/api/v2/user/settings/+server.ts": {
+    "file": "entries/endpoints/api/v2/user/settings/_server.ts.js",
+    "name": "entries/endpoints/api/v2/user/settings/_server.ts",
+    "src": "src/routes/api/v2/user/settings/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_superjsonResponse.js",
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_requireAuth.js",
+      "_models.js",
+      "_Settings.js",
+      "_messageUpdates.js"
+    ]
+  },
+  "src/routes/conversation/+server.ts": {
+    "file": "entries/endpoints/conversation/_server.ts.js",
+    "name": "entries/endpoints/conversation/_server.ts",
+    "src": "src/routes/conversation/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "src/lib/server/database.ts",
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "_models.js",
+      "_auth.js",
+      "_usageLimits.js",
+      "_metrics.js"
+    ]
+  },
+  "src/routes/conversation/[id]/+page.svelte": {
+    "file": "entries/pages/conversation/_id_/_page.svelte.js",
+    "name": "entries/pages/conversation/_id_/_page.svelte",
+    "src": "src/routes/conversation/[id]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_models2.js",
+      "_index.js",
+      "_index2.js",
+      "_client.js",
+      "_server.js",
+      "_url.js",
+      "_errors.js",
+      "_MessageUpdate.js",
+      "_addSibling.js",
+      "_messageUpdates.js",
+      "_settings2.js",
+      "_shareModal.js",
+      "_Modal.js",
+      "_IconPro.js",
+      "_loading.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.BV-eFm5K.css"
+    ],
+    "assets": [
+      "_app/immutable/assets/KaTeX_AMS-Regular.BQhdFMY1.woff2",
+      "_app/immutable/assets/KaTeX_AMS-Regular.DMm9YOAa.woff",
+      "_app/immutable/assets/KaTeX_AMS-Regular.DRggAlZN.ttf",
+      "_app/immutable/assets/KaTeX_Caligraphic-Bold.Dq_IR9rO.woff2",
+      "_app/immutable/assets/KaTeX_Caligraphic-Bold.BEiXGLvX.woff",
+      "_app/immutable/assets/KaTeX_Caligraphic-Bold.ATXxdsX0.ttf",
+      "_app/immutable/assets/KaTeX_Caligraphic-Regular.Di6jR-x-.woff2",
+      "_app/immutable/assets/KaTeX_Caligraphic-Regular.CTRA-rTL.woff",
+      "_app/immutable/assets/KaTeX_Caligraphic-Regular.wX97UBjC.ttf",
+      "_app/immutable/assets/KaTeX_Fraktur-Bold.CL6g_b3V.woff2",
+      "_app/immutable/assets/KaTeX_Fraktur-Bold.BsDP51OF.woff",
+      "_app/immutable/assets/KaTeX_Fraktur-Bold.BdnERNNW.ttf",
+      "_app/immutable/assets/KaTeX_Fraktur-Regular.CTYiF6lA.woff2",
+      "_app/immutable/assets/KaTeX_Fraktur-Regular.Dxdc4cR9.woff",
+      "_app/immutable/assets/KaTeX_Fraktur-Regular.CB_wures.ttf",
+      "_app/immutable/assets/KaTeX_Main-Bold.Cx986IdX.woff2",
+      "_app/immutable/assets/KaTeX_Main-Bold.Jm3AIy58.woff",
+      "_app/immutable/assets/KaTeX_Main-Bold.waoOVXN0.ttf",
+      "_app/immutable/assets/KaTeX_Main-BoldItalic.DxDJ3AOS.woff2",
+      "_app/immutable/assets/KaTeX_Main-BoldItalic.SpSLRI95.woff",
+      "_app/immutable/assets/KaTeX_Main-BoldItalic.DzxPMmG6.ttf",
+      "_app/immutable/assets/KaTeX_Main-Italic.NWA7e6Wa.woff2",
+      "_app/immutable/assets/KaTeX_Main-Italic.BMLOBm91.woff",
+      "_app/immutable/assets/KaTeX_Main-Italic.3WenGoN9.ttf",
+      "_app/immutable/assets/KaTeX_Main-Regular.B22Nviop.woff2",
+      "_app/immutable/assets/KaTeX_Main-Regular.Dr94JaBh.woff",
+      "_app/immutable/assets/KaTeX_Main-Regular.ypZvNtVU.ttf",
+      "_app/immutable/assets/KaTeX_Math-BoldItalic.CZnvNsCZ.woff2",
+      "_app/immutable/assets/KaTeX_Math-BoldItalic.iY-2wyZ7.woff",
+      "_app/immutable/assets/KaTeX_Math-BoldItalic.B3XSjfu4.ttf",
+      "_app/immutable/assets/KaTeX_Math-Italic.t53AETM-.woff2",
+      "_app/immutable/assets/KaTeX_Math-Italic.DA0__PXp.woff",
+      "_app/immutable/assets/KaTeX_Math-Italic.flOr_0UB.ttf",
+      "_app/immutable/assets/KaTeX_SansSerif-Bold.D1sUS0GD.woff2",
+      "_app/immutable/assets/KaTeX_SansSerif-Bold.DbIhKOiC.woff",
+      "_app/immutable/assets/KaTeX_SansSerif-Bold.CFMepnvq.ttf",
+      "_app/immutable/assets/KaTeX_SansSerif-Italic.C3H0VqGB.woff2",
+      "_app/immutable/assets/KaTeX_SansSerif-Italic.DN2j7dab.woff",
+      "_app/immutable/assets/KaTeX_SansSerif-Italic.YYjJ1zSn.ttf",
+      "_app/immutable/assets/KaTeX_SansSerif-Regular.DDBCnlJ7.woff2",
+      "_app/immutable/assets/KaTeX_SansSerif-Regular.CS6fqUqJ.woff",
+      "_app/immutable/assets/KaTeX_SansSerif-Regular.BNo7hRIc.ttf",
+      "_app/immutable/assets/KaTeX_Script-Regular.D3wIWfF6.woff2",
+      "_app/immutable/assets/KaTeX_Script-Regular.D5yQViql.woff",
+      "_app/immutable/assets/KaTeX_Script-Regular.C5JkGWo-.ttf",
+      "_app/immutable/assets/KaTeX_Size1-Regular.mCD8mA8B.woff2",
+      "_app/immutable/assets/KaTeX_Size1-Regular.C195tn64.woff",
+      "_app/immutable/assets/KaTeX_Size1-Regular.Dbsnue_I.ttf",
+      "_app/immutable/assets/KaTeX_Size2-Regular.Dy4dx90m.woff2",
+      "_app/immutable/assets/KaTeX_Size2-Regular.oD1tc_U0.woff",
+      "_app/immutable/assets/KaTeX_Size2-Regular.B7gKUWhC.ttf",
+      "_app/immutable/assets/KaTeX_Size3-Regular.CTq5MqoE.woff",
+      "_app/immutable/assets/KaTeX_Size3-Regular.DgpXs0kz.ttf",
+      "_app/immutable/assets/KaTeX_Size4-Regular.Dl5lxZxV.woff2",
+      "_app/immutable/assets/KaTeX_Size4-Regular.BF-4gkZK.woff",
+      "_app/immutable/assets/KaTeX_Size4-Regular.DWFBv043.ttf",
+      "_app/immutable/assets/KaTeX_Typewriter-Regular.CO6r4hn1.woff2",
+      "_app/immutable/assets/KaTeX_Typewriter-Regular.C0xS9mPB.woff",
+      "_app/immutable/assets/KaTeX_Typewriter-Regular.D3Ib7_Hf.ttf"
+    ]
+  },
+  "src/routes/conversation/[id]/+page.ts": {
+    "file": "entries/pages/conversation/_id_/_page.ts.js",
+    "name": "entries/pages/conversation/_id_/_page.ts",
+    "src": "src/routes/conversation/[id]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_APIClient.js",
+      "_UrlDependency.js",
+      "_server.js",
+      "_url.js",
+      "_root.js"
+    ]
+  },
+  "src/routes/conversation/[id]/+server.ts": {
+    "file": "entries/endpoints/conversation/_id_/_server.ts.js",
+    "name": "entries/endpoints/conversation/_id_/_server.ts",
+    "src": "src/routes/conversation/[id]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "src/lib/server/database.ts",
+      "_config.js",
+      "_models.js",
+      "_errors.js",
+      "_MessageUpdate.js",
+      "_convertLegacyConversation.js",
+      "_buildSubtree.js",
+      "_addSibling.js",
+      "_usageLimits.js",
+      "_downloadFile.js",
+      "_logger.js",
+      "_registry.js",
+      "_urlSafety.js",
+      "_hf.js",
+      "_abortRegistry.js",
+      "_metrics.js"
+    ],
+    "dynamicImports": [
+      "_models.js"
+    ]
+  },
+  "src/routes/conversation/[id]/message/[messageId]/prompt/+server.ts": {
+    "file": "entries/endpoints/conversation/_id_/message/_messageId_/prompt/_server.ts.js",
+    "name": "entries/endpoints/conversation/_id_/message/_messageId_/prompt/_server.ts",
+    "src": "src/routes/conversation/[id]/message/[messageId]/prompt/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_models.js",
+      "_auth.js",
+      "src/lib/server/database.ts",
+      "_buildSubtree.js"
+    ]
+  },
+  "src/routes/conversation/[id]/output/[sha256]/+server.ts": {
+    "file": "entries/endpoints/conversation/_id_/output/_sha256_/_server.ts.js",
+    "name": "entries/endpoints/conversation/_id_/output/_sha256_/_server.ts",
+    "src": "src/routes/conversation/[id]/output/[sha256]/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "src/lib/server/database.ts",
+      "_downloadFile.js"
+    ]
+  },
+  "src/routes/conversation/[id]/share/+server.ts": {
+    "file": "entries/endpoints/conversation/_id_/share/_server.ts.js",
+    "name": "entries/endpoints/conversation/_id_/share/_server.ts",
+    "src": "src/routes/conversation/[id]/share/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "src/lib/server/database.ts"
+    ]
+  },
+  "src/routes/conversation/[id]/stop-generating/+server.ts": {
+    "file": "entries/endpoints/conversation/_id_/stop-generating/_server.ts.js",
+    "name": "entries/endpoints/conversation/_id_/stop-generating/_server.ts",
+    "src": "src/routes/conversation/[id]/stop-generating/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "src/lib/server/database.ts",
+      "_abortRegistry.js"
+    ]
+  },
+  "src/routes/healthcheck/+server.ts": {
+    "file": "entries/endpoints/healthcheck/_server.ts.js",
+    "name": "entries/endpoints/healthcheck/_server.ts",
+    "src": "src/routes/healthcheck/+server.ts",
+    "isEntry": true
+  },
+  "src/routes/login/+server.ts": {
+    "file": "entries/endpoints/login/_server.ts.js",
+    "name": "entries/endpoints/login/_server.ts",
+    "src": "src/routes/login/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js"
+    ]
+  },
+  "src/routes/login/callback/+server.ts": {
+    "file": "entries/endpoints/login/callback/_server.ts.js",
+    "name": "entries/endpoints/login/callback/_server.ts",
+    "src": "src/routes/login/callback/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_auth.js",
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "_config.js",
+      "src/lib/server/database.ts",
+      "_Settings.js",
+      "_logger.js"
+    ]
+  },
+  "src/routes/logout/+server.ts": {
+    "file": "entries/endpoints/logout/_server.ts.js",
+    "name": "entries/endpoints/logout/_server.ts",
+    "src": "src/routes/logout/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_server.js",
+      "_url.js",
+      "_root.js",
+      "src/lib/server/database.ts",
+      "_config.js"
+    ]
+  },
+  "src/routes/metrics/+server.ts": {
+    "file": "entries/endpoints/metrics/_server.ts.js",
+    "name": "entries/endpoints/metrics/_server.ts",
+    "src": "src/routes/metrics/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_config.js",
+      "_metrics.js"
+    ]
+  },
+  "src/routes/models/+page.svelte": {
+    "file": "entries/pages/models/_page.svelte.js",
+    "name": "entries/pages/models/_page.svelte",
+    "src": "src/routes/models/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_PublicConfig.svelte.js",
+      "_server.js",
+      "_url.js",
+      "_index2.js",
+      "_html.js",
+      "_hammer.js",
+      "_image.js",
+      "_IconCheap.js",
+      "_settings2.js",
+      "_utils.js",
+      "_exports.js",
+      "_client.js"
+    ]
+  },
+  "src/routes/models/[...model]/+page.svelte": {
+    "file": "entries/pages/models/_...model_/_page.svelte.js",
+    "name": "entries/pages/models/_...model_/_page.svelte",
+    "src": "src/routes/models/[...model]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_index2.js",
+      "_server.js",
+      "_url.js",
+      "_client.js",
+      "_PublicConfig.svelte.js",
+      "_models2.js",
+      "_settings2.js",
+      "_errors.js",
+      "_pendingMessage.js"
+    ]
+  },
+  "src/routes/models/[...model]/+page.ts": {
+    "file": "entries/pages/models/_...model_/_page.ts.js",
+    "name": "entries/pages/models/_...model_/_page.ts",
+    "src": "src/routes/models/[...model]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_server.js",
+      "_url.js",
+      "_root.js"
+    ]
+  },
+  "src/routes/models/[...model]/thumbnail.png/+server.ts": {
+    "file": "entries/endpoints/models/_...model_/thumbnail.png/_server.ts.js",
+    "name": "entries/endpoints/models/_...model_/thumbnail.png/_server.ts",
+    "src": "src/routes/models/[...model]/thumbnail.png/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_html.js",
+      "_server.js",
+      "_url.js",
+      "_models.js",
+      "_config.js"
+    ]
+  },
+  "src/routes/privacy/+page.svelte": {
+    "file": "entries/pages/privacy/_page.svelte.js",
+    "name": "entries/pages/privacy/_page.svelte",
+    "src": "src/routes/privacy/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_html.js"
+    ]
+  },
+  "src/routes/r/[id]/+page.ts": {
+    "file": "entries/pages/r/_id_/_page.ts.js",
+    "name": "entries/pages/r/_id_/_page.ts",
+    "src": "src/routes/r/[id]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_APIClient.js",
+      "_server.js",
+      "_url.js",
+      "_root.js"
+    ]
+  },
+  "src/routes/settings/(nav)/+layout.svelte": {
+    "file": "entries/pages/settings/(nav)/_layout.svelte.js",
+    "name": "entries/pages/settings/(nav)/_layout.svelte",
+    "src": "src/routes/settings/(nav)/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_server.js",
+      "_url.js",
+      "_utils.js",
+      "_exports.js",
+      "_client.js",
+      "_index2.js",
+      "_settings2.js",
+      "_IconOmni.js",
+      "_IconCheap.js",
+      "_close.js",
+      "_html.js",
+      "_image.js",
+      "_hammer.js",
+      "_PublicConfig.svelte.js"
+    ]
+  },
+  "src/routes/settings/(nav)/+layout.ts": {
+    "file": "entries/pages/settings/(nav)/_layout.ts.js",
+    "name": "entries/pages/settings/(nav)/_layout.ts",
+    "src": "src/routes/settings/(nav)/+layout.ts",
+    "isEntry": true
+  },
+  "src/routes/settings/(nav)/+page.svelte": {
+    "file": "entries/pages/settings/(nav)/_page.svelte.js",
+    "name": "entries/pages/settings/(nav)/_page.svelte",
+    "src": "src/routes/settings/(nav)/+page.svelte",
+    "isEntry": true
+  },
+  "src/routes/settings/(nav)/+server.ts": {
+    "file": "entries/endpoints/settings/(nav)/_server.ts.js",
+    "name": "entries/endpoints/settings/(nav)/_server.ts",
+    "src": "src/routes/settings/(nav)/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "src/lib/server/database.ts",
+      "_auth.js",
+      "_Settings.js",
+      "_messageUpdates.js"
+    ]
+  },
+  "src/routes/settings/(nav)/[...model]/+page.svelte": {
+    "file": "entries/pages/settings/(nav)/_...model_/_page.svelte.js",
+    "name": "entries/pages/settings/(nav)/_...model_/_page.svelte",
+    "src": "src/routes/settings/(nav)/[...model]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_index2.js",
+      "_server.js",
+      "_url.js",
+      "_IconOmni.js",
+      "_IconCheap.js",
+      "_settings2.js",
+      "_check.js",
+      "_arrow-up-right.js",
+      "_html.js",
+      "_utils.js",
+      "_exports.js",
+      "_client.js",
+      "_PublicConfig.svelte.js",
+      "_Switch.js"
+    ]
+  },
+  "src/routes/settings/(nav)/[...model]/+page.ts": {
+    "file": "entries/pages/settings/(nav)/_...model_/_page.ts.js",
+    "name": "entries/pages/settings/(nav)/_...model_/_page.ts",
+    "src": "src/routes/settings/(nav)/[...model]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_server.js",
+      "_url.js",
+      "_root.js"
+    ]
+  },
+  "src/routes/settings/(nav)/application/+page.svelte": {
+    "file": "entries/pages/settings/(nav)/application/_page.svelte.js",
+    "name": "entries/pages/settings/(nav)/application/_page.svelte",
+    "src": "src/routes/settings/(nav)/application/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_trash-can.js",
+      "_arrow-up-right.js",
+      "_html.js",
+      "_settings2.js",
+      "_Switch.js",
+      "_url.js",
+      "_utils.js",
+      "_server.js",
+      "_exports.js",
+      "_client.js",
+      "_index2.js",
+      "_PublicConfig.svelte.js",
+      "_APIClient.js"
+    ]
+  },
+  "src/routes/settings/+layout.svelte": {
+    "file": "entries/pages/settings/_layout.svelte.js",
+    "name": "entries/pages/settings/_layout.svelte",
+    "src": "src/routes/settings/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_url.js",
+      "_client.js",
+      "_settings2.js",
+      "_html.js",
+      "_Modal.js"
+    ]
+  }
+}

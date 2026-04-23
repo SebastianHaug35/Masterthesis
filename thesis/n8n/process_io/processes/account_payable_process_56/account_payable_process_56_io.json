@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_56",
+  "process_name": "Account Payable Process 56",
+  "description": "The text below is about the Account payable Process and begins with the entry of the Order Order Details. Once the purchase order is entered, a receipt report has to be created. When the creation of a receiving report is completed, one or more of the following paths should be executed: Double checking a three-way match, reporting errors to the relevant team member. After the reported errors to the relevant team member, the next tasks should be collecting the receiving report and confirming that all documents are amended, they should be done in parallel. After registering your dates you will need to check them to avoid penalty charges. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_56",
+        "trigger_step": "entry of the Order Order Details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_56-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_entry_of_the_order_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_56_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_56",
+        "completion_step": "registering your dates you will need to check them to avoid penalty charges",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "registering_your_dates_you_will_need_to_check_them_to_avoid_penalty_charges"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_56_registering_your_dates_you_will_need_to_check_them_to_avoid_penalty_charges.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

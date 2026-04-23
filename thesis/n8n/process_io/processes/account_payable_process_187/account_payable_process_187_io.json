@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_187",
+  "process_name": "Account Payable Process 187",
+  "description": "The following description is about the accounts payable process, which begins with submitting a copy for internal records. After filing a copy for internal records, create a receiving report should be done. When a receiving report is completed, one or more of the following paths should be executed: acquiring the vendor invoice, reporting errors to the relevant team member. After reporting errors to the relevant team member, doubling check a three-way match should be done. Afterwards, you need to enter the invoice into the payable account. The process is now complete.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_187",
+        "trigger_step": "submitting a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_187-CASE-001",
+        "business_domain": "accounts_payable",
+        "message_purpose": "trigger_submitting_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_187_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounts_payable.workflow",
+    "receiver": "erp.accounts_payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_187",
+        "completion_step": "you need to enter the invoice into the payable account",
+        "business_domain": "accounts_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_need_to_enter_the_invoice_into_the_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_187_you_need_to_enter_the_invoice_into_the_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

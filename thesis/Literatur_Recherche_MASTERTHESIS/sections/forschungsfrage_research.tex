@@ -1,0 +1,172 @@
+\section{Forschungsfrage Research}
+
+% =========================================================
+\subsection{Multi-agent Accountability / Traceability}
+Diese Clusterarbeit dient als Ausgangsbasis für: \emph{Observability, auditierbare Logs, Rollen-/Pipeline-Strukturen, Provenance}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=10mm]
+  \node[paperNode] (a2) {Dong et al. '24\\AgentOps: Observability\\(Tracing/Telemetry)};
+  \node[paperNode, below=of a2] (a1) {Barrak '25\\Traceability \& Accountability\\(Role-specialized Pipeline)};
+  \node[paperNode, below=of a1] (a3) {He et al. '24\\Multi-Agent SE Review\\(Patterns/Tasks/Risks)};
+
+  \draw[link] (a2) -- node[right, font=\scriptsize]{enables} (a1);
+  \draw[link] (a3) -- node[right, font=\scriptsize]{patterns inform design} (a1);
+
+  \node[clusterBox, fit=(a1)(a2)(a3),
+        label={[font=\small]above:A) Accountability / Traceability}] {};
+\end{tikzpicture}
+\caption{Paper-Map A: Accountability / Traceability.}
+\label{fig:paper-map-a}
+\end{figure}
+
+\begin{itemize}
+  \item \cite{barrak2025traceability_accountability_multiagent} -- Rollenbasierte Multi-Agent-Pipeline mit Traceability/Accountability (Zurechenbarkeit von Entscheidungen/Fehlern).
+  \item \cite{dong2024agentops_observability} -- AgentOps/Observability: Telemetrie/Tracing/Monitoring als Produktionsgrundlage für Debugging und Kontrolle.
+  \item \cite{he2024llm_multiagent_se_review} -- Review zu Multi-Agent-Systemen im Software Engineering (Aufgabenklassen, Muster, offene Probleme).
+\end{itemize}
+
+% =========================================================
+\subsection{Nicht-Determinismus \& Compliance / Auditability}
+Hier geht es um: \emph{replayable traces, deterministic decoding vs. system-level nondeterminism, output drift}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=12mm]
+  \node[paperNode] (b5) {Yuan et al. '25\\Nondeterminism in LLM Inference\\(numerical/system causes)};
+  \node[paperNode, below=of b5] (b4) {Khatchadourian \& Franco '25\\LLM Output Drift\\(cross-provider validation)};
+
+  \draw[link] (b5) -- node[right, font=\scriptsize]{nondeterminism can drive drift} (b4);
+
+  \node[clusterBox, fit=(b4)(b5),
+        label={[font=\small]above:B) Non-Determinism \& Compliance}] {};
+\end{tikzpicture}
+\caption{Paper-Map B: Nicht-Determinismus \& Compliance / Auditability.}
+\label{fig:paper-map-b}
+\end{figure}
+
+\begin{itemize}
+  \item \cite{khatchadourian2025llm_output_drift} -- Output-Drift in Workflows; relevant für Compliance, weil gleiche Inputs nicht stabil gleiche Outputs liefern.
+  \item \cite{yuan2025numerical_sources_nondeterminism} -- Ursachen von Nicht-Determinismus bei Inferenz (warum temp=0 nicht reicht) + Mitigation-Ideen.
+\end{itemize}
+
+% =========================================================
+\subsection{Kontextkosten \& Context Compression}
+Hier geht es um: \emph{Prompt/Context-Compression, Context-Folding, Summarization für long-horizon agents, Kosten/Qualität Trade-offs}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=9mm, column sep=10mm]
+  % Left column
+  \node[paperNodeSmall] (c6) {Li et al. '25\\Prompt Compression Survey\\(methods + eval)};
+  \node[paperNodeSmall, below=of c6] (c7) {Kang et al. '25\\ACON\\(context compression for agents)};
+  \node[paperNodeSmall, below=of c7] (c8) {Sun et al. '25\\Context-Folding\\(long-horizon scaling)};
+
+  % Right column
+  \node[paperNodeSmall, right=of c6] (c9) {Wu et al. '25\\ReSum\\(context summarization)};
+  \node[paperNodeSmall, below=of c9] (c10) {Choi et al. '25\\CompactPrompt\\(unified compression)};
+  \node[paperNodeSmall, below=of c10] (c11) {Shao et al. '25\\FoldAct\\(stable folding for agents)};
+
+  % Links (minimal, readable)
+  \draw[link] (c6) -- node[above, font=\scriptsize]{methods} (c7);
+  \draw[link] (c6) -- node[above, font=\scriptsize]{methods} (c9);
+  \draw[link] (c6) -- node[left, font=\scriptsize]{folding line} (c8);
+  \draw[link] (c8) -- node[below, font=\scriptsize]{folding $\rightarrow$ stability} (c11);
+  \draw[link] (c9) -- node[below, font=\scriptsize]{alt. to summaries} (c11);
+
+  \node[clusterBox, fit=(c6)(c7)(c8)(c9)(c10)(c11),
+        label={[font=\small]above:C) Context Cost / Compression}] {};
+\end{tikzpicture}
+\caption{Paper-Map C: Kontextkosten \& Context Compression.}
+\label{fig:paper-map-c}
+\end{figure}
+
+\begin{itemize}
+  \item \cite{li-etal-2025-prompt} -- Survey zu Prompt-/Kontextkompression (Methodenklassen, Evaluation, Trade-offs).
+  \item \cite{kang2025acon_context_compression} -- Kontextkompression für long-horizon Agents (Optimierung von Task-Erfolg unter Kostenlimits).
+  \item \cite{sun2025context_folding} -- Context-Folding: Subtask-Informationen verdichten, um lange Aufgaben stabil über Kontextlimits zu lösen.
+  \item \cite{wu2025resum_context_summarization} -- Summarization als laufender Zustand für lange Horizonte (Search/Web Agents).
+  \item \cite{choi2025compactprompt} -- Unified Pipeline zur Prompt-/Datenkompression (systematischer Kostenhebel).
+  \item \cite{shao2025foldact} -- Effiziente und stabile Folding-Strategien für long-horizon Agents (Alternative/Ergänzung zu Summaries).
+\end{itemize}
+
+% =========================================================
+\subsection{Memory Management: Memory Bloat, Forgetting, Benchmarks}
+Hier geht es um: \emph{Memory tiering, selective forgetting, memory benchmarks, long-term agent memory}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=8mm, column sep=8mm]
+  % Grid 3x3 (portrait-friendly)
+  \node[paperNodeSmall] (d12) {Packer et al. '23\\MemGPT\\(memory tiers/swap)};
+  \node[paperNodeSmall, right=of d12] (d13) {Park et al. '23\\Generative Agents\\(memory + reflection)};
+  \node[paperNodeSmall, right=of d13] (d14) {Yu et al. '25\\MemAgent\\(RL memory control)};
+
+  \node[paperNodeSmall, below=of d12] (d15) {Hu et al. '25\\MemoryAgentBench\\(evaluation)};
+  \node[paperNodeSmall, below=of d13] (d16) {Kang et al. '25\\Memory OS\\(taxonomy/components)};
+  \node[paperNodeSmall, below=of d14] (d17) {Zhang et al. '24\\Survey\\(memory mechanisms)};
+
+  \node[paperNodeSmall, below=of d15] (d18) {Xu et al. '25\\A-MEM\\(agentic memory)};
+  \node[paperNodeSmall, below=of d16] (d19) {Zhou et al. '25\\M2PA\\(multi-memory planning)};
+  \node[paperNodeSmall, below=of d17] (d20) {Honda \& Fujita '25\\ACT-R Forgetting\\(forgetting policy)};
+
+  % Links (minimal, key story)
+  \draw[link] (d17) -- node[above, font=\scriptsize]{taxonomy} (d16);
+  \draw[link] (d12) -- node[above, font=\scriptsize]{lineage} (d14);
+  \draw[link] (d15) -- node[above, font=\scriptsize]{eval} (d14);
+  \draw[link] (d20) -- node[above, font=\scriptsize]{forgetting} (d14);
+  \draw[link] (d13) -- node[above, font=\scriptsize]{paradigm} (d18);
+
+  \node[clusterBox, fit=(d12)(d13)(d14)(d15)(d16)(d17)(d18)(d19)(d20),
+        label={[font=\small]above:D) Memory Management}] {};
+\end{tikzpicture}
+\caption{Paper-Map D: Memory Management (Memory Bloat, Forgetting).}
+\label{fig:paper-map-d}
+\end{figure}
+
+\begin{itemize}
+  \item \cite{packer2023memgpt} -- Memory-Tiering/„OS“-Metapher: externer Speicher + Retrieval/Swapping statt alles im Kontext.
+  \item \cite{park2023generative_agents} -- Memory-Stream + Reflection als Paradigma für Langzeitverhalten.
+  \item \cite{yu2025memagent} -- RL-basierte Steuerung, was gespeichert/aktualisiert wird (direkt gegen Memory-Bloat).
+  \item \cite{hu2025memoryagentbench} -- Benchmark/Protokolle zur Evaluation von Memory-Fähigkeiten in Multi-Turn-Szenarien.
+  \item \cite{kang2025memoryos} -- Komponenten-/Taxonomie-Sicht („Memory OS“) zum Strukturieren eigener Designs.
+  \item \cite{zhang2024survey_memory_mechanism_agents} -- Survey zum Designraum von Memory-Mechanismen und typischen Failure Modes.
+  \item \cite{xu2025amem_agentic_memory} -- Memory als aktiver Prozess (selektieren/speichern/abrufen/bereinigen) statt Log.
+  \item \cite{yanfangzhou-etal-2025-m2pa} -- Multi-Memory-Planning mit kognitiv inspirierten Speicherformen.
+  \item \cite{honda2025humanlike_remembering_forgetting_actr} -- ACT-R-inspirierte Forgetting-Policies (Gegenmittel zu Bloat).
+\end{itemize}
+
+\section{Recherche-Plan (praktisch)}
+\subsection{Seed $\rightarrow$ Snowballing}
+\begin{enumerate}
+  \item Pro Cluster 3--5 Seed-Papers finalisieren (Survey/Benchmark bevorzugt).
+  \item Backward Snowballing: Referenzen der Seeds.
+  \item Forward Snowballing: ``Cited by'' + ``Related'' (Semantic Scholar).
+  \item Venue-Scan: arXiv, OpenReview, ACL Anthology, IEEE/ACM.
+\end{enumerate}
+
+\subsection{Inclusion-Kriterien}
+\begin{itemize}
+  \item Enthält klare Metriken (Success, cost, latency, error types).
+  \item Reproduzierbarkeit: Code/Benchmark/Setup beschrieben.
+  \item Ablations/Comparisons oder zumindest Baseline.
+\end{itemize}
+
+\subsection{Extraction-Tabelle (für jedes Paper)}
+\begin{center}
+\begin{tabular}{@{}p{3.2cm}p{11.4cm}@{}}
+\toprule
+\textbf{Feld} & \textbf{Inhalt} \\
+\midrule
+Problem & Was wird genau gelöst? In welchem Kontext? \\
+Setup & Daten, Tasks, Modelle, Tools, Constraints \\
+Metriken & Success, Cost, Latency, Risk/Compliance \\
+Methode & Kernidee, Architektur, Komponenten \\
+Baseline & Womit wurde verglichen? \\
+Ergebnis & Zahlen + wichtigste Failure Modes \\
+Grenzen & Wo bricht es? Annahmen? \\
+Reuse & Was kann ich direkt übernehmen? \\
+\bottomrule
+\end{tabular}
+\end{center}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_73",
+  "process_name": "Account Payable Process 73",
+  "description": "The following description is about the invoice process and commences when you send the senior accountant in your department. After sending to the senior accountant in your department, creating a receiving report needs to be done. After creating a receiving report, it needs to confirm that all documents have been modified. Once confirming all documents are amended, you should stamp all documents. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "invoice_request",
+      "fields": {
+        "process_id": "account_payable_process_73",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_73-CASE-001",
+        "business_domain": "invoice",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_73_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.invoice.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "invoice_result",
+      "fields": {
+        "process_id": "account_payable_process_73",
+        "completion_step": "you should stamp all documents",
+        "business_domain": "invoice",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_should_stamp_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_73_you_should_stamp_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

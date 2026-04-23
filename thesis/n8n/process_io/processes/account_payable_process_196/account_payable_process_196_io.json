@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_196",
+  "process_name": "Account Payable Process 196",
+  "description": "The following is about the account payable process. It begins when you send your invoice to the vendor accounting department. When the invoice sent to the vendor accounting department is completed, a receiving report needs to be created. Once a receipt report is created, capturing the receipt report should be done. After collecting the receiving report, the next task should be coordinating the payment and stamping all documents. These should be done in parallel. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_196",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_196-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_196_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_196",
+        "completion_step": "These should be done in parallel",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "these_should_be_done_in_parallel"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_196_these_should_be_done_in_parallel.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

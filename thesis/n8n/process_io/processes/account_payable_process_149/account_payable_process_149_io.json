@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_149",
+  "process_name": "Account Payable Process 149",
+  "description": "The following text is about the account payable process which starts with sending to the receiving department. When the sending to the receiving department is completed, a receiving report needs to be created. After generating a receive report, gather the receipt report. Once the receiving report gathering occurs, one or more of the following paths should be executed: the scheduling of payments, creation of a voucher for the documents. Once the payment is scheduled, stamping should be done of all documents. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_149",
+        "trigger_step": "sending to the receiving department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_149-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_sending_to_the_receiving_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_149_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_149",
+        "completion_step": "stamping should be done of all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "stamping_should_be_done_of_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_149_stamping_should_be_done_of_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

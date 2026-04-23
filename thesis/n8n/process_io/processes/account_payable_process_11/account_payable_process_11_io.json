@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_11",
+  "process_name": "Account Payable Process 11",
+  "description": "The text below is about the account payable process that starts with a send to the vendor accounting department. After sending to the vendor accounting department, a receiving report should be created. After creating a receiving report, the report to the relevant team member should be done. When reporting of errors is completed to the relevant team member, the process is split into 2 parallel branches : storing in paid invoice file and scheduling the payment. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_11",
+        "trigger_step": "send to the vendor accounting department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_11-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_send_to_the_vendor_accounting_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_11_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_11",
+        "completion_step": "process is split into 2 parallel branches : storing in paid invoice file and scheduling the payment",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "process_is_split_into_2_parallel_branches_storing_in_paid_invoice_file_and_scheduling_the_payment"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_11_process_is_split_into_2_parallel_branches_storing_in_paid_invoice_file_and_scheduling_the_payment.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

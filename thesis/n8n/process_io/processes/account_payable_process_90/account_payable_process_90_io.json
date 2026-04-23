@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_90",
+  "process_name": "Account Payable Process 90",
+  "description": "The text below is about the account payable process which starts with the entering of the order details. After entering the purchase order information, a receiving report needs to be created. Once a receiving report appears, the collect of the vendor invoice should be done. Once collecting the invoice of the vendors occurs, one or more of the following paths should be executed : creating vouchers for the documents, checking date to avoid penalty charges, storing in paid invoice file. The process is now complete.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_90",
+        "trigger_step": "entering of the order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_90-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_entering_of_the_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_90_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_90",
+        "completion_step": "storing in paid invoice file",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storing_in_paid_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_90_storing_in_paid_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

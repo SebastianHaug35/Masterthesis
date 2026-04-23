@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_69",
+  "process_name": "Account Payable Process 69",
+  "description": "The text below is about the Accountable process and starts with the filing of a copy for internal documents. Once a copy of the internal documents is reconstituted, a receiving report should be produced. Once a Receiving Report is generated, confirming all documents have been amended must be done. Once confirming all documents have been amended, payment scheduling has to be done. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accountable_request",
+      "fields": {
+        "process_id": "account_payable_process_69",
+        "trigger_step": "filing of a copy for internal documents",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_69-CASE-001",
+        "business_domain": "accountable",
+        "message_purpose": "trigger_filing_of_a_copy_for_internal_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_69_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accountable.workflow",
+    "receiver": "erp.accountable.local",
+    "what_is_being_sent": {
+      "business_object": "accountable_result",
+      "fields": {
+        "process_id": "account_payable_process_69",
+        "completion_step": "payment scheduling has to be done",
+        "business_domain": "accountable",
+        "workflow_status": "completed",
+        "result_artifact_key": "payment_scheduling_has_to_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_69_payment_scheduling_has_to_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

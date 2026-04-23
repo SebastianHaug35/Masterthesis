@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_85",
+  "process_name": "Account Payable Process 85",
+  "description": "The following text is about the account payable process, starting with the sending to the vendor accounting department. Once a payment occurs to the vendor accounting department, a receiving report needs to be created. After creating a receipt report, you need to gather the receiving report. After gathering the receiving report, there is to be created a voucher for the documents. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_85",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_85-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_85_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_85",
+        "completion_step": "there is to be created a voucher for the documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "there_is_to_be_created_a_voucher_for_the_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_85_there_is_to_be_created_a_voucher_for_the_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

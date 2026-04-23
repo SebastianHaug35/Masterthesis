@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_29",
+  "process_name": "Account Payable Process 29",
+  "description": "The following text is about the payable process. It starts with the sending to the senior accountant in your department. When the sending is completed to the senior accountant in your department, a receiving report should be created. Once a receiving report is created, the process is split into 2 parallel branches: verifying all documents have been amended and gathering the invoice for the vendors. When collecting vendor invoices should be reported to the relevant team member. Once all pre-tasks have been executed, the payment should be made. The process has now been completed.",
+  "input": {
+    "channel": "email",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_29",
+        "trigger_step": "sending to the senior accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_29-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_sending_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_29_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_29",
+        "completion_step": "process has now been completed",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "process_has_now_been_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_29_process_has_now_been_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_41",
+  "process_name": "Account Payable Process 41",
+  "description": "The following description is about the accounts payable process which begins with the submission to the senior accountant in your department. A receiving report should be created after the sending to the senior accountant in your department. When a receiving report creation is completed, one or more of the following paths should be executed: doubling a three-way match, reporting errors to the relevant team member. After that the process is divided into two parallel branches : Creating voucher for the documents and storing in the paid invoice file. After the payment is logged into paid invoice file, the payment has to be scheduled. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_41",
+        "trigger_step": "submission to the senior accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_41-CASE-001",
+        "business_domain": "accounts_payable",
+        "message_purpose": "trigger_submission_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_41_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounts_payable.workflow",
+    "receiver": "erp.accounts_payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_41",
+        "completion_step": "payment has to be scheduled",
+        "business_domain": "accounts_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "payment_has_to_be_scheduled"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_41_payment_has_to_be_scheduled.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

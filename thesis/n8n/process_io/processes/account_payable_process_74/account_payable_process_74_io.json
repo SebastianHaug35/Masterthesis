@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_74",
+  "process_name": "Account Payable Process 74",
+  "description": "The following text is about the account payable process : it begins with file a copy for internal documents. Once a copy of internal records is made, you need to create a receipt report. When creating a receiving report is completed, one or more of the following paths should be executed: collecting the receiving report, confirming all documents have been amended, obtaining the vendor invoice. Once all documents have been updated, it needs to be reported to the relevant team member for errors. Then one or more of the following paths should be executed : the payment schedule, checking the deadlines to avoid penalty charges. Now the process is completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_74",
+        "trigger_step": "file a copy for internal documents",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_74-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_file_a_copy_for_internal_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_74_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_74",
+        "completion_step": "Now the process is completed",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "now_the_process_is_completed"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_74_now_the_process_is_completed.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

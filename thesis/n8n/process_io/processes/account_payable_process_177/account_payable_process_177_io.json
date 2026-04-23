@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_177",
+  "process_name": "Account Payable Process 177",
+  "description": "The following description is about the process of the account payable, which starts with sending to the receiving department. After sending to the receiving department, a receiving report must be created. After creating a receiving report, the vendors invoice should be done. After gathering vendor invoice, one or more of the following paths should be executed: scheduling the payment, storing in the prepaid invoice file. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_177",
+        "trigger_step": "sending to the receiving department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_177-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_sending_to_the_receiving_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_177_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_177",
+        "completion_step": "storing in the prepaid invoice file",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storing_in_the_prepaid_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_177_storing_in_the_prepaid_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

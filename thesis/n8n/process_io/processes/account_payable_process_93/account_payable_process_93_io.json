@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_93",
+  "process_name": "Account Payable Process 93",
+  "description": "The following text is about the account payable process, which begins when you send to the senior accountant in your department. When a payment is completed to the senior accountant in your department, a receipt report should be created. Once a receiving report has been generated the process is split into 2 parallel branches : collection of the receiving report and double-check a three-way match. Once all pre-tasks are executed, then the next tasks should be stamping all documents, scheduling the payment and creating vouchers for the documents, they should be done in parallel. Once the payment takes place, the invoice should be entered into the accounts payable account. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_93",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_93-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_93_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_93",
+        "completion_step": "invoice should be entered into the accounts payable account",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "invoice_should_be_entered_into_the_accounts_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_93_invoice_should_be_entered_into_the_accounts_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

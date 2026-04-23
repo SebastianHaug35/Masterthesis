@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_146",
+  "process_name": "Account Payable Process 146",
+  "description": "The following description is about the account payable process and begins when you send money to the vendor Accounting department. After sending to the vendor accounting department, a receiving report needs to be created. After creating a receiving report, the receiving report should be collected. Once the receipt report has been collected, dates are checked to avoid penalty charges. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_146",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_146-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_146_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_146",
+        "completion_step": "dates are checked to avoid penalty charges",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "dates_are_checked_to_avoid_penalty_charges"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_146_dates_are_checked_to_avoid_penalty_charges.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

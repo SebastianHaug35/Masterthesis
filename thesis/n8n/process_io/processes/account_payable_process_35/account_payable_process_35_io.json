@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_35",
+  "process_name": "Account Payable Process 35",
+  "description": "The following is about the account payable process, which starts when you send them to the vendor accounting department. When a send is completed to the vendor accounting department, you need to create a receiving report. When creating a receiving report is completed, the process is divided into 3 parallel branches: confirmation all documents have been amended, gathering the receiving report and doubling check a three-way match. Once all pre-tasks have been executed, stamping must be done on all documents. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_35",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_35-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_35_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_35",
+        "completion_step": "stamping must be done on all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "stamping_must_be_done_on_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_35_stamping_must_be_done_on_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

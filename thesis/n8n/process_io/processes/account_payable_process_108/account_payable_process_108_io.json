@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_108",
+  "process_name": "Account Payable Process 108",
+  "description": "The following description is about the account payable process, which begins with the entry of the order details. Once purchasing order details are entered, creating a receipt report should be done. Once a receipt report is created, the proof that all documents have been amended should be done. When the confirmation of all documents have been amended is completed the process is split into two parallel branches: entering the invoice into the account payable and stamping all documents. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_108",
+        "trigger_step": "entry of the order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_108-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_entry_of_the_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_108_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_108",
+        "completion_step": "confirmation of all documents have been amended is completed the process is split into two parallel branches: entering the invoice into the account payable and stamping all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "confirmation_of_all_documents_have_been_amended_is_completed_the_process_is_split_into_two_parallel_branches_entering_the_invoice_into_the_account_payable_and_stamping_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_108_confirmation_of_all_documents_have_been_amended_is_completed_the_process_is_split_into_two_parallel_branches_entering_the_invoice_into_the_account_payable_and_stamping_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

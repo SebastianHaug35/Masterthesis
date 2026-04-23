@@ -1,0 +1,37 @@
+{
+  "process_id": "account_payable_process_0",
+  "test_cases": [
+    {
+      "test_case_id": "account_payable_process_0_happy_path",
+      "scenario_name": "Complete purchase order, receiving report, vendor invoice, and document stamping",
+      "category": "happy_path",
+      "input_payload": {
+        "case_id": "AP-2026-0001",
+        "po_number": "PO-4500012458",
+        "receiving_report_id": "GR-2026-00441"
+      },
+      "mock_system_base_url": "http://127.0.0.1:8088",
+      "expected_system_calls": [
+        "GET /erp/purchase-orders/by-po/PO-4500012458",
+        "GET /receiving/reports/GR-2026-00441",
+        "GET /email/invoice/by-po/PO-4500012458",
+        "GET /dms/completeness/case/AP-2026-0001",
+        "POST /dms/stamp",
+        "POST /dms/archive"
+      ],
+      "expected_output": {
+        "case_id": "AP-2026-0001",
+        "workflow_status": "completed",
+        "stamp_status": "stamped",
+        "archive_location": "dms://archive/AP-2026-0001"
+      },
+      "validation_checks": [
+        "purchase_order_exists",
+        "vendor_id_matches_between_po_and_invoice",
+        "po_number_matches_across_po_receipt_and_invoice",
+        "document_package_complete_before_stamping",
+        "archive_location_created"
+      ]
+    }
+  ]
+}

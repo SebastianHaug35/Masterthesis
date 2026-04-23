@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_150",
+  "process_name": "Account Payable Process 150",
+  "description": "The following description is about the accounting process, which begins with the information to the vendor accounting department. After sending the POS to the vendor accounting department, a receiving report should be generated. After generating a receiving report, it should be done to verify that all documents have been altered. Once confirmation of all documents has occurred, you must enter the invoice into the accounts payable account. The process is now finished.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "accounting_request",
+      "fields": {
+        "process_id": "account_payable_process_150",
+        "trigger_step": "information to the vendor accounting department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_150-CASE-001",
+        "business_domain": "accounting",
+        "message_purpose": "trigger_information_to_the_vendor_accounting_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_150_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounting.workflow",
+    "receiver": "erp.accounting.local",
+    "what_is_being_sent": {
+      "business_object": "accounting_result",
+      "fields": {
+        "process_id": "account_payable_process_150",
+        "completion_step": "enter the invoice into the accounts payable account",
+        "business_domain": "accounting",
+        "workflow_status": "completed",
+        "result_artifact_key": "enter_the_invoice_into_the_accounts_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_150_enter_the_invoice_into_the_accounts_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

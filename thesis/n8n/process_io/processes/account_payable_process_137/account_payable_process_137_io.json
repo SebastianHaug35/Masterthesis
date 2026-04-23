@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_137",
+  "process_name": "Account Payable Process 137",
+  "description": "The text below is about the payment process which starts with sending to the vendor account department. When sending to the vendor accounts department is completed, the creating of a receiving report needs to be done. Once a Receiving Report occurs, the Double check should create a three-way match. After double check a three-way match, you need to keep payed invoice file in the system. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "payment_request",
+      "fields": {
+        "process_id": "account_payable_process_137",
+        "trigger_step": "sending to the vendor account department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_137-CASE-001",
+        "business_domain": "payment",
+        "message_purpose": "trigger_sending_to_the_vendor_account_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_137_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payment.workflow",
+    "receiver": "erp.payment.local",
+    "what_is_being_sent": {
+      "business_object": "payment_result",
+      "fields": {
+        "process_id": "account_payable_process_137",
+        "completion_step": "you need to keep payed invoice file in the system",
+        "business_domain": "payment",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_need_to_keep_payed_invoice_file_in_the_system"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_137_you_need_to_keep_payed_invoice_file_in_the_system.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_118",
+  "process_name": "Account Payable Process 118",
+  "description": "The following description is about the account payable process and begins with entering the order details. After entering purchase order details, you need to create a receipt report. Once a receiving report is created, the receiving report needs to be made. After gathering the receiving report one or more of the following paths should be executed: transferring the invoice into the accounts payable account, checking dated charges to avoid penalty charges, and storing in the paid invoice file. The process is now finished.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_118",
+        "trigger_step": "entering the order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_118-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_entering_the_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_118_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_118",
+        "completion_step": "and storing in the paid invoice file",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "and_storing_in_the_paid_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_118_and_storing_in_the_paid_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

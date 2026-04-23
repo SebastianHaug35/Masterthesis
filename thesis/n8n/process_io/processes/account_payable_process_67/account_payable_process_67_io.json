@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_67",
+  "process_name": "Account Payable Process 67",
+  "description": "The following description is about the accounts payable process - it begins with filing a copy for internal records. After filing a copy for internal records, a receiving report should be created. When creating a receiving report is completed, you need to confirm that all documents have been modified. Once the amended documents have confirmed, the process is split into 2 parallel branches: Creating a voucher for the documents and checking date to avoid penalty charges. The process is now finished.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_67",
+        "trigger_step": "filing a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_67-CASE-001",
+        "business_domain": "accounts_payable",
+        "message_purpose": "trigger_filing_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_67_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounts_payable.workflow",
+    "receiver": "erp.accounts_payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_67",
+        "completion_step": "process is split into 2 parallel branches: Creating a voucher for the documents and checking date to avoid penalty charges",
+        "business_domain": "accounts_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "process_is_split_into_2_parallel_branches_creating_a_voucher_for_the_documents_and_checking_date_to_avoid_penalty_charges"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_67_process_is_split_into_2_parallel_branches_creating_a_voucher_for_the_documents_and_checking_date_to_avoid_penalty_charges.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

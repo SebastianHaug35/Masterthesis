@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_170",
+  "process_name": "Account Payable Process 170",
+  "description": "The following description is about the account payable process, which starts when you file a copy for internal documents. Once a copy of a document appears for internal records, it should be done creating a receiving report. Once a receiving report is created, one or more of the following paths should be executed: doubling a three-way match, confirming all documents are amended and gathering the receiving report. After confirmation that all documents have been amended, one or more of the following paths should be executed: reporting the errors to the relevant team member, gathering the vendor invoice. The next tasks should then be checking dates to avoid penalty charges and scheduling the payment - they should be done in parallel. When the checking of dates is completed to avoid penalty charges, one or more of the following paths should be executed: depositing in the invoice file, entering the invoice into the accounts payable account. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_170",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_170-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_170_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_170",
+        "completion_step": "entering the invoice into the accounts payable account",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "entering_the_invoice_into_the_accounts_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_170_entering_the_invoice_into_the_accounts_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

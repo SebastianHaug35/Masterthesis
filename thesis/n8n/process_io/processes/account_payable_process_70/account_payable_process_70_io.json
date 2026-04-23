@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_70",
+  "process_name": "Account Payable Process 70",
+  "description": "The following description is about the account payable process which begins when you send to the receiving department. When the sending to the receiving department is completed, then a receiving report should be created. Once the creating of a receiving report occurs, the next tasks should be to gather the receiving report and confirming that all documents have been modified. They should be done in parallel. When the receiving report is collected, reports should be made to the relevant team member. Once all pre-tasks are executed, one or more of the following paths should be executed: creating a voucher for the documents, storing in the invoice file The process is now done.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_70",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_70-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_70_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "email",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "process.owner@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_70",
+        "completion_step": "reports should be made to the relevant team member",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "reports_should_be_made_to_the_relevant_team_member"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_70_reports_should_be_made_to_the_relevant_team_member.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

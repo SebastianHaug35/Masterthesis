@@ -1,0 +1,43 @@
+Create an n8n workflow JSON for the following use case.
+
+Context:
+A fire department organization handles customer complaints ("Reklamationen") across multiple departments.
+
+Use Case Summary:
+- Incoming customer complaint (via email or portal)
+- Occurs about once per week
+- Affects the entire organization
+- Current process is manual, slow, and knowledge-dependent
+
+Current Problems:
+- No effective cloud-based research system
+- Knowledge holders not always available
+- Poor communication and capacity planning
+
+Target Process with Automation:
+- Automatically check whether the complaint is a repeat complaint
+- Decide whether a kick-off meeting is required
+- Prepare already researched data for the meeting invitation
+- Generate a draft email to the customer (do NOT send)
+- If forwarded to a supplier, generate a draft email with known facts
+- Human remains responsible for customer communication and decisions
+
+Data Sources (conceptual):
+- Internal database
+- File storage
+- Email system
+
+Workflow Logic (high level):
+Trigger → Research → Decision(s) → Draft generation → Complaint closure preparation
+
+Model this as a conceptual n8n workflow using:
+- Manual Trigger
+- Set nodes for data preparation and text generation
+- IF nodes for decisions
+- HTTP Request nodes for research/lookups (use placeholder URLs)
+
+The workflow should clearly reflect:
+- Repeat complaint check
+- Kick-off decision
+- Customer email draft
+- Supplier email draft (conditional)

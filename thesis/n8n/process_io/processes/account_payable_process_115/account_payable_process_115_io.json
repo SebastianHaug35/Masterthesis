@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_115",
+  "process_name": "Account Payable Process 115",
+  "description": "The following description is about the cashier - process which begins when you send to the receiving department. Once the sending of an email to the receiving department is completed, a receiving report should be created. When a receiving report is completed, the gathering of the receiving report must be done. After gathering the Receiving Report, the next tasks should be storing in a paid invoice file and stamping all documents. They should be done in parallel Once a payment is captured in the paid invoice file, the next tasks should be entering the invoice into the accounts payable and the payment - scheduling, they should be done in parallel. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "cashier_request",
+      "fields": {
+        "process_id": "account_payable_process_115",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_115-CASE-001",
+        "business_domain": "cashier",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_115_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.cashier.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "cashier_result",
+      "fields": {
+        "process_id": "account_payable_process_115",
+        "completion_step": "they should be done in parallel",
+        "business_domain": "cashier",
+        "workflow_status": "completed",
+        "result_artifact_key": "they_should_be_done_in_parallel"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_115_they_should_be_done_in_parallel.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

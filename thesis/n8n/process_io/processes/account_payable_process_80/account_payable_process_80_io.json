@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_80",
+  "process_name": "Account Payable Process 80",
+  "description": "The following text is about the credit card processing process - starting with filing a copy for internal records. When filing a copy for internal records is completed, a receiving report should be done. Once a receiving report is created, the process is divided into 2 parallel branches : confirm that all documents have been amended, and collect the vendor invoice. When the gathering of the vendors invoice is completed, you need to gather the receiving report. When all pre-tasks are executed, then the process is divided into 2 parallel branches: checking dates to avoid penalty charges and putting the invoice into the account payable. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "credit_card_processing_request",
+      "fields": {
+        "process_id": "account_payable_process_80",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_80-CASE-001",
+        "business_domain": "credit_card_processing",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_80_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.credit_card_processing.workflow",
+    "receiver": "erp.credit_card_processing.local",
+    "what_is_being_sent": {
+      "business_object": "credit_card_processing_result",
+      "fields": {
+        "process_id": "account_payable_process_80",
+        "completion_step": "then the process is divided into 2 parallel branches: checking dates to avoid penalty charges and putting the invoice into the account payable",
+        "business_domain": "credit_card_processing",
+        "workflow_status": "completed",
+        "result_artifact_key": "then_the_process_is_divided_into_2_parallel_branches_checking_dates_to_avoid_penalty_charges_and_putting_the_invoice_into_the_account_payable"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_80_then_the_process_is_divided_into_2_parallel_branches_checking_dates_to_avoid_penalty_charges_and_putting_the_invoice_into_the_account_payable.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

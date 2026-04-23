@@ -1,0 +1,76 @@
+digraph account_payable_process_0_system_graph {
+    graph [rankdir=LR fontsize=12 labelloc=t label="Account Payable Process 0 with System Integration"]
+    node [shape=box style="rounded,filled" fillcolor=white color="#3d4a57" fontname="Arial"]
+    edge [color="#3d4a57" fontname="Arial"]
+
+    start [label="Start: PO entered"]
+
+    subgraph cluster_erp {
+        label="ERP / Procurement"
+        color="#8fb3d9"
+        fillcolor="#eef5fc"
+        style="rounded,filled"
+        po_entry [label="Enter purchase order details\nData: po_number, vendor_id, items, amount"]
+        po_case [label="Create AP case / fetch PO master data\nOutput: case_id, PO payload"]
+    }
+
+    subgraph cluster_receiving {
+        label="Warehouse / Receiving"
+        color="#9bc59d"
+        fillcolor="#eef8ee"
+        style="rounded,filled"
+        receipt [label="Create receiving report\nData: receiving_report_id, receipt_date, received_qty"]
+    }
+
+    subgraph cluster_workflow {
+        label="n8n Workflow Engine"
+        color="#f0b36b"
+        fillcolor="#fff5e8"
+        style="rounded,filled"
+        split [shape=diamond label="Parallel split"]
+        join [shape=diamond label="Both branches complete?"]
+        finalize [label="Finalize case\nSet workflow_status = finalized"]
+    }
+
+    subgraph cluster_vendor {
+        label="Vendor Channel"
+        color="#d9a0a0"
+        fillcolor="#fdf0f0"
+        style="rounded,filled"
+        invoice [label="Obtain vendor invoice\nData: invoice_number, amounts, due_date"]
+    }
+
+    subgraph cluster_dms {
+        label="DMS / Document Repository"
+        color="#b39ddb"
+        fillcolor="#f4effb"
+        style="rounded,filled"
+        docs_ok [label="Confirm all documents amended\nCheck: PO + receipt + invoice"]
+        stamp [label="Stamp all documents\nOutput: stamped_document_ids, audit_event_id"]
+        archive [label="Archive finalized package\nOutput: archive_location"]
+    }
+
+    subgraph cluster_ap_queue {
+        label="AP Posting Queue"
+        color="#a8c7c7"
+        fillcolor="#eef8f8"
+        style="rounded,filled"
+        handoff [label="Optional AP handoff\nData: case_id, posting-ready package"]
+    }
+
+    end [shape=doublecircle label="End"]
+
+    start -> po_entry
+    po_entry -> po_case
+    po_case -> receipt
+    receipt -> split
+    split -> invoice [label="Branch A"]
+    split -> docs_ok [label="Branch B"]
+    invoice -> join [label="invoice linked to case"]
+    docs_ok -> join [label="documents complete"]
+    join -> stamp [label="yes"]
+    stamp -> archive
+    archive -> finalize
+    finalize -> handoff
+    handoff -> end
+}

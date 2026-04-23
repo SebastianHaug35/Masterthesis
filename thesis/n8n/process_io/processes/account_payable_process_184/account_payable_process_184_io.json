@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_184",
+  "process_name": "Account Payable Process 184",
+  "description": "The following description is about the payable process - when you start sending to the senior accountant in your department. Once the sending to the senior accountant in your department occurs, the creating of a receiving report is to be done. After creating a receiving report the next task should be reporting errors to the relevant team member and confirming all documents that have been amended, they should be done in parallel. Once confirmed that all documents have been amended, you need to gather the receiving report. After all the pre-tasks are done, the process is divided into 2 parallel branches: stamping all documents and entering the invoice into the receivable account. Once the invoice is entered into the accounts payable, creating a voucher for documents must be done. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_184",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_184-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_184_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable.workflow",
+    "receiver": "erp.payable.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_184",
+        "completion_step": "creating a voucher for documents must be done",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "creating_a_voucher_for_documents_must_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_184_creating_a_voucher_for_documents_must_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

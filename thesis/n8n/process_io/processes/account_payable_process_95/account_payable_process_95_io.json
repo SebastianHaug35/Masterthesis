@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_95",
+  "process_name": "Account Payable Process 95",
+  "description": "The text below is about the billing process that starts when you send to the recipient department. Once sending to the receiving department occurs, creating a receiving report should be done. Once a receiving report has been created the next task should double check a three-way match and gather the receiving report, they should be done in parallel. Once all pre-tasks are completed, the payment schedule - need to be done. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "billing_request",
+      "fields": {
+        "process_id": "account_payable_process_95",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_95-CASE-001",
+        "business_domain": "billing",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_95_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.billing.workflow",
+    "receiver": "erp.billing.local",
+    "what_is_being_sent": {
+      "business_object": "billing_result",
+      "fields": {
+        "process_id": "account_payable_process_95",
+        "completion_step": "payment schedule - need to be done",
+        "business_domain": "billing",
+        "workflow_status": "completed",
+        "result_artifact_key": "payment_schedule_need_to_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_95_payment_schedule_need_to_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_182",
+  "process_name": "Account Payable Process 182",
+  "description": "The text below is about the payable process, which starts with a letter to the Senior Accountant in your department. After sending to the senior accountant in your department, a receiving report should be created. Once a Receiving report is created, one or more of the following path should be executed : Collect the Receiving Report, Collecting the Vendors invoice. Finally, you must create vouchers for the documents. The process is now done.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_182",
+        "trigger_step": "letter to the Senior Accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_182-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_letter_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_182_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable.workflow",
+    "receiver": "erp.payable.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_182",
+        "completion_step": "create vouchers for the documents",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "create_vouchers_for_the_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_182_create_vouchers_for_the_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

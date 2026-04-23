@@ -1,0 +1,390 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\geometry{margin=2.5cm}
+
+\title{Evaluation Chapter: Hypothesis-Driven Evaluation of n8n Workflow Generation and Validation}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Evaluation Objective}
+
+The evaluation is structured around three hypotheses. Together, they cover three complementary levels of analysis:
+
+\begin{itemize}
+  \item the robustness of generated workflows as executable systems,
+  \item the quality improvement obtained from a specialized workflow-generation skill,
+  \item the validation of individual LLM-based building blocks inside a workflow.
+\end{itemize}
+
+This structure moves the evaluation away from a purely validator-centric comparison and towards a workflow-centric and hypothesis-driven study design.
+
+\section{Overview of the Three Hypotheses}
+
+\subsection{Hypothesis A: Workflow Robustness Through Test Runs}
+
+\textbf{Hypothesis A:} Generated n8n workflows can be evaluated meaningfully through repeated end-to-end test runs, and their success rate differs systematically across workflow complexity levels.
+
+The focus is not on validating isolated process fragments. Instead, the evaluation measures how often a generated workflow actually works under realistic or simulated execution conditions.
+
+\subsection{Hypothesis B: Skill-Supported Generation Improves Workflow Quality}
+
+\textbf{Hypothesis B:} A specialized workflow-generation skill with integrated self-correction produces runnable and correctable workflows more reliably than a general baseline prompting approach.
+
+This hypothesis evaluates the engineering contribution of the thesis. In particular, it examines whether a dedicated skill, potentially including targeted TypeScript adaptations for the frontend or supporting tooling, improves generation quality and repair behavior.
+
+\subsection{Hypothesis C: Individual LLM Building Blocks Can Be Validated with Different Measures}
+
+\textbf{Hypothesis C:} For individual LLM building blocks inside workflows, combined validation methods detect errors more reliably than any single validation method alone.
+
+This hypothesis focuses on LLM nodes as special workflow elements that require richer validation methods than ordinary structural checks.
+
+\section{Overall Evaluation Design}
+
+The evaluation is divided into three coordinated experiments:
+
+\begin{enumerate}
+  \item an execution-based experiment for complete workflows,
+  \item a generation-quality experiment for the workflow-construction skill,
+  \item a component-level validation experiment for LLM nodes.
+\end{enumerate}
+
+All three experiments are based on n8n workflows, but they differ in unit of analysis:
+
+\begin{itemize}
+  \item in Hypothesis A, the unit of analysis is the entire workflow run,
+  \item in Hypothesis B, the unit of analysis is the workflow generation attempt,
+  \item in Hypothesis C, the unit of analysis is the individual LLM node or LLM task.
+\end{itemize}
+
+\section{Dataset and Artifact Design}
+
+A realistic study can be based on approximately \texttt{100} business workflow descriptions distributed across several classes:
+
+\begin{itemize}
+  \item \texttt{40} sequential business workflows,
+  \item \texttt{30} workflows with branching and parallelism,
+  \item \texttt{20} workflows with exception handling or approval logic,
+  \item \texttt{10} workflows containing \texttt{1--2} explicit LLM nodes.
+\end{itemize}
+
+For each workflow description, several artifacts are maintained:
+
+\begin{itemize}
+  \item a natural-language process description,
+  \item a generated workflow candidate,
+  \item where needed, a reference workflow,
+  \item test inputs and expected outputs,
+  \item execution logs,
+  \item error labels and complexity metadata.
+\end{itemize}
+
+The same workflow pool can be reused across the three hypotheses, but each hypothesis emphasizes a different view on the artifacts.
+
+\section{Evaluation of Hypothesis A}
+
+\subsection{Goal}
+
+Hypothesis A evaluates how often generated workflows succeed during repeated execution.
+
+The main question is: \emph{How frequently does a generated workflow actually complete successfully under realistic test conditions?}
+
+\subsection{Why Test Runs Instead of Pure Static Validation}
+
+Static inspection alone does not capture whether a workflow can execute correctly in practice. A workflow may look structurally plausible while still failing during runtime because of:
+
+\begin{itemize}
+  \item malformed expressions,
+  \item incorrect routing of data between nodes,
+  \item missing fields in intermediate payloads,
+  \item brittle assumptions about external systems,
+  \item unstable LLM outputs.
+\end{itemize}
+
+Therefore, Hypothesis A relies on repeated test runs as the main evidence source.
+
+\subsection{Test Setup}
+
+For each workflow:
+
+\begin{enumerate}
+  \item prepare a fixed test input,
+  \item run the workflow repeatedly under the same or slightly varied conditions,
+  \item collect execution results, logs, and failure points,
+  \item compare the observed outcome with the expected business outcome.
+\end{enumerate}
+
+Wherever possible, external systems should be mocked or simulated. This includes:
+
+\begin{itemize}
+  \item email nodes,
+  \item HTTP endpoints,
+  \item databases,
+  \item ERP or CRM integrations.
+\end{itemize}
+
+This keeps the test runs reproducible and avoids side effects.
+
+\subsection{Metrics for Hypothesis A}
+
+The key metrics are:
+
+\begin{itemize}
+  \item workflow success rate,
+  \item failure rate per workflow,
+  \item failure rate per node type,
+  \item repeatability across multiple runs,
+  \item time to first successful run,
+  \item average runtime per successful execution.
+\end{itemize}
+
+\subsection{Complexity Analysis}
+
+To test the second part of Hypothesis A, workflow complexity is operationalized through:
+
+\begin{itemize}
+  \item number of nodes,
+  \item number of edges,
+  \item number of branches,
+  \item number of merges,
+  \item control-flow depth,
+  \item number of external integrations,
+  \item number of LLM nodes.
+\end{itemize}
+
+The analysis then compares execution success rates across low, medium, and high complexity groups.
+
+\subsection{Expected Result Pattern}
+
+It is expected that simple workflows show substantially higher success rates than complex workflows. The evaluation is therefore not aimed at proving that workflows either always work or always fail, but at identifying where robustness starts to break down.
+
+\section{Evaluation of Hypothesis B}
+
+\subsection{Goal}
+
+Hypothesis B evaluates whether a dedicated workflow-generation skill improves workflow construction compared with a more generic baseline prompting approach.
+
+\subsection{Compared Conditions}
+
+At least the following conditions should be compared:
+
+\begin{itemize}
+  \item baseline prompting without a specialized skill,
+  \item specialized skill for workflow generation,
+  \item specialized skill plus explicit self-correction or repair loop.
+\end{itemize}
+
+Optionally, a fourth condition can be added:
+
+\begin{itemize}
+  \item specialized skill with targeted TypeScript adaptation support for connected frontend or tooling changes.
+\end{itemize}
+
+\subsection{Unit of Analysis}
+
+The unit of analysis is one generation attempt. Each attempt receives the same business requirement, but a different generation setup.
+
+Each attempt produces:
+
+\begin{itemize}
+  \item a workflow JSON candidate,
+  \item optional repair iterations,
+  \item prompt and trace data,
+  \item an execution outcome from a follow-up run.
+\end{itemize}
+
+\subsection{Metrics for Hypothesis B}
+
+The most relevant metrics are:
+
+\begin{itemize}
+  \item proportion of syntactically valid workflow JSON,
+  \item proportion of importable workflows,
+  \item proportion of runnable workflows,
+  \item number of repair iterations,
+  \item human post-editing effort,
+  \item time per successful workflow,
+  \item token cost per successful workflow.
+\end{itemize}
+
+\subsection{Error Categories for Hypothesis B}
+
+The generation outcomes can be labeled using categories such as:
+
+\begin{itemize}
+  \item JSON syntax error,
+  \item invalid node configuration,
+  \item wrong control-flow structure,
+  \item missing required business step,
+  \item incorrect use of an LLM node,
+  \item frontend or TypeScript integration issue,
+  \item execution failure despite syntactically valid workflow.
+\end{itemize}
+
+\subsection{Expected Result Pattern}
+
+The expected non-trivial result is that a specialized skill does not merely improve textual quality, but measurably increases the fraction of runnable workflows and reduces the human correction burden.
+
+\section{Evaluation of Hypothesis C}
+
+\subsection{Goal}
+
+Hypothesis C investigates how individual LLM building blocks inside workflows can be validated.
+
+This evaluation does not attempt to validate the full philosophical truth of every generated answer. Instead, it focuses on whether an LLM node behaves plausibly, safely, and consistently relative to its role in the workflow.
+
+\subsection{Why a Separate LLM Evaluation Is Needed}
+
+LLM nodes differ from classical nodes because:
+
+\begin{itemize}
+  \item their outputs are not fully deterministic,
+  \item their quality depends on prompts and context,
+  \item many of their errors are semantic rather than structural,
+  \item the same task may look correct structurally but still be wrong in content.
+\end{itemize}
+
+\subsection{Validation Method Families}
+
+The evaluated methods are grouped into several categories.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{3cm}p{4.2cm}p{6cm}}
+\toprule
+Category & Technology & Short description \\
+\midrule
+Basis & Embedding Similarity & Semantic similarity between prompt, context, and output \\
+Basis & NLI & Checks whether an output statement logically follows from the available context \\
+Model-based & LLM-as-a-Judge & Stronger LLM directly evaluates the output against criteria \\
+Model-based & Self-Consistency Sampling & Multiple generations are compared for stability \\
+Model-based & Debate / Multi-Agent & Several models critique each other or defend alternative judgments \\
+Knowledge-based & Claim Extraction + Verification & Output is decomposed into claims and each claim is verified separately \\
+Knowledge-based & Retrieval-Augmented Validation & External evidence is retrieved and compared to the output \\
+Uncertainty-based & Uncertainty Scoring & Confidence or uncertainty signals are used as warning indicators \\
+Rule-based & Programmatic Constraints & Format, schema, business rules, and structural constraints are checked deterministically \\
+Stress-based & Adversarial Testing & Inputs are generated systematically to provoke failures \\
+\bottomrule
+\end{tabular}
+\caption{Validation methods for individual LLM building blocks}
+\end{table}
+
+\subsection{Experimental Design for Hypothesis C}
+
+For each LLM task:
+
+\begin{enumerate}
+  \item define the intended purpose of the LLM node,
+  \item prepare prompt, context, and expected evaluation criteria,
+  \item generate one or more LLM outputs,
+  \item apply several validation methods to the same output,
+  \item compare which methods detect which error types.
+\end{enumerate}
+
+Representative LLM task types may include:
+
+\begin{itemize}
+  \item summarization,
+  \item classification,
+  \item extraction,
+  \item draft generation,
+  \item recommendation,
+  \item routing support inside a workflow.
+\end{itemize}
+
+\subsection{Error Types for Hypothesis C}
+
+Relevant error classes include:
+
+\begin{itemize}
+  \item factual error,
+  \item unsupported claim,
+  \item missing critical information,
+  \item unsafe recommendation,
+  \item wrong output format,
+  \item unstable output across repeated generations,
+  \item mismatch between the node's intended purpose and actual output.
+\end{itemize}
+
+\subsection{Metrics for Hypothesis C}
+
+Depending on the method, the following metrics are relevant:
+
+\begin{itemize}
+  \item Precision,
+  \item Recall,
+  \item F1,
+  \item false negative rate for critical errors,
+  \item agreement with human judgment,
+  \item runtime,
+  \item token cost.
+\end{itemize}
+
+\subsection{Expected Result Pattern}
+
+It is not expected that one single validation measure dominates in all situations. More likely:
+
+\begin{itemize}
+  \item rule-based constraints are strong for format and safety guards,
+  \item embedding and NLI methods are useful for lightweight semantic checks,
+  \item LLM-as-a-Judge is stronger for nuanced semantic evaluation,
+  \item retrieval-based and claim-based methods are helpful where factual grounding matters,
+  \item combined approaches perform best overall.
+\end{itemize}
+
+\section{Cross-Hypothesis Metrics and Result Presentation}
+
+Although each hypothesis has its own main metrics, several output formats are shared across the chapter.
+
+\subsection{Tables}
+
+\begin{itemize}
+  \item success rates for workflow runs,
+  \item generation quality per skill condition,
+  \item validation performance per LLM method,
+  \item runtime and token-cost comparisons.
+\end{itemize}
+
+\subsection{Charts}
+
+\begin{itemize}
+  \item bar charts for workflow success rates,
+  \item line charts over increasing workflow complexity,
+  \item boxplots for runtime and token costs,
+  \item heatmaps for validation methods by error classes.
+\end{itemize}
+
+\subsection{Case-Based Analysis}
+
+In addition to quantitative summaries, selected cases should be documented qualitatively:
+
+\begin{itemize}
+  \item highly successful workflow generations,
+  \item workflows that are syntactically valid but fail at runtime,
+  \item cases where the skill repairs a failure successfully,
+  \item LLM-node outputs that pass simple checks but fail stronger validation,
+  \item adversarial examples revealing hidden weaknesses.
+\end{itemize}
+
+\section{Conclusion of the Evaluation Setup}
+
+The proposed setup provides a coherent evaluation strategy across three levels:
+
+\begin{itemize}
+  \item \textbf{macro level:} Does the whole workflow run successfully?
+  \item \textbf{meso level:} Does the specialized skill improve workflow generation and repair?
+  \item \textbf{micro level:} How can individual LLM building blocks be validated?
+\end{itemize}
+
+This structure is expected to produce heterogeneous and therefore scientifically meaningful results. It avoids reducing the thesis to a single validator benchmark and instead frames workflow execution, workflow construction, and LLM-node validation as distinct but connected research contributions.
+
+\end{document}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_155",
+  "process_name": "Account Payable Process 155",
+  "description": "The text below is about the account payable process that begins with the communication to the vendor accounting department. Once the sending occurs to the vendor accounting department, a receiving report should be created. After creating a receiving report, the need should be reported to the relevant team member. When reporting errors to the appropriate team member is completed, you have to stamp all documents The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "procurement.operations@company.example",
+    "receiver": "vendor.accounting@partner.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_155",
+        "trigger_step": "communication to the vendor accounting department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_155-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_communication_to_the_vendor_accounting_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_155_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "email",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "process.owner@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_155",
+        "completion_step": "need should be reported to the relevant team member",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "need_should_be_reported_to_the_relevant_team_member"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_155_need_should_be_reported_to_the_relevant_team_member.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

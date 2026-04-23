@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_8",
+  "process_name": "Account Payable Process 8",
+  "description": "The following text is about the Account payable process. It starts when you send the vendor accounting department. Once the sending to the vendor accounting department takes place, a receiving report should be created. When you complete the creating a receiving report, you need to collect the vendor invoice. Once the payment of vendors is collected, one or more of the following paths should be executed: The invoice is entered into the account payable and a payment schedule is scheduled. The process is now concluded.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_8",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_8-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_8_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_8",
+        "completion_step": "one or more of the following paths should be executed: The invoice is entered into the account payable and a payment schedule is scheduled",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "one_or_more_of_the_following_paths_should_be_executed_the_invoice_is_entered_into_the_account_payable_and_a_payment_schedule_is_scheduled"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_8_one_or_more_of_the_following_paths_should_be_executed_the_invoice_is_entered_into_the_account_payable_and_a_payment_schedule_is_scheduled.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

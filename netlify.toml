@@ -1,0 +1,11 @@
+[build]
+base = "frontend"
+command = "npm ci && npm run build"
+publish = "build"
+
+[build.environment]
+ADAPTER = "netlify"
+NODE_VERSION = "22"
+
+[functions]
+node_bundler = "esbuild"

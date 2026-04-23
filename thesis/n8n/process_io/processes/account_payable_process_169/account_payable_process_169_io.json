@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_169",
+  "process_name": "Account Payable Process 169",
+  "description": "The above text is about the Account Payable process, which starts with filing a copy for internal records. When a copy of a copy for internal records is completed, a receipt needs to be created. Once a receiving report occurs, the report to the relevant team member needs to be made. When a report error is completed to the relevant team member, the next tasks should be storing in the payment file and scheduling the payment, and that they should be done in parallel. When storage in the paid invoice file is completed, one or more of the following paths should be executed : invoice entry into accounts payable account, and stamping all documents. The process is now completed.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_169",
+        "trigger_step": "filing a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_169-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_filing_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_169_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_169",
+        "completion_step": "and stamping all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "and_stamping_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_169_and_stamping_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

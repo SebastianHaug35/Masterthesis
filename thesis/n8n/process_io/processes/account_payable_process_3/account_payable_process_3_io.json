@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_3",
+  "process_name": "Account Payable Process 3",
+  "description": "The following is a description of the account payable process and starts with filing a copy for internal records. After storing a copy for internal records, you need to create a receipt report. After creating a receiving report, you need to gather the invoice from the vendor. If the completion of the vendor invoice is completed, the stamping of all documents should be done. The process is now completed.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_request",
+      "fields": {
+        "process_id": "account_payable_process_3",
+        "trigger_step": "filing a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_3-CASE-001",
+        "business_domain": "business_workflow",
+        "message_purpose": "trigger_filing_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_3_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.business_workflow.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_result",
+      "fields": {
+        "process_id": "account_payable_process_3",
+        "completion_step": "stamping of all documents should be done",
+        "business_domain": "business_workflow",
+        "workflow_status": "completed",
+        "result_artifact_key": "stamping_of_all_documents_should_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_3_stamping_of_all_documents_should_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

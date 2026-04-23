@@ -1,0 +1,156 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{longtable}
+\geometry{margin=2.5cm}
+
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=ynt,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{bib.tex}
+
+\title{Master Thesis Structure: Integrating Literature Review and Evaluation Design}
+\author{Sebastian Haug}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+Artificial intelligence is often framed as a long-term transformation of software from static tools toward adaptive systems that can reason, plan, and coordinate actions across heterogeneous environments. In the context of workflow automation, this vision becomes concrete: instead of manually wiring integrations and business rules, one can ask whether large language models and agentic systems can help construct, validate, and operate executable workflows.
+
+This thesis is positioned in that space between workflow automation and modern language-model-based systems. On the automation side, platforms such as n8n and Make.com demonstrate the practical demand for low-code orchestration across APIs, databases, email systems, and enterprise applications. On the AI side, recent work on LLM-based agents, observability, verification, and long-horizon execution shows both the promise and the instability of such systems \cite{dong2024agentops_observability,he2024llm_multiagent_se_review,barrak2025traceability_accountability_multiagent}.
+
+The central goal of the thesis is therefore not merely to generate workflow JSON, but to study whether generated workflows can be made \emph{runnable}, \emph{inspectable}, and \emph{validatable} in a realistic execution setting. The focus lies on n8n workflows, the supporting system landscape around them, and the role of LLM-based generation and validation components.
+
+\section{Background}
+
+\subsection{Workflow Automation and System Integration}
+
+Business process automation depends on more than control flow alone. Real processes interact with ERP systems, document repositories, email systems, APIs, queues, and databases. A workflow engine such as n8n therefore acts as an orchestration layer across multiple system boundaries. This perspective is important because apparently correct process graphs can still fail at runtime when payloads are incomplete, identifiers do not match across systems, or external responses are unavailable.
+
+From a process-management perspective, this motivates a view that combines workflow modeling with compliance, conformance, and execution realism \cite{Wes07,RA08,LMX07,elkharbili2008bpcc}. For this thesis, workflows are treated as executable socio-technical artifacts rather than purely diagrammatic models.
+
+\subsection{Machine Learning, LLMs, and Agentic Systems}
+
+Recent LLM systems extend classical automation by adding semantic capabilities such as extraction, summarization, routing, classification, and draft generation. At the same time, they introduce non-determinism, prompt sensitivity, and context limitations. Prior work shows that even seemingly deterministic settings can produce unstable outputs, which is highly relevant for workflow settings where repeatability matters \cite{atil2024nondeterminism,yuan2025numerical}.
+
+This motivates the use of agent-oriented ideas such as orchestration, traceability, observability, and memory management when workflows include LLM components \cite{dong2024agentops_observability,barrak2025traceability_accountability_multiagent,packer2023memgpt,zhang2024survey_memory_mechanism_agents}. In this thesis, such ideas are not treated as an end in themselves, but as engineering mechanisms that may improve workflow construction and validation.
+
+\subsection{From Make.com to n8n and OpenClaw}
+
+The thesis is grounded in practical workflow tooling. Make.com and similar low-code platforms show the demand for compositional automation, while n8n provides a concrete JSON-based workflow representation suitable for generation, inspection, and execution. OpenClaw and related agentic tooling are relevant insofar as they enable the automated production, repair, or assessment of workflow artifacts. The research interest lies in whether such AI-supported tooling can improve workflow engineering beyond manual prompting alone.
+
+\section{Related Work}
+
+\subsection{LLM-Based Process Generation}
+
+Text-to-process generation has become a relevant research direction. Recent work on generating business process models from textual descriptions suggests that LLMs can map natural-language specifications into structured process artifacts, but that correctness and completeness remain open issues \cite{li-etal-2025-llm-based-business,DBLP:conf/ijcnn/LiNLLZ23,li-etal-2023-mad-data}. For this thesis, that literature motivates the generation task but also highlights the need for stronger validation than surface-level plausibility.
+
+\subsection{Business Process Compliance and Conformance}
+
+The process-management literature has long emphasized that process models must satisfy constraints beyond syntactic well-formedness. Static compliance checking, control objectives, pattern-based compliance, and conformance checking against observed behavior are central reference points \cite{LMX07,SGN07,NS07a,RA08,ABD05}. This thesis extends that line of thinking by asking how these ideas translate into LLM-assisted workflow generation and test-driven workflow validation.
+
+\subsection{Validation of LLM Outputs}
+
+A second relevant strand concerns the validation of LLM outputs. Recent work covers self-verification, judge models, structured output benchmarks, grammar-constrained decoding, and evaluation of semantic correctness \cite{lightman2023verify,dhuliawala2024cove,liu2023geval,tan2024judgebench,geng2025jsonschemabench,park2024grammaraligned,park2025flexible}. These methods are highly relevant when workflows contain LLM nodes whose outputs must satisfy business, structural, and semantic constraints.
+
+\subsection{Traceability, Observability, and Reliability}
+
+Because agentic and LLM-based systems often fail in opaque ways, traceability and observability are increasingly important. Relevant work studies multi-agent accountability, agent observability, output drift, and long-horizon context handling \cite{barrak2025traceability_accountability_multiagent,dong2024agentops_observability,khatchadourian2025llm_output_drift,kang2025acon_context_compression,wu2025resum_context_summarization}. This thesis adopts that perspective by treating workflow logs, system mocks, and validation traces as core empirical artifacts.
+
+\section{Methods}
+
+\subsection{Research Design}
+
+The methodological core of the thesis follows the evaluation logic defined in the current master-thesis design. That design has priority over earlier literature-review structures and organizes the empirical work around three hypotheses:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Hypothesis A:} Generated n8n workflows can be evaluated meaningfully through repeated end-to-end test runs, and their success rate differs systematically across workflow complexity levels.
+  \item \textbf{Hypothesis B:} A specialized workflow-generation skill with integrated self-correction produces runnable and correctable workflows more reliably than a general baseline prompting approach.
+  \item \textbf{Hypothesis C:} For individual LLM building blocks inside workflows, combined validation methods detect errors more reliably than any single validation method alone.
+\end{itemize}
+
+These hypotheses define three connected levels of analysis: whole-workflow robustness, workflow-generation quality, and component-level LLM validation.
+
+\subsection{Artifacts and Test Environment}
+
+The thesis uses a workflow-centered artifact set. For each process, the artifact bundle includes a natural-language description, a graph representation, a rendered process view, an input/output contract, and where needed additional system contracts and test cases. The surrounding test environment models a reusable system landscape with shared abstractions for ERP, email, databases, document management, APIs, queues, and workflow orchestration.
+
+This artifact-centered setup supports a reproducible evaluation of generated workflows as executable systems rather than only textual outputs. It also enables realistic mocking of external dependencies such as email nodes, HTTP endpoints, databases, and ERP integrations.
+
+\subsection{Evaluation Logic}
+
+The evaluation combines static and dynamic perspectives:
+
+\begin{itemize}[leftmargin=*]
+  \item structural plausibility of generated workflow JSON,
+  \item importability and runnability in n8n,
+  \item repeated execution under mocked but realistic system conditions,
+  \item validation of LLM nodes with multiple complementary methods.
+\end{itemize}
+
+The literature review supports this design by motivating why workflow compliance, structured outputs, semantic validation, and observability are all necessary and should not be treated as separate concerns.
+
+\section{Experiments}
+
+\subsection{Experiment A: End-to-End Workflow Robustness}
+
+The first experiment evaluates how often generated workflows complete successfully under repeated test conditions. The unit of analysis is the workflow run. The core idea is that workflow quality cannot be inferred from syntax alone; instead, workflows must be executed with realistic payloads and mocked system interactions.
+
+\subsection{Experiment B: Skill-Supported Workflow Generation}
+
+The second experiment compares baseline prompting with a specialized workflow-generation skill and, optionally, a skill plus repair loop. The unit of analysis is the workflow generation attempt. Relevant outputs include syntactic validity, importability, runnability, repair effort, and execution success after generation.
+
+\subsection{Experiment C: Validation of Individual LLM Building Blocks}
+
+The third experiment studies LLM nodes inside workflows as special components that require richer validation than ordinary deterministic nodes. The unit of analysis is the LLM task or node. Representative task types include extraction, classification, summarization, recommendation, and workflow-routing support.
+
+\section{Results}
+
+The results chapter should present findings in a way that mirrors the three hypotheses:
+
+\begin{itemize}[leftmargin=*]
+  \item success and failure patterns of complete workflow runs,
+  \item comparative effectiveness of workflow-generation conditions,
+  \item precision, recall, agreement, cost, and runtime characteristics of LLM validation methods.
+\end{itemize}
+
+In addition to aggregate tables and charts, selected case studies should document characteristic failure modes, successful repair behavior, and mismatches between structural validity and runtime robustness.
+
+\section{Interpretation}
+
+The interpretation chapter should connect the empirical findings back to the literature. If workflow execution proves more fragile than generation quality alone suggests, this would support the process-compliance and observability literature, which emphasizes execution realism over static plausibility. If skill-supported generation improves runnable output quality, this would strengthen the engineering case for domain-specific workflow-generation support. If no single LLM validation method dominates, this would align with current work on judge models, self-verification, retrieval-based checking, and structured validation, which suggests complementarity rather than universal superiority \cite{lightman2023verify,dhuliawala2024cove,liu2023geval,geng2025jsonschemabench}.
+
+\section{Outlook}
+
+Several follow-up directions emerge naturally from this structure:
+
+\begin{itemize}[leftmargin=*]
+  \item extend the workflow pool to additional domains beyond the current account-payable-centered process collection,
+  \item enrich the shared system landscape with executable mocks and concrete test-case bundles,
+  \item integrate stronger repair loops and model-based debugging for workflow generation,
+  \item investigate governance, privacy, and compliance requirements for enterprise deployment \cite{gdpr2016,carlini2021extracting,dwork2014afdp},
+  \item study how memory and context-management techniques affect long-horizon workflow agents \cite{packer2023memgpt,xu2025amem_agentic_memory,hu2025memoryagentbench}.
+\end{itemize}
+
+\section{Conclusion}
+
+The literature review can be integrated meaningfully into the master-thesis construct when it is treated as conceptual support for the workflow-centered evaluation design rather than as a parallel document with its own competing structure. In that integrated view, the literature motivates the need for traceability, compliance, structured outputs, and LLM validation, while the authoritative thesis design defines the actual hypotheses, experiments, and result logic.
+
+\printbibliography
+
+\end{document}

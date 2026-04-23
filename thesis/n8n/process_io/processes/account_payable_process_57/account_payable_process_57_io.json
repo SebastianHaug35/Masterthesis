@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_57",
+  "process_name": "Account Payable Process 57",
+  "description": "The following description is about the account payable process, which begins when you send to the receiving department. After sending to the receiving department, a receiving report should be created. After creating a receiving report, a three-way match must be checked. When a three-way match is completed during the double check the process is split into 3 parallel branches : creating a voucher for the documents, storing in the paid invoice file and entering the invoice into the accounts payable account. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_57",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_57-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_57_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_57",
+        "completion_step": "storing in the paid invoice file and entering the invoice into the accounts payable account",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storing_in_the_paid_invoice_file_and_entering_the_invoice_into_the_accounts_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_57_storing_in_the_paid_invoice_file_and_entering_the_invoice_into_the_accounts_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

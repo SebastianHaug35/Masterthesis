@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_111",
+  "process_name": "Account Payable Process 111",
+  "description": "The following description is about the account payable process which begins when you send to the senior accountant in your department. After sending a salary to your senior accountant in your department, a receipt report should be created. Once the creation of a receiving report occurs, one or more of the following paths should be executed : reports errors to the relevant team member, confirming that all documents have been revised, and receiving the vendor invoice. After that the next tasks should be enclosing all documents and checking dates to avoid penalty charges. When stamping all documents is completed, one or more of the following paths should be executed: storing the invoice in a paid invoice file, entering the invoice into the accounts payable account. After the invoice should be entered into the account payable, the next tasks should be scheduling payment and creating the document voucher. They should be done in parallel. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_111",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_111-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_111_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_111",
+        "completion_step": "They should be done in parallel",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "they_should_be_done_in_parallel"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_111_they_should_be_done_in_parallel.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

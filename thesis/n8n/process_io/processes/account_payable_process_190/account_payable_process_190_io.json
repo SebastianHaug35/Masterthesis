@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_190",
+  "process_name": "Account Payable Process 190",
+  "description": "The following text is about the payable process. It starts when you send the receiving department. Once sending to the receiving department happens, you will need to create a receiving report. When the creating of a receiving report is completed, one or more of the following paths should be executed: Gathering the vendor invoice, Gathering the receiving report. After that, storing to be done in the paid invoice file. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_request",
+      "fields": {
+        "process_id": "account_payable_process_190",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_190-CASE-001",
+        "business_domain": "payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_190_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable.workflow",
+    "receiver": "erp.payable.local",
+    "what_is_being_sent": {
+      "business_object": "payable_result",
+      "fields": {
+        "process_id": "account_payable_process_190",
+        "completion_step": "storing to be done in the paid invoice file",
+        "business_domain": "payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storing_to_be_done_in_the_paid_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_190_storing_to_be_done_in_the_paid_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

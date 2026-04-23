@@ -1,0 +1,41 @@
+@startuml
+title Prototype-Architektur
+
+left to right direction
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultTextAlignment center
+skinparam packageStyle rectangle
+skinparam roundcorner 12
+
+skinparam rectangle {
+  BorderColor #666666
+  FontSize 13
+}
+skinparam package {
+  BorderColor #BDBDBD
+  BackgroundColor #F5F5F5
+}
+skinparam database {
+  BorderColor #6E8B6E
+  BackgroundColor #EAF4EA
+}
+
+actor User as U
+
+rectangle "Chat UI\n(SvelteKit)" as FE
+rectangle "Buddy Proxy" as B #DDEBFF
+database "Log" as LOG
+
+package "OpenClaw" #F5F5F5 {
+  rectangle "Agent" as OCA
+  rectangle "n8n" as N8N
+}
+
+U <--> FE
+FE <--> B
+B <--> OCA
+OCA <--> N8N
+B --> LOG
+
+@enduml

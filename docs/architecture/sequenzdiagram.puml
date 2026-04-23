@@ -1,0 +1,28 @@
+@startuml
+title Buddy-Proxy Architektur (User -> OpenClaw -> n8n)
+
+actor User as U
+participant "Chat UI\n(SvelteKit)" as FE
+participant "Buddy Agent\n(Proxy / Orchestrator)" as B
+database "Kommunikationslog\nartifacts/logs/buddy_openclaw_traffic.jsonl" as LOG
+
+box "OpenClaw Instanz" #LightGray
+  participant "OpenClaw Agent" as OCA
+  participant "n8n Instanz" as N8N
+end box
+
+U -> FE : Prompt / Workflow-Anforderung
+FE -> B : User-Anforderung weiterleiten
+
+loop Max. 3 Runden (Hard Limit)
+  B -> OCA : Auftrag: n8n-Workflow erstellen/testen
+  OCA -> N8N : Workflow deployen + testen
+  N8N --> OCA : Testergebnis / Fehler / Status
+  OCA --> B : Antwort (JSON / Debug / Fehler)
+  B -> LOG : Request / Response / Status loggen
+end
+
+B --> FE : Ergebnis\n(funktionierendes n8n-JSON\noder Fehler nach Hard Limit)
+FE --> U : Formatierte Antwort + Status im Chat
+
+@enduml

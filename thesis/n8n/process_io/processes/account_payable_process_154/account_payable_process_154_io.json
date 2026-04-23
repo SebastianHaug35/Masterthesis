@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_154",
+  "process_name": "Account Payable Process 154",
+  "description": "The following text is about the account payable process, which starts with sending to the receiving department. When sending the receipt department is completed, you need to create a receiving report. When the creating of a receiving report is completed, one or more of the following paths should be executed : collecting the vendor invoice, reporting errors to the relevant team member, doubling a three-way match. After that the next tasks should be to record the invoice file and create a voucher for the documents. It should be completed in parallel. Once the creation of the voucher for the documents takes place, one or more of the following paths should be executed: Entering the invoice into the accounts payable account, Terminating the payment. The process is now completed.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_154",
+        "trigger_step": "sending to the receiving department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_154-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_sending_to_the_receiving_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_154_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_154",
+        "completion_step": "Terminating the payment",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "terminating_the_payment"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_154_terminating_the_payment.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

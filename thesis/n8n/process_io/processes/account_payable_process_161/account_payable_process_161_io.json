@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_161",
+  "process_name": "Account Payable Process 161",
+  "description": "The following is a description of the Account payable Process, which begins when you send to the Receiving department. Once sending occurs to the receiving department, you need to create a receipt report. When the creation of a receiving report is completed, the process is divided into 2 parallel branches : the receiving report and the vendor invoice. After gathering the receipt report, you need to double check a three-way match. Once all pre-tasks are executed, one or more of the following paths should be executed: storing in a paid invoice file, creating voucher for the documents The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_request",
+      "fields": {
+        "process_id": "account_payable_process_161",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_161-CASE-001",
+        "business_domain": "business_workflow",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_161_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.business_workflow.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_result",
+      "fields": {
+        "process_id": "account_payable_process_161",
+        "completion_step": "you need to double check a three-way match",
+        "business_domain": "business_workflow",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_need_to_double_check_a_three_way_match"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_161_you_need_to_double_check_a_three_way_match.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

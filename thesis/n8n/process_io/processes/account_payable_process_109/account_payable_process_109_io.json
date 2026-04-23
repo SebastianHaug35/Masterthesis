@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_109",
+  "process_name": "Account Payable Process 109",
+  "description": "The following is about the account payable process, which starts with filing a copy of internal documents. Once a copy is prepared for internal records, a receiving report needs to be created. After creating a receiving report, one or more of the following paths should be executed: notified of errors to the relevant team member, gathering the vendor invoice and double checking a three-way match. Then the payment schedule must be done. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_109",
+        "trigger_step": "filing a copy of internal documents",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_109-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_filing_a_copy_of_internal_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_109_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_109",
+        "completion_step": "payment schedule must be done",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "payment_schedule_must_be_done"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_109_payment_schedule_must_be_done.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

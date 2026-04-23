@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_105",
+  "process_name": "Account Payable Process 105",
+  "description": "The following text is about the account payable process. It starts by entering purchase order details. After entering purchase order details, a receipt report should be produced. After creating a receipt report, a three-way match is needed to be doubled check. After double checking a three-way match the process is split into 3 parallel branches: storing in the paid invoice file, creating the voucher for the documents and stamping all documents. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_105",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_105-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_105_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_105",
+        "completion_step": "creating the voucher for the documents and stamping all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "creating_the_voucher_for_the_documents_and_stamping_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_105_creating_the_voucher_for_the_documents_and_stamping_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_4",
+  "process_name": "Account Payable Process 4",
+  "description": "The text below is about the account payable process that starts when you send the senior accountant in your department. Once the sending occurs to the senior accountant in your department, then a receiving report must be done. After creating a receiving report, one or more of the following paths should be executed : Double check a three-way match, confirm all documents have been amended, reporting errors to the relevant team member. Then, it is necessary to create a voucher for the documents. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_4",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_4-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_4_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_4",
+        "completion_step": "it is necessary to create a voucher for the documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "it_is_necessary_to_create_a_voucher_for_the_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_4_it_is_necessary_to_create_a_voucher_for_the_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

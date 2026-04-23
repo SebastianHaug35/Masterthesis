@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_71",
+  "process_name": "Account Payable Process 71",
+  "description": "The following text is on the payment of the account - it starts with the submission to the senior accountant in your department. Once sending occurs to the senior accountant in your department, a receiving report should be created. Once a Receiver Report is created, you need to collect the Receiver Report. When the collecting of the receiving reports is completed, the dates should be checked to avoid penalty charges. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_request",
+      "fields": {
+        "process_id": "account_payable_process_71",
+        "trigger_step": "submission to the senior accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_71-CASE-001",
+        "business_domain": "business_workflow",
+        "message_purpose": "trigger_submission_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_71_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.business_workflow.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "business_workflow_result",
+      "fields": {
+        "process_id": "account_payable_process_71",
+        "completion_step": "dates should be checked to avoid penalty charges",
+        "business_domain": "business_workflow",
+        "workflow_status": "completed",
+        "result_artifact_key": "dates_should_be_checked_to_avoid_penalty_charges"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_71_dates_should_be_checked_to_avoid_penalty_charges.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_84",
+  "process_name": "Account Payable Process 84",
+  "description": "The following is about the purchase process, which starts when you enter the order details. Once the details of the purchase are entered you need to create a receiving report. Once a receiving report occurs, the next tasks should be doubling a three-way match and collecting the receiving report. This should be done in parallel. When the doubling check is completed a three-way match, confirming all the documents have been amended must be done After all pre-tasks are completed, then data checks should be done to avoid penalties. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "purchase_request",
+      "fields": {
+        "process_id": "account_payable_process_84",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_84-CASE-001",
+        "business_domain": "purchase",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_84_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.purchase.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "purchase_result",
+      "fields": {
+        "process_id": "account_payable_process_84",
+        "completion_step": "then data checks to avoid penalties",
+        "business_domain": "purchase",
+        "workflow_status": "completed",
+        "result_artifact_key": "then_data_checks_to_avoid_penalties"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_84_then_data_checks_to_avoid_penalties.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

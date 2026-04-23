@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_156",
+  "process_name": "Account Payable Process 156",
+  "description": "The text below is about the payment process. It starts when you enter your purchase order details. When the entry of the Order Details is completed, a Receiving Report must be created. After creating a receiving report, you have to gather the receiving report. After gathering the receipt report, you need to stamp all documents. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payment_request",
+      "fields": {
+        "process_id": "account_payable_process_156",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_156-CASE-001",
+        "business_domain": "payment",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_156_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.payment.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "payment_result",
+      "fields": {
+        "process_id": "account_payable_process_156",
+        "completion_step": "you need to stamp all documents",
+        "business_domain": "payment",
+        "workflow_status": "completed",
+        "result_artifact_key": "you_need_to_stamp_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_156_you_need_to_stamp_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

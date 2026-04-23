@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_5",
+  "process_name": "Account Payable Process 5",
+  "description": "The following description is about the payable billing process and begins when you send to the recipient department. Once the sending occurs to the receiving department, a receiving report must be generated. Once creating a receiving report occurs, the doubling needs to a three-way match. When doubling check a three-way match is completed, the invoice should be entered into the account payable. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payable_billing_request",
+      "fields": {
+        "process_id": "account_payable_process_5",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_5-CASE-001",
+        "business_domain": "payable_billing",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_5_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payable_billing.workflow",
+    "receiver": "erp.payable_billing.local",
+    "what_is_being_sent": {
+      "business_object": "payable_billing_result",
+      "fields": {
+        "process_id": "account_payable_process_5",
+        "completion_step": "invoice should be entered into the account payable",
+        "business_domain": "payable_billing",
+        "workflow_status": "completed",
+        "result_artifact_key": "invoice_should_be_entered_into_the_account_payable"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_5_invoice_should_be_entered_into_the_account_payable.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

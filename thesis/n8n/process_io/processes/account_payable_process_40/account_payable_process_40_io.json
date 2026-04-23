@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_40",
+  "process_name": "Account Payable Process 40",
+  "description": "The text below is about the Account Receivable Process, which starts with sending to the Receiving department. Once the Sending to the Receiving department happens, the creating of a Receiving Report needs to be done. When the creation of a receiving report is completed, the process is divided into 2 parallel branches : doubling a 3-way match and reporting errors to the relevant team member. Once all pre-tasks are executed, one or more of the following paths should be executed : creating voucher for the documents, including the invoice into the account payable. The process is now complete.",
+  "input": {
+    "channel": "email",
+    "sender": "procurement.operations@company.example",
+    "receiver": "receiving.department@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_receivable_request",
+      "fields": {
+        "process_id": "account_payable_process_40",
+        "trigger_step": "sending to the Receiving department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_40-CASE-001",
+        "business_domain": "account_receivable",
+        "message_purpose": "trigger_sending_to_the_receiving_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_40_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_receivable.workflow",
+    "receiver": "erp.account_receivable.local",
+    "what_is_being_sent": {
+      "business_object": "account_receivable_result",
+      "fields": {
+        "process_id": "account_payable_process_40",
+        "completion_step": "including the invoice into the account payable",
+        "business_domain": "account_receivable",
+        "workflow_status": "completed",
+        "result_artifact_key": "including_the_invoice_into_the_account_payable"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_40_including_the_invoice_into_the_account_payable.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

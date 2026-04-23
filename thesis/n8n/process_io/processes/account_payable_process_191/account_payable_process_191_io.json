@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_191",
+  "process_name": "Account Payable Process 191",
+  "description": "The text below is about the accounts payable process. It begins when you send it to the Senior Accountant in your department. After sending to the senior accountant in your department, you will need to create a receiving report. When creating a receiving report is completed, confirming that all documents have been amended should be done. After verifying that all documents have been amended, the invoice should be entered into the accounts payable account. The process is now finished.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_191",
+        "trigger_step": "manual process initiation",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_191-CASE-001",
+        "business_domain": "accounts_payable",
+        "message_purpose": "trigger_manual_process_initiation"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_191_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.accounts_payable.workflow",
+    "receiver": "erp.accounts_payable.local",
+    "what_is_being_sent": {
+      "business_object": "accounts_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_191",
+        "completion_step": "invoice should be entered into the accounts payable account",
+        "business_domain": "accounts_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "invoice_should_be_entered_into_the_accounts_payable_account"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_191_invoice_should_be_entered_into_the_accounts_payable_account.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

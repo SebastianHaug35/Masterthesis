@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_147",
+  "process_name": "Account Payable Process 147",
+  "description": "The following text is about the account payable process. It starts with the entry of purchase order details. Once the purchase order details are entered, you need to create a receiving report. After creating a receipt report, it should be done to confirm that all documents have been modified. When all documents are completed, the storage should be done in the invoice file. The process is now complete.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_147",
+        "trigger_step": "entry of purchase order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_147-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_entry_of_purchase_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_147_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "erp.account_payable.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_147",
+        "completion_step": "storage should be done in the invoice file",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "storage_should_be_done_in_the_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_147_storage_should_be_done_in_the_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

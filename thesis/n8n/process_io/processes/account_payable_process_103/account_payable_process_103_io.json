@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_103",
+  "process_name": "Account Payable Process 103",
+  "description": "The text below is about the Account \u00e2\u20ac\u201c Vendor \u00e2\u20ac\u201c process which begins with the purchase order details. Creating a receiving report should be done after entering purchase order details. When the creation of a receiving report is done, a three-way match must be doubled. Once a three-way match occurs, the process is split into three parallel branches : stamping all documents, creating a voucher for documents and storing in a paid invoice file. The process is now done.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_vendor_request",
+      "fields": {
+        "process_id": "account_payable_process_103",
+        "trigger_step": "purchase order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_103-CASE-001",
+        "business_domain": "account_vendor",
+        "message_purpose": "trigger_purchase_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_103_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.account_vendor.workflow",
+    "receiver": "erp.account_vendor.local",
+    "what_is_being_sent": {
+      "business_object": "account_vendor_result",
+      "fields": {
+        "process_id": "account_payable_process_103",
+        "completion_step": "creating a voucher for documents and storing in a paid invoice file",
+        "business_domain": "account_vendor",
+        "workflow_status": "completed",
+        "result_artifact_key": "creating_a_voucher_for_documents_and_storing_in_a_paid_invoice_file"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_103_creating_a_voucher_for_documents_and_storing_in_a_paid_invoice_file.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

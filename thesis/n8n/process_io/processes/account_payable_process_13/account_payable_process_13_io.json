@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_13",
+  "process_name": "Account Payable Process 13",
+  "description": "The following description is about the account payable process that begins with the filing of a copy for internal records. When a copy is filed for internal records, you need to create a receiving report. After creating a receiving report, one or more of the following paths should be executed: - Reporting errors to the relevant team member confirming that all documents have been amended. - The next tasks should be entering the invoice in the accounts payable account and storing in the paid invoice file. They should be done in parallel. The process is now complete.",
+  "input": {
+    "channel": "manual_entry",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_13",
+        "trigger_step": "filing of a copy for internal records",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_13-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_filing_of_a_copy_for_internal_records"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_13_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_13",
+        "completion_step": "They should be done in parallel",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "they_should_be_done_in_parallel"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_13_they_should_be_done_in_parallel.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

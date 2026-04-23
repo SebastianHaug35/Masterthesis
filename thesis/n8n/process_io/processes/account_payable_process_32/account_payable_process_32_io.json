@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_32",
+  "process_name": "Account Payable Process 32",
+  "description": "The following description is about the account payable process and starts with sending it to the senior accountant in your department. When sending to the senior accountant in your department is completed, a receiving report should be generated. Once creation of the receiving report occurs, one or more of the following paths should be executed : reporting errors to relevant team member, confirming that all documents have been amended. During confirmation all documents have been amended a three-way match should be double checked. Afterwards, one or more of the following paths should be executed: the storing of invoice in the paid file, the creation of the voucher for documents. Once storing of paid invoice file occurs, one or more of the following paths should be executed: entering the invoice in the accounts payable account, stamping all documents. The process is now done.",
+  "input": {
+    "channel": "email",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "account_payable_request",
+      "fields": {
+        "process_id": "account_payable_process_32",
+        "trigger_step": "sending it to the senior accountant in your department",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_32-CASE-001",
+        "business_domain": "account_payable",
+        "message_purpose": "trigger_sending_it_to_the_senior_accountant_in_your_department"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_32_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "file_write",
+    "sender": "n8n.account_payable.workflow",
+    "receiver": "document.archive.local",
+    "what_is_being_sent": {
+      "business_object": "account_payable_result",
+      "fields": {
+        "process_id": "account_payable_process_32",
+        "completion_step": "stamping all documents",
+        "business_domain": "account_payable",
+        "workflow_status": "completed",
+        "result_artifact_key": "stamping_all_documents"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_32_stamping_all_documents.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

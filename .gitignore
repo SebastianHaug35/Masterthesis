@@ -1,6 +1,8 @@
 # Secrets / credentials
 .env
 .env.*
+**/.env
+**/.env.*
 *.pem
 *.key
 *.p12
@@ -17,3 +19,27 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# Logs and runtime artifacts
+artifacts/logs/
+*.log
+*.jsonl
+
+# Frontend build and vendor artifacts
+frontend/.git/
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/db/
+frontend/server.log
+frontend/.env.local
+
+# Thesis build artifacts
+thesis/n8n/*.aux
+thesis/n8n/*.fdb_latexmk
+thesis/n8n/*.fls
+thesis/n8n/*.out
+thesis/n8n/*.synctex.gz
+
+# OS / editor clutter
+.DS_Store
+Thumbs.db

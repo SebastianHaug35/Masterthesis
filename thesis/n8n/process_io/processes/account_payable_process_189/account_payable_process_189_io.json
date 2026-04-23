@@ -1,0 +1,47 @@
+{
+  "process_id": "account_payable_process_189",
+  "process_name": "Account Payable Process 189",
+  "description": "The following text is about the payment process, which begins with the entry of the purchase order details. When the entry of purchase order details is completed, a receiving report should be created. When a receiving report is created, one or more of the following path should be executed: reporting errors to the appropriate team member, doubling a three-way match. Afterwards, the file of paid invoices needs to be. The process is now completed.",
+  "input": {
+    "channel": "erp_request",
+    "sender": "operations.control@company.example",
+    "receiver": "shared.services@company.example",
+    "what_is_being_sent": {
+      "business_object": "payment_request",
+      "fields": {
+        "process_id": "account_payable_process_189",
+        "trigger_step": "entry of the purchase order details",
+        "reference_case_id": "ACCOUNT_PAYABLE_PROCESS_189-CASE-001",
+        "business_domain": "payment",
+        "message_purpose": "trigger_entry_of_the_purchase_order_details"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_189_source_description.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  },
+  "output": {
+    "channel": "erp_request",
+    "sender": "n8n.payment.workflow",
+    "receiver": "erp.payment.local",
+    "what_is_being_sent": {
+      "business_object": "payment_result",
+      "fields": {
+        "process_id": "account_payable_process_189",
+        "completion_step": "file of paid invoices needs to be",
+        "business_domain": "payment",
+        "workflow_status": "completed",
+        "result_artifact_key": "file_of_paid_invoices_needs_to_be"
+      },
+      "attachments": [
+        {
+          "name": "account_payable_process_189_file_of_paid_invoices_needs_to_be.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  }
+}

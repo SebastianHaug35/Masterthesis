@@ -1,0 +1,66 @@
+@startuml
+title Hypothesis A - Abstract Component View
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam wrapWidth 220
+skinparam maxMessageSize 180
+
+actor "Researcher" as researcher
+
+package "Evaluation Input" as input_area {
+  artifact "Process Descriptions\nand Test Cases" as process_inputs
+  artifact "Generated n8n\nWorkflow Candidates" as workflow_candidates
+}
+
+package "Local Test Environment" as test_area {
+  component "Test Runner" as test_runner
+  component "n8n Runtime" as n8n
+  component "Simulated Business Systems" as simulated_systems
+}
+
+package "Simulated Business Systems" as systems_detail {
+  component "ERP / CRM" as erp
+  component "Email" as email
+  component "Database" as database
+  component "Document Store" as dms
+  component "External APIs" as apis
+}
+
+package "Evaluation Output" as output_area {
+  artifact "Execution Logs" as execution_logs
+  artifact "Observed Results" as observed_results
+  artifact "Hypothesis A Metrics" as metrics
+}
+
+researcher --> test_runner : starts evaluation
+process_inputs --> test_runner : test inputs\nexpected outcomes
+workflow_candidates --> test_runner : workflows under test
+
+test_runner --> n8n : imports and triggers\nworkflow runs
+n8n --> simulated_systems : executes process\nagainst mocked systems
+simulated_systems --> n8n : controlled responses
+
+simulated_systems .. erp
+simulated_systems .. email
+simulated_systems .. database
+simulated_systems .. dms
+simulated_systems .. apis
+
+n8n --> execution_logs : execution traces
+n8n --> observed_results : workflow outcomes
+test_runner --> metrics : success rates\nruntime\nfailure classes
+
+note right of metrics
+Hypothesis A asks whether generated
+workflows complete successfully under
+repeated realistic test conditions.
+end note
+
+note bottom of simulated_systems
+The business systems are local simulations.
+They make the test reproducible while still
+requiring real workflow execution.
+end note
+
+@enduml

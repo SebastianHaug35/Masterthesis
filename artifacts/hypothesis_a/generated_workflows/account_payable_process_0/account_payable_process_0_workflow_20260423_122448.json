@@ -1,0 +1,447 @@
+{
+  "active": false,
+  "connections": {
+    "Archive Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Validation Failure": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Check Document Completeness": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Proceed To Stamping",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Document Completeness",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Receiving Report": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Document Completeness",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Vendor Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Document Completeness",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Initialize Context": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Input",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Proceed To Stamping": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp Documents",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Archive Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Order",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Receiving Report",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Vendor Invoice",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Initialize Context",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "name": "account_payable_process_0",
+  "nodes": [
+    {
+      "id": "b1b0b8d1-1f7d-4f38-9b0d-8c8a3fbf1d01",
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        260,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "c2f4f1c5-3d47-4a3e-a2f4-1b7d9f92d102",
+      "name": "Initialize Context",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "mockBaseUrl",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8088'}}"
+            },
+            {
+              "name": "caseId",
+              "value": "={{$json.body.input_payload.case_id || ''}}"
+            },
+            {
+              "name": "poNumber",
+              "value": "={{$json.body.input_payload.po_number || ''}}"
+            },
+            {
+              "name": "receivingReportId",
+              "value": "={{$json.body.input_payload.receiving_report_id || ''}}"
+            },
+            {
+              "name": "validationErrors",
+              "value": "=[]"
+            }
+          ]
+        }
+      },
+      "position": [
+        480,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "d3c9a2f7-2a8c-4d20-9d3f-2c5a5d5fd103",
+      "name": "Validate Input",
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "operation": "notEmpty",
+              "value1": "={{$json.caseId}}"
+            },
+            {
+              "operation": "notEmpty",
+              "value1": "={{$json.poNumber}}"
+            },
+            {
+              "operation": "notEmpty",
+              "value1": "={{$json.receivingReportId}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        700,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "e4d4d1c8-7d61-4d13-9d6f-7e2f1d1fd104",
+      "name": "Get Purchase Order",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/erp/purchase-orders/by-po/' + $json.poNumber}}"
+      },
+      "position": [
+        940,
+        160
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "f5a6e2d9-8a72-4e53-8c0e-1f3d2f2ad105",
+      "name": "Get Receiving Report",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/receiving/reports/' + $json.receivingReportId}}"
+      },
+      "position": [
+        940,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "a6b7f3ea-9b83-4f64-9d1f-2f4e3f3be106",
+      "name": "Get Vendor Invoice",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/email/invoice/by-po/' + $json.poNumber}}"
+      },
+      "position": [
+        940,
+        440
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7c8a4fb-ac94-4f75-ae2f-3f5f4f4cf107",
+      "name": "Check Document Completeness",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/dms/completeness/case/' + $json.caseId}}"
+      },
+      "position": [
+        1180,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "c8d9b50c-bda5-4f86-bf3f-4f6f5f5df108",
+      "name": "Proceed To Stamping",
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "operation": "equals",
+              "value1": "={{$json.workflow_status || 'completed'}}",
+              "value2": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1400,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "d9e0c61d-cf0f-4f97-9c04-5f606f6ef109",
+      "name": "Stamp Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.caseId, \"po_number\": $json.poNumber, \"receiving_report_id\": $json.receivingReportId}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/dms/stamp'}}"
+      },
+      "position": [
+        1620,
+        240
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "ea1fd72e-d01f-4f08-aa15-60607070f10a",
+      "name": "Archive Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.caseId, \"stamp_status\": \"stamped\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mockBaseUrl + '/dms/archive'}}"
+      },
+      "position": [
+        1840,
+        240
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "fbf207f3-e112-4f19-8b26-71717171f111",
+      "name": "Build Success Response",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "archive_location",
+              "value": "={{$json.archive_location || 'dms://archive/' + $json.caseId}}"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$json.caseId}}"
+            },
+            {
+              "name": "stamp_status",
+              "value": "={{$json.stamp_status || 'stamped'}}"
+            },
+            {
+              "name": "workflow_status",
+              "value": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        2060,
+        240
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "0c0d08f4-1234-4f19-9b8c-81818181f112",
+      "name": "Build Validation Failure",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "workflow_status",
+              "value": "failed"
+            },
+            {
+              "name": "validation_errors",
+              "value": "={{JSON.stringify(($json.validationErrors || []).concat([!$json.caseId ? 'case_id is required' : null, !$json.poNumber ? 'po_number is required' : null, !$json.receivingReportId ? 'receiving_report_id is required' : null].filter(Boolean)))}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        940,
+        520
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "1d1d19f5-2345-4f1a-aa9c-92929292f113",
+      "name": "Respond to Webhook",
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        2280,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "timezone": "UTC"
+  }
+}
