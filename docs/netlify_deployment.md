@@ -15,6 +15,8 @@ Wenn du das Repository in Netlify importierst, erkennt Netlify die Konfiguration
 
 Der SvelteKit-Adapter wird automatisch ueber `ADAPTER=netlify` aktiviert.
 
+`SECRETS_SCAN_OMIT_KEYS=OPENAI_BASE_URL` ist bewusst gesetzt. Netlify behandelt Environment-Variablen beim Secret Scan pauschal als geheim und blockiert den Build, wenn der exakte Wert in Repository-Dateien oder Build-Ausgaben auftaucht. `OPENAI_BASE_URL` ist aber ein oeffentlicher API-Endpunkt und wird in Dokumentation sowie Server-Bundles erwartet. Der eigentliche geheime Wert `OPENAI_API_KEY` bleibt weiterhin im Secret Scan aktiv.
+
 ## Environment-Variablen
 
 Setze die geheimen Werte in Netlify unter:
