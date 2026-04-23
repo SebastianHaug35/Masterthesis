@@ -27,6 +27,21 @@ export const CONVERSATION_STATS_COLLECTION = "conversations.stats";
 
 const isNetlifyRuntime = process.env.NETLIFY === "true" || Boolean(process.env.NETLIFY_IMAGES_CDN_DOMAIN);
 
+function resolveLocalDbFolder(): string {
+	if (config.MONGO_STORAGE_PATH) {
+		return config.MONGO_STORAGE_PATH;
+	}
+
+	try {
+		return join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
+	} catch (error) {
+		throw new Error(
+			"MONGODB_URL is required in this deployment environment. The local embedded MongoDB fallback only works from a checked-out repository on a writable filesystem.",
+			{ cause: error }
+		);
+	}
+}
+
 export class Database {
 	private client?: MongoClient;
 	private mongoServer?: MongoMemoryServer;
@@ -41,9 +56,7 @@ export class Database {
 				);
 			}
 
-			const DB_FOLDER =
-				config.MONGO_STORAGE_PATH ||
-				join(findRepoRoot(dirname(fileURLToPath(import.meta.url))), "db");
+			const DB_FOLDER = resolveLocalDbFolder();
 
 			logger.warn("No MongoDB URL found, using in-memory server");
 
@@ -80,7 +93,7 @@ export class Database {
 			await this.initDatabase();
 		} catch (err) {
 			logger.error(err, "Error connecting to database");
-			process.exit(1);
+			throw err;
 		}
 
 		// Disconnect DB on exit
