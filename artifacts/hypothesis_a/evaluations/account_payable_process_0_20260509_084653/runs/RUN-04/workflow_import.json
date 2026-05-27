@@ -1,0 +1,458 @@
+{
+  "active": false,
+  "connections": {
+    "Build Failure Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Extract Request Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Input Payload",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Mailpit Message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch Inbound Invoice Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Receipt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch Inbound Invoice Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Accounting Notification": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Documents And Stamp": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Accounting Notification",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Input Payload": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch Purchase Order",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Purchase Receipt",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Failure Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Mailpit Message": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify Or Create Purchase Invoice",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Failure Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Verify Or Create Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Documents And Stamp",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Extract Request Data",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026050908465304",
+  "name": "account_payable_process_0_RUN-04",
+  "nodes": [
+    {
+      "id": "9b3c3b1d-3a44-4f6e-8c79-7f5b6d3b4a01",
+      "name": "WebhookTrigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-04",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "7f1f7b60-2cdb-4e54-a1f7-54b09d2a2a02",
+      "name": "Extract Request Data",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "case_id",
+              "value": "={{$json.body.input_payload.case_id || ''}}"
+            },
+            {
+              "name": "po_number",
+              "value": "={{$json.body.input_payload.po_number || ''}}"
+            },
+            {
+              "name": "invoice_number",
+              "value": "={{$json.body.input_payload.invoice_number || ''}}"
+            },
+            {
+              "name": "receiving_report_id",
+              "value": "={{$json.body.input_payload.receiving_report_id || ''}}"
+            },
+            {
+              "name": "mailpit_message_id",
+              "value": "={{$json.body.input_payload.mailpit_message_id || ''}}"
+            },
+            {
+              "name": "mock_system_base_url",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8088'}}"
+            },
+            {
+              "name": "process_id",
+              "value": "={{$json.body.process_id || ''}}"
+            },
+            {
+              "name": "test_case_id",
+              "value": "={{$json.body.test_case_id || ''}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        460,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "c3a7b4f4-5f7d-4ed0-8f2b-1a9e2d7f4e03",
+      "name": "Fetch Purchase Order",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-order/' + $json.po_number}}"
+      },
+      "position": [
+        680,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "0b7b5f3d-0e33-4f8c-9b6e-3c0f1d8f4e04",
+      "name": "Fetch Purchase Receipt",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-receipt/' + $json.receiving_report_id}}"
+      },
+      "position": [
+        680,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "1b7e6c0d-5e3a-4f4b-8f2d-2d4f7c9a4e05",
+      "name": "Fetch Inbound Invoice Email",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/mailpit/api/messages/' + $json.mailpit_message_id}}"
+      },
+      "position": [
+        900,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "2d7a8b9c-1f0e-4b2c-8d9e-3f1a2b4c5d06",
+      "name": "Verify Or Create Purchase Invoice",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-invoice?bill_no=' + $json.invoice_number}}"
+      },
+      "position": [
+        1120,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "3e1f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a07",
+      "name": "Validate Documents And Stamp",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\":\"{{$json.case_id}}\",\"po_number\":\"{{$json.po_number}}\",\"receiving_report_id\":\"{{$json.receiving_report_id}}\",\"invoice_number\":\"{{$json.invoice_number}}\",\"action\":\"validate_and_stamp\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/document-repository/api/cases/' + $json.case_id + '/complete'}}"
+      },
+      "position": [
+        1340,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "4f2a5b6c-7d8e-4f90-a1b2-3c4d5e6f7a08",
+      "name": "Send Accounting Notification",
+      "parameters": {
+        "bodyParametersJson": "={\"from\":\"noreply@test.local\",\"to\":\"accounting@test.local\",\"subject\":\"AP-{{$json.case_id}} completed\",\"body\":\"Case {{$json.case_id}} completed for PO {{$json.po_number}}, receipt {{$json.receiving_report_id}}, invoice {{$json.invoice_number}}, stamped.\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || 'http://127.0.0.1:8088') + '/mailpit/api/send'}}"
+      },
+      "position": [
+        1560,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "5a6b7c8d-9e0f-4a1b-8c2d-3e4f5a6b7c09",
+      "name": "Build Success Response",
+      "parameters": {
+        "options": {},
+        "values": {
+          "boolean": [
+            {
+              "name": "notification_email_sent",
+              "value": true
+            }
+          ],
+          "string": [
+            {
+              "name": "archive_location",
+              "value": "={{'erpnext://account-payable/' + $json.case_id}}"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$json.case_id}}"
+            },
+            {
+              "name": "erpnext_purchase_invoice_bill_no",
+              "value": "={{$json.invoice_number}}"
+            },
+            {
+              "name": "stamp_status",
+              "value": "stamped"
+            },
+            {
+              "name": "workflow_status",
+              "value": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1780,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "6b7c8d9e-0f1a-4b2c-9d3e-4f5a6b7c8d10",
+      "name": "Build Failure Response",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "workflow_status",
+              "value": "failed"
+            },
+            {
+              "name": "validation_errors",
+              "value": "={{[$json.error || 'Validation failed']}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        1340,
+        520
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "7c8d9e0f-1a2b-4c3d-9e4f-5a6b7c8d9e11",
+      "name": "Respond to Webhook",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        2000,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "8d9e0f1a-2b3c-4d5e-9f5a-6b7c8d9e0f12",
+      "name": "Validate Input Payload",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "operation": "isTrue",
+              "value1": "={{!!$json.case_id && !!$json.po_number && !!$json.invoice_number && !!$json.receiving_report_id}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        460,
+        520
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "id": "9e0f1a2b-3c4d-5e6f-9a6b-7c8d9e0f1a13",
+      "name": "Validate Mailpit Message",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "operation": "isTrue",
+              "value1": "={{!!$json.body || !!$json.id || !!$json.message_id}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1120,
+        180
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "timezone": "UTC"
+  },
+  "versionId": "hypAproc02026050908465304version"
+}

@@ -1,0 +1,68 @@
+{
+  "name": "account_payable_process_0_hypothesis_a",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        300,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Validate Request",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"process_id\"] === \"account_payable_process_0\" && $json[\"test_case_id\"] === \"account_payable_process_0_erpnext_mailpit_happy_path\" && $json[\"input_payload\"] && $json[\"input_payload\"][\"case_id\"] && $json[\"input_payload\"][\"invoice_number\"] && $json[\"input_payload\"][\"mailpit_message_id\"] && $json[\"input_payload\"][\"po_number\"] && $json[\"input_payload\"][\"receiving_report_id\"]}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        520,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "name": "Build Validation Error",
+        "position": [
+          740,
+          480
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 2,
+        "values": {
+          "string": [
+            {
+              "name": "workflow_status",
+              "value": "failed"
+            },
+            {
+              "name": "validation_errors",
+              "value": "={{[$json[\"process_id\"] !== \"account_payable_process_0\" ? \"process_id must equal account_payable_process_0\" : null,$json[\"test_case_id\"] !== \"account_payable_process_0_erpnext_mailpit_happy_path\" ? \"test_case_id must equal account_payable_process_0_erpnext_mailpit_happy_path\" : null,!$json[\"input_payload\"] || !$json[\"input_payload\"][\"case_id\"] ? \"input_payload.case_id is required\" : null,!$json[\"input_payload\"] || !$json[\"input_payload\"][\"invoice_number\"] ? \"input_payload.invoice_number is required\" : null,!$json[\"input_payload\"] || !$json[\"input_payload\"][\"mailpit_message_id\"] ? \"input_payload.mailpit_message_id is required\" : null,!$json[\"input_payload\"] || !$json[\"input_payload\"][\"po_number\"] ? \"input_payload.po_number is required\" : null,!$json[\"input_payload\"] || !$json[\"input_payload\"][\"receiving_report_id\"] ? \"input_payload.receiving_report_id is required\" : null].filter(Boolean)}]}},"
+            },
+            {}
+          ]
+        }
+      }
+    },
+    "name",
+    "type",
+    "typeVersion",
+    "position",
+    "parameters"
+  ]
+}

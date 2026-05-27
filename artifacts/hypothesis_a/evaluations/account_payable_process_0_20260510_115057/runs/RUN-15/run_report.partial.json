@@ -1,0 +1,160 @@
+{
+  "erpnext_before": {
+    "purchase_invoice": null,
+    "purchase_order": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Order",
+      "grand_total": 2450.0,
+      "modified": "2026-05-10 13:50:58.506396",
+      "name": "PUR-ORD-2026-00001",
+      "net_total": 2450.0,
+      "supplier": "Meyer Industrietechnik GmbH",
+      "transaction_date": "2026-04-09"
+    },
+    "purchase_receipt": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Receipt",
+      "grand_total": 2450.0,
+      "modified": "2026-05-08 15:10:43.520256",
+      "name": "MAT-PRE-2026-00001",
+      "net_total": 2450.0,
+      "posting_date": "2026-05-08",
+      "supplier": "Meyer Industrietechnik GmbH"
+    },
+    "reachable": true
+  },
+  "generation": {
+    "duration_ms": 0,
+    "ok": true,
+    "skipped": true,
+    "validation_failures": []
+  },
+  "import_publish": {
+    "copy": {
+      "cmd": [
+        "docker",
+        "cp",
+        "/root/Masterthesis/artifacts/hypothesis_a/evaluations/account_payable_process_0_20260510_115057/runs/RUN-15/workflow_import.json",
+        "openclaw-0txg-openclaw-1:/tmp/hypAproc02026051011505715.json"
+      ],
+      "duration_ms": 30,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "import": {
+      "cmd": [
+        "docker",
+        "exec",
+        "-u",
+        "node",
+        "openclaw-0txg-openclaw-1",
+        "sh",
+        "-lc",
+        "export N8N_USER_FOLDER=/data; export N8N_DIAGNOSTICS_ENABLED=false; /data/.npm-global/bin/n8n import:workflow --input=/tmp/hypAproc02026051011505715.json"
+      ],
+      "duration_ms": 2582,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Error tracking disabled because this release is older than 6 weeks.\nImporting 1 workflows...\nSuccessfully imported 1 workflow.\n"
+    },
+    "ok": true,
+    "publish": {
+      "cmd": [
+        "docker",
+        "exec",
+        "-u",
+        "node",
+        "openclaw-0txg-openclaw-1",
+        "sh",
+        "-lc",
+        "export N8N_USER_FOLDER=/data; export N8N_DIAGNOSTICS_ENABLED=false; /data/.npm-global/bin/n8n publish:workflow --id=hypAproc02026051011505715"
+      ],
+      "duration_ms": 2533,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Error tracking disabled because this release is older than 6 weeks.\nPublishing workflow with ID: hypAproc02026051011505715 (current version)\nNote: Changes will not take effect if n8n is running.\nPlease restart n8n for changes to take effect if n8n is currently running.\n"
+    }
+  },
+  "mailpit_before": {
+    "messages_count": 7,
+    "relevant_messages": [
+      {
+        "created": "2026-05-10T11:50:58.627Z",
+        "from": "vendor.billing@test.local",
+        "id": "noULnQQjeA3YteTcFESkKX",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:26:10.564Z",
+        "from": "vendor.billing@test.local",
+        "id": "F7iyeUWGLBVnzH23eVRXBi",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:05:52.082Z",
+        "from": "vendor.billing@test.local",
+        "id": "eCQg3KiEW5acXjPis7xMbN",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-09T08:46:54.885Z",
+        "from": "vendor.billing@test.local",
+        "id": "iTM8DfFnVBDsBF9EvwjfS7",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:42:03.255Z",
+        "from": "vendor.billing@test.local",
+        "id": "etaTGyn7o6TQoJDMbyFfGF",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:41:52.903Z",
+        "from": "vendor.billing@test.local",
+        "id": "4ssYMJpqVMkT7SFvh756HW",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      }
+    ],
+    "status": 200,
+    "total": 7
+  },
+  "relative_dir": "runs/RUN-15",
+  "run_label": "RUN-15",
+  "started_at": "2026-05-10T11:52:17+00:00",
+  "workflow_id": "hypAproc02026051011505715"
+}

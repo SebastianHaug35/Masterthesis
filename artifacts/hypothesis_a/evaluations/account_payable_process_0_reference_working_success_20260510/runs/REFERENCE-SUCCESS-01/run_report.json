@@ -1,0 +1,303 @@
+{
+  "checks": {
+    "activation": true,
+    "erpnext_after": true,
+    "erpnext_before": true,
+    "expected_response": true,
+    "generation": true,
+    "import": true,
+    "mailpit_after": true,
+    "mailpit_before": true,
+    "trigger": true
+  },
+  "erpnext_after": {
+    "purchase_invoice": {
+      "bill_no": "INV-98451",
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Invoice",
+      "grand_total": 2915.5,
+      "modified": "2026-05-10 14:01:08.876281",
+      "name": "ACC-PINV-2026-00001",
+      "net_total": 2450.0,
+      "posting_date": "2026-05-10",
+      "supplier": "Meyer Industrietechnik GmbH"
+    },
+    "purchase_order": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Order",
+      "grand_total": 2450.0,
+      "modified": "2026-05-10 14:01:08.968135",
+      "name": "PUR-ORD-2026-00001",
+      "net_total": 2450.0,
+      "supplier": "Meyer Industrietechnik GmbH",
+      "transaction_date": "2026-04-09"
+    },
+    "purchase_receipt": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Receipt",
+      "grand_total": 2450.0,
+      "modified": "2026-05-08 15:10:43.520256",
+      "name": "MAT-PRE-2026-00001",
+      "net_total": 2450.0,
+      "posting_date": "2026-05-08",
+      "supplier": "Meyer Industrietechnik GmbH"
+    },
+    "reachable": true
+  },
+  "erpnext_before": {
+    "purchase_invoice": {
+      "bill_no": "INV-98451",
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Invoice",
+      "grand_total": 2915.5,
+      "modified": "2026-05-10 14:01:08.876281",
+      "name": "ACC-PINV-2026-00001",
+      "net_total": 2450.0,
+      "posting_date": "2026-05-10",
+      "supplier": "Meyer Industrietechnik GmbH"
+    },
+    "purchase_order": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Order",
+      "grand_total": 2450.0,
+      "modified": "2026-05-10 14:01:08.968135",
+      "name": "PUR-ORD-2026-00001",
+      "net_total": 2450.0,
+      "supplier": "Meyer Industrietechnik GmbH",
+      "transaction_date": "2026-04-09"
+    },
+    "purchase_receipt": {
+      "company": "Masterthesis Test GmbH",
+      "currency": "EUR",
+      "docstatus": 1,
+      "doctype": "Purchase Receipt",
+      "grand_total": 2450.0,
+      "modified": "2026-05-08 15:10:43.520256",
+      "name": "MAT-PRE-2026-00001",
+      "net_total": 2450.0,
+      "posting_date": "2026-05-08",
+      "supplier": "Meyer Industrietechnik GmbH"
+    },
+    "reachable": true
+  },
+  "finished_at": "2026-05-10T12:06:56+00:00",
+  "generation": {
+    "manual_reference_workflow": true,
+    "ok": true
+  },
+  "import_publish": {
+    "manual_reference_workflow": true,
+    "ok": true
+  },
+  "mailpit_after": {
+    "messages_count": 9,
+    "relevant_messages": [
+      {
+        "created": "2026-05-10T12:06:54.978Z",
+        "from": "noreply@test.local",
+        "id": "maRgdVkri8yoYcyhVA7fjp",
+        "message_id": "ap-2026-0001-completed-1778414814975@test.local",
+        "snippet": "Case AP-2026-0001 completed. PO PO-4500012458, invoice INV-98451, receipt GR-2026-00441, stamped.",
+        "subject": "AP-2026-0001 completed",
+        "to": [
+          "accounting@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T12:06:31.249Z",
+        "from": "noreply@test.local",
+        "id": "KQ6HJ9nNvLnAje3e9cTaLW",
+        "message_id": "ap-2026-0001-completed-1778414791245@test.local",
+        "snippet": "Case AP-2026-0001 completed. PO PO-4500012458, invoice INV-98451, receipt GR-2026-00441, stamped.",
+        "subject": "AP-2026-0001 completed",
+        "to": [
+          "accounting@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T11:50:58.627Z",
+        "from": "vendor.billing@test.local",
+        "id": "noULnQQjeA3YteTcFESkKX",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:26:10.564Z",
+        "from": "vendor.billing@test.local",
+        "id": "F7iyeUWGLBVnzH23eVRXBi",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:05:52.082Z",
+        "from": "vendor.billing@test.local",
+        "id": "eCQg3KiEW5acXjPis7xMbN",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-09T08:46:54.885Z",
+        "from": "vendor.billing@test.local",
+        "id": "iTM8DfFnVBDsBF9EvwjfS7",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:42:03.255Z",
+        "from": "vendor.billing@test.local",
+        "id": "etaTGyn7o6TQoJDMbyFfGF",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:41:52.903Z",
+        "from": "vendor.billing@test.local",
+        "id": "4ssYMJpqVMkT7SFvh756HW",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      }
+    ],
+    "status": 200,
+    "total": 9
+  },
+  "mailpit_before": {
+    "messages_count": 8,
+    "relevant_messages": [
+      {
+        "created": "2026-05-10T12:06:31.249Z",
+        "from": "noreply@test.local",
+        "id": "KQ6HJ9nNvLnAje3e9cTaLW",
+        "message_id": "ap-2026-0001-completed-1778414791245@test.local",
+        "snippet": "Case AP-2026-0001 completed. PO PO-4500012458, invoice INV-98451, receipt GR-2026-00441, stamped.",
+        "subject": "AP-2026-0001 completed",
+        "to": [
+          "accounting@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T11:50:58.627Z",
+        "from": "vendor.billing@test.local",
+        "id": "noULnQQjeA3YteTcFESkKX",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:26:10.564Z",
+        "from": "vendor.billing@test.local",
+        "id": "F7iyeUWGLBVnzH23eVRXBi",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-10T10:05:52.082Z",
+        "from": "vendor.billing@test.local",
+        "id": "eCQg3KiEW5acXjPis7xMbN",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-09T08:46:54.885Z",
+        "from": "vendor.billing@test.local",
+        "id": "iTM8DfFnVBDsBF9EvwjfS7",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:42:03.255Z",
+        "from": "vendor.billing@test.local",
+        "id": "etaTGyn7o6TQoJDMbyFfGF",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      },
+      {
+        "created": "2026-05-08T09:41:52.903Z",
+        "from": "vendor.billing@test.local",
+        "id": "4ssYMJpqVMkT7SFvh756HW",
+        "message_id": "ap-2026-0001-invoice@test.local",
+        "snippet": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+        "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+        "to": [
+          "invoice@test.local"
+        ]
+      }
+    ],
+    "status": 200,
+    "total": 8
+  },
+  "relative_dir": "runs/REFERENCE-SUCCESS-01",
+  "run_label": "REFERENCE-SUCCESS-01",
+  "started_at": "2026-05-10T12:06:54+00:00",
+  "trigger": {
+    "duration_ms": 277,
+    "response": {
+      "archive_location": "erpnext://account-payable/AP-2026-0001",
+      "case_id": "AP-2026-0001",
+      "erpnext_purchase_invoice_bill_no": "INV-98451",
+      "evidence": {
+        "purchase_invoice": "ACC-PINV-2026-00001",
+        "result_message_id": "<ap-2026-0001-completed-1778414814975@test.local>"
+      },
+      "notification_email_sent": true,
+      "stamp_status": "stamped",
+      "workflow_status": "completed"
+    },
+    "status": 200,
+    "url": "http://127.0.0.1:8070/webhook/hypAproc0ReferenceWorking/webhook%2520trigger/account_payable_process_0_reference"
+  },
+  "webhook_path": "hypAproc0ReferenceWorking/webhook%20trigger/account_payable_process_0_reference",
+  "workflow_id": "hypAproc0ReferenceWorking"
+}

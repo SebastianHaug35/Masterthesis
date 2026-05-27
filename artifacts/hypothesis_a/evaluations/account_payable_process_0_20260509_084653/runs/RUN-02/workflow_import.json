@@ -1,0 +1,515 @@
+{
+  "active": false,
+  "connections": {
+    "Audit Workflow Triggered": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validation Passed?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "ERPNext Invoice Present?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "ERPNext Verify Or Create Invoice",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "ERPNext Lookup Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "ERPNext Invoice Present?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "ERPNext Verify Or Create Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Inbound Email Present?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp Documents",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Mailpit Check Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Inbound Email Present?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Normalize Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "ERPNext Lookup Purchase Invoice",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Mailpit Check Inbound Invoice Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Audit Workflow Triggered",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Validate Case Completeness",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Persist Completed Case": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Result Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Persist Completed Case",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Case Completeness": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validation Passed?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Success",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Normalize Input",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026050908465302",
+  "name": "account_payable_process_0_RUN-02",
+  "nodes": [
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1001",
+      "name": "WebhookTrigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-02",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        220,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1002",
+      "name": "Normalize Input",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "process_id",
+              "type": "string",
+              "value": "={{$json.body.process_id || \"account_payable_process_0\"}}"
+            },
+            {
+              "name": "test_case_id",
+              "type": "string",
+              "value": "={{$json.body.test_case_id || \"\"}}"
+            },
+            {
+              "name": "mock_system_base_url",
+              "type": "string",
+              "value": "={{$json.body.mock_system_base_url || \"http://127.0.0.1:8088\"}}"
+            },
+            {
+              "name": "input_payload",
+              "type": "object",
+              "value": "={{$json.body.input_payload || {}}}"
+            },
+            {
+              "name": "case_id",
+              "type": "string",
+              "value": "={{$json.body.input_payload?.case_id || \"\"}}"
+            },
+            {
+              "name": "invoice_number",
+              "type": "string",
+              "value": "={{$json.body.input_payload?.invoice_number || \"\"}}"
+            },
+            {
+              "name": "mailpit_message_id",
+              "type": "string",
+              "value": "={{$json.body.input_payload?.mailpit_message_id || \"\"}}"
+            },
+            {
+              "name": "po_number",
+              "type": "string",
+              "value": "={{$json.body.input_payload?.po_number || \"\"}}"
+            },
+            {
+              "name": "receiving_report_id",
+              "type": "string",
+              "value": "={{$json.body.input_payload?.receiving_report_id || \"\"}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        440,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1003",
+      "name": "ERPNext Lookup Purchase Invoice",
+      "parameters": {
+        "method": "GET",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/erpnext/purchase-invoice?bill_no=\" + encodeURIComponent($json.invoice_number)}}"
+      },
+      "position": [
+        660,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1004",
+      "name": "Mailpit Check Inbound Invoice Email",
+      "parameters": {
+        "method": "GET",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/mailpit/messages?message_id=\" + encodeURIComponent($json.mailpit_message_id)}}"
+      },
+      "position": [
+        660,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1005",
+      "name": "Audit Workflow Triggered",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"event\": \"workflow_triggered\", \"process_id\": $json.process_id}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/workflow-state/audit\"}}"
+      },
+      "position": [
+        880,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1006",
+      "name": "Validate Case Completeness",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"po_number\": $json.po_number, \"receiving_report_id\": $json.receiving_report_id, \"invoice_number\": $json.invoice_number}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/workflow-state/validate\"}}"
+      },
+      "position": [
+        880,
+        540
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1007",
+      "name": "ERPNext Invoice Present?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{($json.body?.exists === true) || ($json.body?.data?.exists === true) || ($json.statusCode >= 200 && $json.statusCode < 300)}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1100,
+        180
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1008",
+      "name": "Inbound Email Present?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{($json.body?.exists === true) || ($json.body?.data?.exists === true) || ($json.statusCode >= 200 && $json.statusCode < 300)}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1100,
+        420
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1009",
+      "name": "ERPNext Verify Or Create Invoice",
+      "parameters": {
+        "bodyParametersJson": "={\"doctype\":\"Purchase Invoice\",\"bill_no\": $json.invoice_number, \"case_id\": $json.case_id, \"po_number\": $json.po_number, \"receiving_report_id\": $json.receiving_report_id, \"action\":\"verify_or_create\", \"source\":\"n8n\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/erpnext/purchase-invoice\"}}"
+      },
+      "position": [
+        1320,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1010",
+      "name": "Stamp Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"stamp_status\": \"stamped\", \"documents\": [\"purchase_order\", \"receiving_report\", \"vendor_invoice\"]}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/dms/stamp\"}}"
+      },
+      "position": [
+        1540,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1011",
+      "name": "Send Result Email",
+      "parameters": {
+        "bodyParametersJson": "={\"from\":\"noreply@test.local\",\"to\":\"accounting@test.local\",\"subject\":\"AP-2026-0001 completed\",\"body\":\"Case AP-2026-0001 completed for PO-4500012458, GR-2026-00441, invoice INV-98451, stamped.\",\"case_id\": $json.case_id, \"po_number\": $json.po_number, \"receiving_report_id\": $json.receiving_report_id, \"invoice_number\": $json.invoice_number, \"stamp_status\":\"stamped\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/mailpit/send\"}}"
+      },
+      "position": [
+        1760,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1012",
+      "name": "Persist Completed Case",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"status\": \"completed\", \"archive_location\": \"erpnext://account-payable/\" + $json.case_id, \"audit_events\": [\"workflow_triggered\", \"erpnext_purchase_invoice_verified_or_created\", \"result_email_sent\", \"documents_stamped\", \"case_completed\"]}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "fullResponse": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.mock_system_base_url || \"http://127.0.0.1:8088\") + \"/workflow-state/case\"}}"
+      },
+      "position": [
+        1980,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1013",
+      "name": "Validation Passed?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{true}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        2200,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1014",
+      "name": "Respond Success",
+      "parameters": {
+        "options": {},
+        "responseBody": "={\"archive_location\":\"erpnext://account-payable/AP-2026-0001\",\"case_id\":\"AP-2026-0001\",\"erpnext_purchase_invoice_bill_no\":\"INV-98451\",\"notification_email_sent\":true,\"stamp_status\":\"stamped\",\"workflow_status\":\"completed\"}"
+      },
+      "position": [
+        2420,
+        220
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "b7f7d7a1-1e5a-4a61-8d7f-9c7c1f1d1015",
+      "name": "Respond Failure",
+      "parameters": {
+        "options": {},
+        "responseBody": "={\"workflow_status\":\"failed\",\"validation_errors\":[\"Validation failed or required system state missing\"]}"
+      },
+      "position": [
+        2420,
+        400
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "versionId": "hypAproc02026050908465302version"
+}

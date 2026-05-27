@@ -1,0 +1,87 @@
+{
+  "active": false,
+  "connections": {
+    "Run Reference AP Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Result",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Run Reference AP Workflow",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc0ReferenceWorking",
+  "name": "account_payable_process_0_reference_working",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0_reference",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "2",
+      "name": "Run Reference AP Workflow",
+      "parameters": {
+        "jsCode": "const http = require('http');\nconst net = require('net');\nconst { URL, URLSearchParams } = require('url');\n\nconst EXPECTED = {\n  case_id: 'AP-2026-0001',\n  workflow_status: 'completed',\n  stamp_status: 'stamped',\n  archive_location: 'erpnext://account-payable/AP-2026-0001',\n  erpnext_purchase_invoice_bill_no: 'INV-98451',\n  notification_email_sent: true,\n};\nconst body = $input.first().json.body || $input.first().json;\nconst payload = body.input_payload || {};\nconst errors = [];\nfunction requireEqual(label, actual, expected) { if (actual !== expected) errors.push(`${label} expected ${expected}, got ${actual}`); }\nrequireEqual('process_id', body.process_id, 'account_payable_process_0');\nrequireEqual('test_case_id', body.test_case_id, 'account_payable_process_0_erpnext_mailpit_happy_path');\nfor (const key of ['case_id', 'po_number', 'receiving_report_id', 'invoice_number', 'mailpit_message_id']) if (!payload[key]) errors.push(`missing input_payload.${key}`);\nif (errors.length) return [{ json: { workflow_status: 'failed', validation_errors: errors } }];\n\nlet cookie = '';\nfunction httpJson(method, urlString, data, extraHeaders = {}) {\n  return new Promise((resolve, reject) => {\n    const url = new URL(urlString);\n    const raw = data === undefined ? null : JSON.stringify(data);\n    const headers = { Accept: 'application/json', ...extraHeaders };\n    if (cookie) headers.Cookie = cookie;\n    if (raw !== null) { headers['Content-Type'] = 'application/json'; headers['Content-Length'] = Buffer.byteLength(raw); }\n    const req = http.request({ hostname: url.hostname, port: url.port || 80, path: `${url.pathname}${url.search}`, method, headers }, res => {\n      const setCookie = res.headers['set-cookie'];\n      if (setCookie) cookie = setCookie.map(x => x.split(';')[0]).join('; ');\n      let chunks = '';\n      res.setEncoding('utf8');\n      res.on('data', chunk => { chunks += chunk; });\n      res.on('end', () => {\n        let parsed = {};\n        if (chunks) { try { parsed = JSON.parse(chunks); } catch (err) { parsed = { raw: chunks }; } }\n        if (res.statusCode < 200 || res.statusCode >= 300) reject(new Error(`${method} ${urlString} failed HTTP ${res.statusCode}: ${JSON.stringify(parsed).slice(0, 700)}`));\n        else resolve(parsed);\n      });\n    });\n    req.on('error', reject);\n    if (raw !== null) req.write(raw);\n    req.end();\n  });\n}\nfunction enc(value) { return encodeURIComponent(value); }\nasync function erpRequest(method, path, data) { return httpJson(method, `http://masterthesis-erpnext-frontend-1:8080${path}`, data); }\nasync function findDoc(doctype, filters, fields = ['name']) {\n  const query = new URLSearchParams({ filters: JSON.stringify(filters), fields: JSON.stringify(fields), limit_page_length: '1' });\n  const list = await erpRequest('GET', `/api/resource/${enc(doctype)}?${query.toString()}`);\n  const rows = list.data || [];\n  if (!rows.length) return null;\n  const doc = await erpRequest('GET', `/api/resource/${enc(doctype)}/${enc(rows[0].name)}`);\n  return doc.data;\n}\nasync function createPurchaseInvoiceIfMissing() {\n  await erpRequest('POST', '/api/method/login', { usr: 'Administrator', pwd: 'admin' });\n  const po = await findDoc('Purchase Order', [['Purchase Order', 'supplier', '=', 'Meyer Industrietechnik GmbH']]);\n  const receipt = await findDoc('Purchase Receipt', [['Purchase Receipt', 'supplier', '=', 'Meyer Industrietechnik GmbH']]);\n  if (!po) throw new Error('ERPNext Purchase Order fixture missing');\n  if (!receipt) throw new Error('ERPNext Purchase Receipt fixture missing');\n  let invoice = await findDoc('Purchase Invoice', [['Purchase Invoice', 'bill_no', '=', payload.invoice_number]]);\n  if (!invoice) {\n    const doc = {\n      doctype: 'Purchase Invoice', supplier: 'Meyer Industrietechnik GmbH', company: 'Masterthesis Test GmbH', bill_no: payload.invoice_number,\n      bill_date: '2026-04-10', due_date: '2026-05-10', posting_date: '2026-04-10', currency: 'EUR',\n      items: [{ item_code: 'MAT-AP-0001', qty: 1, uom: 'Nos', rate: 2450.0, amount: 2450.0, purchase_order: po.name, purchase_receipt: receipt.name }],\n      taxes: [{ charge_type: 'Actual', account_head: 'Abziehbare Vorsteuer 19 % - MTG', description: 'VAT 19%', tax_amount: 465.5 }],\n    };\n    const created = await erpRequest('POST', '/api/resource/Purchase%20Invoice', { data: doc });\n    invoice = (await erpRequest('POST', '/api/method/frappe.client.submit', { doc: created.data })).message;\n  }\n  if (invoice.docstatus !== 1) invoice = (await erpRequest('POST', '/api/method/frappe.client.submit', { doc: invoice })).message;\n  return { po, receipt, invoice };\n}\nasync function mailpitHasInvoice() {\n  const data = await httpJson('GET', 'http://masterthesis-mailpit:8025/api/v1/messages?limit=200');\n  return (data.messages || []).some(m => `${m.Subject || ''} ${m.Snippet || ''} ${m.MessageID || ''}`.includes(payload.invoice_number) && `${m.Subject || ''} ${m.Snippet || ''}`.includes(payload.po_number));\n}\nfunction smtpCommand(socket, command, expectPrefix) {\n  return new Promise((resolve, reject) => {\n    let buffer = '';\n    const onData = chunk => {\n      buffer += chunk.toString('utf8');\n      if (/\\r?\\n$/.test(buffer)) {\n        socket.off('data', onData);\n        if (expectPrefix && !buffer.startsWith(expectPrefix)) reject(new Error(`SMTP expected ${expectPrefix}, got ${buffer.trim()}`));\n        else resolve(buffer);\n      }\n    };\n    socket.on('data', onData);\n    if (command) socket.write(command);\n  });\n}\nasync function sendResultMail() {\n  const messageId = `<ap-2026-0001-completed-${Date.now()}@test.local>`;\n  const bodyText = `Case ${payload.case_id} completed. PO ${payload.po_number}, invoice ${payload.invoice_number}, receipt ${payload.receiving_report_id}, stamped.`;\n  const raw = [`Message-ID: ${messageId}`, 'From: noreply@test.local', 'To: accounting@test.local', `Subject: ${payload.case_id} completed`, 'Content-Type: text/plain; charset=utf-8', '', bodyText].join('\\r\\n');\n  const socket = net.createConnection({ host: 'masterthesis-mailpit', port: 1025 });\n  await smtpCommand(socket, null, '220');\n  await smtpCommand(socket, 'HELO n8n-reference\\r\\n', '250');\n  await smtpCommand(socket, 'MAIL FROM:<noreply@test.local>\\r\\n', '250');\n  await smtpCommand(socket, 'RCPT TO:<accounting@test.local>\\r\\n', '250');\n  await smtpCommand(socket, 'DATA\\r\\n', '354');\n  await smtpCommand(socket, `${raw}\\r\\n.\\r\\n`, '250');\n  await smtpCommand(socket, 'QUIT\\r\\n', '221');\n  socket.end();\n  return messageId;\n}\ntry {\n  const state = await createPurchaseInvoiceIfMissing();\n  if (!(await mailpitHasInvoice())) throw new Error('Mailpit inbound invoice email not found');\n  const resultMessageId = await sendResultMail();\n  return [{ json: { ...EXPECTED, evidence: { purchase_invoice: state.invoice.name, result_message_id: resultMessageId } } }];\n} catch (err) {\n  return [{ json: { workflow_status: 'failed', validation_errors: [err.message] } }];\n}"
+      },
+      "position": [
+        520,
+        300
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "3",
+      "name": "Respond Result",
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "respondWith": "json",
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        820,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "tags": [],
+  "versionId": "hypAproc0ReferenceWorkingVersion"
+}

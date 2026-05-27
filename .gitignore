@@ -13,7 +13,7 @@
 *.cer
 id_rsa
 id_rsa.pub
-
+.codex
 # Python
 __pycache__/
 *.py[cod]

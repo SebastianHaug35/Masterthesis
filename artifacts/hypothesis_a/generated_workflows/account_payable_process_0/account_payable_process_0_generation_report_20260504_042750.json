@@ -1,0 +1,11 @@
+{
+  "duration_ms": 1694,
+  "error": "OpenAI API request failed with HTTP 429: {\n  \"error\": {\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\",\n    \"type\": \"insufficient_quota\",\n    \"param\": null,\n    \"code\": \"insufficient_quota\"\n  }\n}",
+  "model": "gpt-5.4-mini",
+  "process_id": "account_payable_process_0",
+  "prompt": "artifacts/hypothesis_a/generated_workflows/account_payable_process_0/account_payable_process_0_generation_prompt_20260504_042750.json",
+  "run_id": "20260504_042750",
+  "validation_failures": [],
+  "validation_status": "error",
+  "workflow": null
+}

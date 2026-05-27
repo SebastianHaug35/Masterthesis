@@ -1,0 +1,466 @@
+{
+  "active": false,
+  "connections": {
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Validation Error Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Validation Error",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Receipt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Workflow State": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Result Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp And Archive Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validation Passed?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch Purchase Order",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Purchase Receipt",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Inbound Invoice Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Workflow State",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Error Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validation Passed?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify Purchase Invoice",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Stamp And Archive Documents",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Error Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Verify Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Request",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026050908465317",
+  "name": "account_payable_process_0_RUN-17",
+  "nodes": [
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a001",
+      "name": "WebhookTrigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-17",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        260,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a002",
+      "name": "Validate Request",
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.process_id}}",
+              "value2": "account_payable_process_0"
+            },
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.test_case_id}}",
+              "value2": "account_payable_process_0_erpnext_mailpit_happy_path"
+            },
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.input_payload.case_id}}",
+              "value2": "AP-2026-0001"
+            },
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.input_payload.invoice_number}}",
+              "value2": "INV-98451"
+            },
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.input_payload.po_number}}",
+              "value2": "PO-4500012458"
+            },
+            {
+              "operation": "equals",
+              "value1": "={{$json.body.input_payload.receiving_report_id}}",
+              "value2": "GR-2026-00441"
+            }
+          ]
+        }
+      },
+      "position": [
+        500,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a003",
+      "name": "Fetch Purchase Order",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-order?po_number=' + $json.body.input_payload.po_number}}"
+      },
+      "position": [
+        740,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a004",
+      "name": "Fetch Purchase Receipt",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-receipt?receiving_report_id=' + $json.body.input_payload.receiving_report_id}}"
+      },
+      "position": [
+        740,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a005",
+      "name": "Fetch Inbound Invoice Email",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/mailpit/api/messages/' + $json.body.input_payload.mailpit_message_id}}"
+      },
+      "position": [
+        980,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a006",
+      "name": "Fetch Workflow State",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/workflow-state/api/cases/' + $json.body.input_payload.case_id}}"
+      },
+      "position": [
+        980,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a007",
+      "name": "Validate Data",
+      "parameters": {
+        "jsCode": "const body = $json.body || {}; const input = body.input_payload || {}; const po = $node['Fetch Purchase Order'].json || {}; const pr = $node['Fetch Purchase Receipt'].json || {}; const email = $node['Fetch Inbound Invoice Email'].json || {}; const state = $node['Fetch Workflow State'].json || {}; const errors = []; if (!po || po.identifier !== input.po_number) errors.push('Purchase Order missing or mismatched'); if (!pr || pr.identifier !== input.receiving_report_id) errors.push('Purchase Receipt missing or mismatched'); if (!email || email.message_id !== input.mailpit_message_id) errors.push('Inbound invoice email missing or mismatched'); if (!email || email.from !== 'vendor.billing@test.local') errors.push('Vendor email sender mismatch'); if (!state || state.case_id !== input.case_id) errors.push('Workflow state missing or mismatched'); if (errors.length) { return [{ workflow_status: 'failed', validation_errors: errors }]; } return [{ case_id: input.case_id, po_number: input.po_number, receiving_report_id: input.receiving_report_id, invoice_number: input.invoice_number, mailpit_message_id: input.mailpit_message_id, supplier: 'Meyer Industrietechnik GmbH', vendor_id: 'V-10045', validation_ok: true }];"
+      },
+      "position": [
+        1220,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a008",
+      "name": "Validation Passed?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "operation": "isTrue",
+              "value1": "={{$json.validation_ok === true}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1460,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a009",
+      "name": "Verify Purchase Invoice",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($node['Webhook Trigger'].json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/erpnext/api/purchase-invoice?bill_no=' + $node['Validate Data'].json.invoice_number}}"
+      },
+      "position": [
+        1700,
+        160
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a010",
+      "name": "Stamp And Archive Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\":$node['Validate Data'].json.case_id,\"po_number\":$node['Validate Data'].json.po_number,\"receiving_report_id\":$node['Validate Data'].json.receiving_report_id,\"invoice_number\":$node['Validate Data'].json.invoice_number,\"archive_location\":\"erpnext://account-payable/\" + $node['Validate Data'].json.case_id}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($node['Webhook Trigger'].json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/dms/api/stamp-package'}}"
+      },
+      "position": [
+        1700,
+        360
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a011",
+      "name": "Send Result Email",
+      "parameters": {
+        "bodyParametersJson": "={\"from\":\"noreply@test.local\",\"to\":\"accounting@test.local\",\"subject\":\"AP-2026-0001 completed\",\"body\":\"Case AP-2026-0001 completed for PO-4500012458, GR-2026-00441, INV-98451, stamped.\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{($node['Webhook Trigger'].json.body.mock_system_base_url || 'http://127.0.0.1:8088') + '/mailpit/api/send'}}"
+      },
+      "position": [
+        1940,
+        360
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a012",
+      "name": "Build Success Response",
+      "parameters": {
+        "jsCode": "const archive = $node['Stamp And Archive Documents'].json || {}; const invoice = $node['Verify Purchase Invoice'].json || {}; return [{ archive_location: archive.archive_location || 'erpnext://account-payable/AP-2026-0001', case_id: $node['Validate Data'].json.case_id, erpnext_purchase_invoice_bill_no: invoice.bill_no || $node['Validate Data'].json.invoice_number, notification_email_sent: true, stamp_status: 'stamped', workflow_status: 'completed' }];"
+      },
+      "position": [
+        2180,
+        360
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a013",
+      "name": "Respond Success",
+      "parameters": {
+        "options": {},
+        "responseCode": 200,
+        "responseData": "firstEntryJson"
+      },
+      "position": [
+        2420,
+        360
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a014",
+      "name": "Build Validation Error Response",
+      "parameters": {
+        "jsCode": "const incoming = $json.body || {}; const errors = []; if ((incoming.process_id || '') !== 'account_payable_process_0') errors.push('Invalid process_id'); if ((incoming.test_case_id || '') !== 'account_payable_process_0_erpnext_mailpit_happy_path') errors.push('Invalid test_case_id'); if (!incoming.input_payload || incoming.input_payload.case_id !== 'AP-2026-0001') errors.push('Invalid case_id'); if (!incoming.input_payload || incoming.input_payload.invoice_number !== 'INV-98451') errors.push('Invalid invoice_number'); if (!incoming.input_payload || incoming.input_payload.po_number !== 'PO-4500012458') errors.push('Invalid po_number'); if (!incoming.input_payload || incoming.input_payload.receiving_report_id !== 'GR-2026-00441') errors.push('Invalid receiving_report_id'); return [{ workflow_status: 'failed', validation_errors: errors.length ? errors : ['Request validation failed'] }];"
+      },
+      "position": [
+        740,
+        520
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "b3d1b1c2-0f55-4b6c-a0b2-9cb2f3c1a015",
+      "name": "Respond Validation Error",
+      "parameters": {
+        "options": {},
+        "responseCode": 400,
+        "responseData": "firstEntryJson"
+      },
+      "position": [
+        980,
+        520
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "versionId": "hypAproc02026050908465317version"
+}

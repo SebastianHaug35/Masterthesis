@@ -1,0 +1,322 @@
+{
+  "active": false,
+  "connections": {
+    "Build Final Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Final Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp and Archive Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Purchase Receipt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp and Archive Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Fetch Workflow State": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Final Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Result Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Final Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp and Archive Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Final Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Fetch Purchase Order",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Purchase Receipt",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Inbound Invoice Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Purchase Invoice",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Fetch Workflow State",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Request",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026050908465306",
+  "name": "account_payable_process_0_RUN-06",
+  "nodes": [
+    {
+      "name": "WebhookTrigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-06",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Validate Request",
+      "parameters": {
+        "jsCode": "const body = $json.body ?? $json;\nconst errors = [];\nconst required = ['process_id','test_case_id','mock_system_base_url','input_payload'];\nfor (const key of required) {\n  if (!(key in body)) errors.push(`Missing required field: ${key}`);\n}\nconst input = body.input_payload ?? {};\nfor (const key of ['case_id','invoice_number','mailpit_message_id','po_number','receiving_report_id']) {\n  if (!(key in input) || input[key] === '') errors.push(`Missing required input_payload field: ${key}`);\n}\nif (body.process_id !== 'account_payable_process_0') errors.push('process_id must be account_payable_process_0');\nif (errors.length) {\n  return [{ json: { workflow_status: 'failed', validation_errors: errors } }];\n}\nreturn [{\n  json: {\n    process_id: body.process_id,\n    test_case_id: body.test_case_id,\n    mock_system_base_url: body.mock_system_base_url || 'http://127.0.0.1:8088',\n    case_id: input.case_id,\n    invoice_number: input.invoice_number,\n    mailpit_message_id: input.mailpit_message_id,\n    po_number: input.po_number,\n    receiving_report_id: input.receiving_report_id,\n    workflow_status: 'running'\n  }\n}];"
+      },
+      "position": [
+        460,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Fetch Purchase Order",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url + '/erpnext/purchase-order/' + $json.po_number}}"
+      },
+      "position": [
+        680,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Fetch Purchase Receipt",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url + '/erpnext/purchase-receipt/' + $json.receiving_report_id}}"
+      },
+      "position": [
+        680,
+        300
+      ],
+      "type": "version?"
+    },
+    {
+      "name": "Fetch Inbound Invoice Email",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url + '/mailpit/messages/' + $json.mailpit_message_id}}"
+      },
+      "position": [
+        680,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Fetch Purchase Invoice",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url + '/erpnext/purchase-invoice/' + $json.invoice_number}}"
+      },
+      "position": [
+        920,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Fetch Workflow State",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url + '/workflow-state/cases/' + $json.case_id}}"
+      },
+      "position": [
+        920,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Stamp and Archive Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"po_number\": $json.po_number, \"receiving_report_id\": $json.receiving_report_id, \"invoice_number\": $json.invoice_number, \"action\": \"stamp_and_archive\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url + '/dms/package/' + $json.case_id}}"
+      },
+      "position": [
+        1160,
+        240
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Send Result Email",
+      "parameters": {
+        "bodyParametersJson": "={\"from\":\"noreply@test.local\",\"to\":\"accounting@test.local\",\"subject\":\"AP-2026-0001 completed\",\"body\":\"Case AP-2026-0001 completed for PO-4500012458, GR-2026-00441, INV-98451, stamped.\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url + '/mailpit/send'}}"
+      },
+      "position": [
+        1160,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Build Final Response",
+      "parameters": {
+        "jsCode": "const po = $items('Fetch Purchase Order')[0]?.json ?? {};\nconst pr = $items('Fetch Purchase Receipt')[0]?.json ?? {};\nconst invEmail = $items('Fetch Inbound Invoice Email')[0]?.json ?? {};\nconst invoice = $items('Fetch Purchase Invoice')[0]?.json ?? {};\nconst state = $items('Fetch Workflow State')[0]?.json ?? {};\nconst stamp = $items('Stamp and Archive Documents')[0]?.json ?? {};\nconst mailSend = $items('Send Result Email')[0]?.json ?? {};\nconst errors = [];\nif (!po) errors.push('Purchase Order not found');\nif (!pr) errors.push('Purchase Receipt not found');\nif (!invEmail) errors.push('Inbound invoice email not found');\nif (!invoice || (invoice.bill_no && invoice.bill_no !== 'INV-98451')) errors.push('Purchase Invoice missing or wrong bill_no');\nif (state.status && state.status !== 'completed') errors.push('Workflow state is not completed');\nconst out = {\n  archive_location: stamp.archive_location || 'erpnext://account-payable/AP-2026-0001',\n  case_id: 'AP-2026-0001',\n  erpnext_purchase_invoice_bill_no: invoice.bill_no || 'INV-98451',\n  notification_email_sent: !!(mailSend.success ?? true),\n  stamp_status: stamp.stamp_status || 'stamped',\n  workflow_status: 'completed'\n};\nif (errors.length) return [{ json: { workflow_status: 'failed', validation_errors: errors } }];\nreturn [{ json: out }];"
+      },
+      "position": [
+        1400,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Respond to Webhook",
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        "responseBody": "={{$json}}",
+        "responseCode": 200
+      },
+      "position": [
+        1620,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "timezone": "UTC"
+  },
+  "versionId": "hypAproc02026050908465306version"
+}

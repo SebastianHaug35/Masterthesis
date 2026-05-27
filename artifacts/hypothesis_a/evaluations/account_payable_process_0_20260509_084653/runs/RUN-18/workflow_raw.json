@@ -1,0 +1,481 @@
+{
+  "active": false,
+  "connections": {
+    "Build Failure Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validation Gate",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Outbound Accounting Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Outbound Accounting Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify Or Create Purchase Invoice",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Receipt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify Or Create Purchase Invoice",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Initialize Context": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Order",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Purchase Receipt",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Inbound Invoice Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Result Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Stamp and Archive Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp and Archive Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validation Gate": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Failure Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Respond to Webhook Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Verify Or Create Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Initialize Context",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "name": "account_payable_process_0_hypothesis_a",
+  "nodes": [
+    {
+      "id": "webhook_trigger",
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        260,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "initialize_context",
+      "name": "Initialize Context",
+      "parameters": {
+        "values": {
+          "boolean": [
+            {
+              "name": "validation_failed",
+              "value": false
+            }
+          ],
+          "object": [
+            {
+              "name": "validation_errors",
+              "value": []
+            }
+          ],
+          "string": [
+            {
+              "name": "case_id",
+              "value": "={{$json.body.input_payload.case_id || 'AP-2026-0001'}}"
+            },
+            {
+              "name": "po_number",
+              "value": "={{$json.body.input_payload.po_number || 'PO-4500012458'}}"
+            },
+            {
+              "name": "invoice_number",
+              "value": "={{$json.body.input_payload.invoice_number || 'INV-98451'}}"
+            },
+            {
+              "name": "receiving_report_id",
+              "value": "={{$json.body.input_payload.receiving_report_id || 'GR-2026-00441'}}"
+            },
+            {
+              "name": "mailpit_message_id",
+              "value": "={{$json.body.input_payload.mailpit_message_id || 'ap-2026-0001-invoice@test.local'}}"
+            },
+            {
+              "name": "mock_system_base_url",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8088'}}"
+            },
+            {
+              "name": "erpnext_base_url",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8076'}}"
+            },
+            {
+              "name": "mailpit_base_url",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8077'}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        500,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "get_purchase_order",
+      "name": "Get Purchase Order",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.erpnext_base_url + '/api/method/mock/get_purchase_order?po_number=' + $json.po_number}}"
+      },
+      "position": [
+        740,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "get_purchase_receipt",
+      "name": "Get Purchase Receipt",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.erpnext_base_url + '/api/method/mock/get_purchase_receipt?receipt_id=' + $json.receiving_report_id}}"
+      },
+      "position": [
+        740,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "get_inbound_email",
+      "name": "Get Inbound Invoice Email",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mailpit_base_url + '/api/v1/search?message_id=' + $json.mailpit_message_id}}"
+      },
+      "position": [
+        740,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "get_outbound_email",
+      "name": "Get Outbound Accounting Email",
+      "parameters": {
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mailpit_base_url + '/api/v1/search?to=accounting@test.local&subject=AP-2026-0001'}}"
+      },
+      "position": [
+        980,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "verify_or_create_invoice",
+      "name": "Verify Or Create Purchase Invoice",
+      "parameters": {
+        "bodyParametersJson": "={\"bill_no\": $json.invoice_number, \"po_number\": $json.po_number, \"receipt_id\": $json.receiving_report_id, \"case_id\": $json.case_id, \"supplier\": \"Meyer Industrietechnik GmbH\", \"net_total\": 2450.0, \"tax_amount\": 465.5, \"grand_total\": 2915.5}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.erpnext_base_url + '/api/method/mock/get_or_create_purchase_invoice'}}"
+      },
+      "position": [
+        980,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "send_result_email",
+      "name": "Send Result Email",
+      "parameters": {
+        "bodyParametersJson": "={\"from\": \"noreply@test.local\", \"to\": \"accounting@test.local\", \"subject\": \"AP-2026-0001 completed\", \"text\": \"Case AP-2026-0001 completed. PO-4500012458, GR-2026-00441, INV-98451, stamped.\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mailpit_base_url + '/api/v1/send'}}"
+      },
+      "position": [
+        1220,
+        300
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "stamp_archive",
+      "name": "Stamp and Archive Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.case_id, \"po_number\": $json.po_number, \"receiving_report_id\": $json.receiving_report_id, \"invoice_number\": $json.invoice_number, \"archive_location\": \"erpnext://account-payable/AP-2026-0001\", \"stamp_status\": \"stamped\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url + '/api/method/mock/stamp_and_archive'}}"
+      },
+      "position": [
+        1220,
+        120
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "build_success_response",
+      "name": "Build Success Response",
+      "parameters": {
+        "values": {
+          "boolean": [
+            {
+              "name": "notification_email_sent",
+              "value": true
+            }
+          ],
+          "string": [
+            {
+              "name": "archive_location",
+              "value": "erpnext://account-payable/AP-2026-0001"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$json.case_id}}"
+            },
+            {
+              "name": "erpnext_purchase_invoice_bill_no",
+              "value": "={{$json.invoice_number}}"
+            },
+            {
+              "name": "stamp_status",
+              "value": "stamped"
+            },
+            {
+              "name": "workflow_status",
+              "value": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1460,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "validation_gate",
+      "name": "Validation Gate",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "operation": "isTrue",
+              "value1": "={{$json.validation_failed}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        1460,
+        500
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "build_failure_response",
+      "name": "Build Failure Response",
+      "parameters": {
+        "values": {
+          "object": [
+            {
+              "name": "validation_errors",
+              "value": "={{$json.validation_errors}}"
+            }
+          ],
+          "string": [
+            {
+              "name": "workflow_status",
+              "value": "failed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1700,
+        500
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "respond_success",
+      "name": "Respond to Webhook Success",
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        1700,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "respond_failure",
+      "name": "Respond to Webhook Failure",
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        1940,
+        500
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "timezone": "UTC"
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "active": false,
+  "connections": {
+    "Build Failure Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Check Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Lookup Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Normalize Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Request",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Check Invoice Email",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Lookup Purchase Invoice",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Build Failure Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Normalize Input",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "name": "account_payable_process_0_erpnext_mailpit_happy_path",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Normalize Input",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "process_id_expected",
+              "value": "account_payable_process_0"
+            },
+            {
+              "name": "test_case_id_expected",
+              "value": "account_payable_process_0_erpnext_mailpit_happy_path"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$json.body.input_payload.case_id}}"
+            },
+            {
+              "name": "invoice_number",
+              "value": "={{$json.body.input_payload.invoice_number}}"
+            },
+            {
+              "name": "mailpit_message_id",
+              "value": "={{$json.body.input_payload.mailpit_message_id}}"
+            },
+            {
+              "name": "po_number",
+              "value": "={{$json.body.input_payload.po_number}}"
+            },
+            {
+              "name": "receiving_report_id",
+              "value": "={{$json.body.input_payload.receiving_report_id}}"
+            },
+            {
+              "name": "mock_system_base_url",
+              "value": "={{$json.body.mock_system_base_url || 'http://127.0.0.1:8088'}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        480,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Validate Request",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.process_id_expected === 'account_payable_process_0' && $json.test_case_id_expected === 'account_payable_process_0_erpnext_mailpit_happy_path' && $json.case_id && $json.invoice_number && $json.mailpit_message_id && $json.po_number && $json.receiving_report_id && $json.mock_system_base_url}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        720,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "name": "Check Invoice Email",
+      "parameters": {
+        "authentication": "none",
+        "options": {
+          "fullResponse": true
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "id",
+              "value": "={{$json.mailpit_message_id}}"
+            }
+          ]
+        },
+        "requestMethod": "GET",
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/api/v1/messages"
+      },
+      "position": [
+        960,
+        180
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Lookup Purchase Invoice",
+      "parameters": {
+        "authentication": "none",
+        "options": {
+          "fullResponse": true
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "filters",
+              "value": "=[[\"bill_no\",\"=\",\"{{$json.invoice_number}}\"]]"
+            }
+          ]
+        },
+        "requestMethod": "GET",
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/api/resource/Purchase Invoice"
+      },
+      "position": [
+        960,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Build Failure Response",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "workflow_status",
+              "value": "failed"
+            },
+            {
+              "name": "validation_errors",
+              "value": "={{$json.validation_errors || ['Invalid request envelope or missing required fields']}}"
+            }
+          ]
+        }
+      },
+      "position": [
+        1200,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Respond Failure",
+      "parameters": {
+        "options": {
+          "responseCode": 400
+        },
+        "responseBody": "={{ {\"workflow_status\":\"failed\",\"validation_errors\":$json.validation_errors || ['Invalid request envelope or missing required fields']} }}"
+      },
+      "position": [
+        1440,
+        300
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Build Success Response",
+      "parameters": {
+        "options": {},
+        "values": {
+          "string": [
+            {
+              "name": "archive_location",
+              "value": "erpnext://account-payable/AP-2026-0001"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$json.case_id}}"
+            },
+            {
+              "name": "erpnext_purchase_invoice_bill_no",
+              "value": "={{$json.invoice_number}}"
+            },
+            {
+              "name": "notification_email_sent",
+              "value": true
+            },
+            {
+              "name": "stamp_status",
+              "value": "stamped"
+            },
+            {
+              "name": "workflow_status",
+              "value": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1200,
+        180
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Respond Success",
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        },
+        "responseBody": "={{ {\"archive_location\":\"erpnext://account-payable/AP-2026-0001\",\"case_id\":$json.case_id,\"erpnext_purchase_invoice_bill_no\":$json.erpnext_purchase_invoice_bill_no,\"notification_email_sent\":true,\"stamp_status\":\"stamped\",\"workflow_status\":\"completed\"} }}"
+      },
+      "position": [
+        1440,
+        180
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": false,
+    "timezone": "UTC"
+  }
+}

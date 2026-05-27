@@ -1,0 +1,85 @@
+@startuml
+title Testaufbau Hypothesen A-C: ChatUI, OpenClaw, n8n und Validity Gates
+
+skinparam shadowing false
+skinparam wrapWidth 220
+skinparam maxMessageSize 180
+skinparam sequenceMessageAlign center
+skinparam participant {
+  BorderColor #666666
+  FontSize 13
+}
+skinparam box {
+  BorderColor #BDBDBD
+  BackgroundColor #F7F7F7
+}
+skinparam note {
+  BorderColor #888888
+  BackgroundColor #FFF7D6
+}
+
+actor "Researcher / User" as U
+participant "A. Frontend / ChatUI-Node" as A
+
+box "B-F Hostinger-Container" #F5F5F5
+  participant "B. OpenClaw\nPort 8080" as B
+  database "Selbst gehostete\nn8n-Datenbank\n/data/.n8n/" as DB
+  participant "C. n8n-Instanz\nPort 8070" as C
+  participant "D. ERPNext\nPort 8076" as D
+  participant "E. Lokales Email-System\nPort 8077\nnur lokale Adressen" as E
+  participant "F. Validity Gates\nPorts 8071-8074" as F
+end box
+
+note right of DB
+n8n läuft mit:
+N8N_USER_FOLDER=/data
+
+Der persistente Datenordner ist:
+/data/.n8n/
+
+Damit sind die Workflows
+wieder vorhanden und per CLI sichtbar.
+end note
+
+note over A,F
+Hypothese A: Schritte 1-4 ohne 3b
+Hypothese B: Schritte 1-5 ohne 3b
+Hypothese C: Schritte 1-4 mit 3b
+end note
+
+U -> A : Testfall / Workflow-Beschreibung eingeben
+
+== Schritt 1 ==
+A -> B : Workflow-Beschreibung weitergeben
+
+== Schritt 2 ==
+B -> C : OpenClaw erzeugt n8n-Workflow
+C -> DB : Workflow in selbst gehostete n8n-Datenbank schreiben
+DB --> C : Workflow persistiert
+C --> B : Import-/Speicherstatus
+
+== Schritt 3a ==
+A -> E : Workflow triggern
+E -> C : Ereignis / Eingangsdaten an n8n
+C -> D : ERPNext-Daten lesen / schreiben
+D --> C : ERPNext-Ergebnis
+C -> E : Email-Aktion / Antwort
+E --> A : Trigger-/Ausführungsstatus
+
+opt Schritt 3b: nur Hypothese C
+  C -> F : Workflow-Zustand und Zwischenergebnisse prüfen
+  F --> C : Validierungsentscheidung / Hinweise
+end
+
+== Schritt 4 ==
+A -> D : Ergebnis des Workflows überprüfen
+D --> A : Fachliches Ergebnis
+A -> E : Email-Ergebnis überprüfen
+E --> A : Lokaler Versand-/Empfangsstatus
+
+opt Schritt 5: nur Hypothese B
+  A -> B : Fehler / Beobachtungen zum Verbessern zurückgeben
+  B --> A : Verbesserter Workflow-Vorschlag
+end
+
+@enduml

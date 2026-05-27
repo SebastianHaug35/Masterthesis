@@ -1,0 +1,10 @@
+{
+  "cmd": [
+    "scripts/dev/n8n-openclaw-start.sh",
+    "openclaw-0txg-openclaw-1"
+  ],
+  "duration_ms": 1090,
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "n8n started: pid=63661 port=8070 user_folder=/data\n"
+}

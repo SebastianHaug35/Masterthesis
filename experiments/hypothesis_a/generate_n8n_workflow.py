@@ -31,6 +31,9 @@ DEFAULT_PROCESS_DIR = (
 )
 DEFAULT_SYSTEM_PROMPT = PROJECT_ROOT / "prompts" / "hypothesis_a" / "n8n_workflow_generator_system.txt"
 DEFAULT_SYSTEM_LANDSCAPE = PROJECT_ROOT / "thesis" / "n8n" / "process_io" / "system_landscape.json"
+DEFAULT_REUSABLE_EXECUTION_CONTRACT = (
+    PROJECT_ROOT / "thesis" / "n8n" / "process_io" / "reusable_workflow_execution_contract.md"
+)
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "artifacts" / "hypothesis_a" / "generated_workflows"
 DEFAULT_ENV_FILES = [
     PROJECT_ROOT / "frontend" / ".env",
@@ -98,6 +101,9 @@ def build_user_prompt(
     process_description: str,
     test_cases: dict[str, Any],
     system_landscape: dict[str, Any],
+    reusable_execution_contract: str | None = None,
+    system_contract: str | None = None,
+    test_setup: dict[str, Any] | None = None,
 ) -> str:
     payload = {
         "task": "Generate an importable n8n workflow JSON for Hypothesis A workflow testing.",
@@ -112,6 +118,12 @@ def build_user_prompt(
             f"--workflow-url http://127.0.0.1:5678/webhook/{process_id}"
         ),
     }
+    if reusable_execution_contract:
+        payload["reusable_workflow_execution_contract_markdown"] = reusable_execution_contract
+    if system_contract:
+        payload["process_system_contract_markdown"] = system_contract
+    if test_setup:
+        payload["first_workflow_test_setup"] = test_setup
     return json.dumps(payload, indent=2, sort_keys=True)
 
 
@@ -224,9 +236,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--process-dir", type=Path, default=DEFAULT_PROCESS_DIR)
     parser.add_argument("--system-prompt", type=Path, default=DEFAULT_SYSTEM_PROMPT)
     parser.add_argument("--system-landscape", type=Path, default=DEFAULT_SYSTEM_LANDSCAPE)
+    parser.add_argument("--reusable-execution-contract", type=Path, default=DEFAULT_REUSABLE_EXECUTION_CONTRACT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--model", default=os.environ.get("OPENAI_MODEL", "gpt-5.4-mini"))
     parser.add_argument("--dry-run", action="store_true", help="Write prompt files but do not call the API.")
+    parser.add_argument(
+        "--test-case-file",
+        type=Path,
+        default=None,
+        help="Optional explicit test case JSON. Defaults to *_test_cases.json in --process-dir.",
+    )
+    parser.add_argument(
+        "--system-contract",
+        type=Path,
+        default=None,
+        help="Optional process system-contract markdown to include in the prompt.",
+    )
+    parser.add_argument(
+        "--test-setup",
+        type=Path,
+        default=None,
+        help="Optional machine-readable first-workflow test setup JSON to include in the prompt.",
+    )
     return parser.parse_args()
 
 
@@ -234,16 +265,38 @@ def main() -> int:
     args = parse_args()
     load_env_files(DEFAULT_ENV_FILES)
 
+    args.process_dir = args.process_dir.resolve()
+    args.system_prompt = args.system_prompt.resolve()
+    args.system_landscape = args.system_landscape.resolve()
+    args.reusable_execution_contract = args.reusable_execution_contract.resolve()
+    args.output_dir = args.output_dir.resolve()
+    if args.test_case_file:
+        args.test_case_file = args.test_case_file.resolve()
+    if args.system_contract:
+        args.system_contract = args.system_contract.resolve()
+    if args.test_setup:
+        args.test_setup = args.test_setup.resolve()
+
     process_md = find_single(args.process_dir, "*.md")
-    test_case_file = find_single(args.process_dir, "*_test_cases.json")
+    test_case_file = args.test_case_file or find_single(args.process_dir, "*_test_cases.json")
     test_cases = read_json(test_case_file)
     process_id = test_cases["process_id"]
     system_prompt = read_text(args.system_prompt)
+    reusable_execution_contract = (
+        read_text(args.reusable_execution_contract)
+        if args.reusable_execution_contract and args.reusable_execution_contract.exists()
+        else None
+    )
+    system_contract = read_text(args.system_contract) if args.system_contract else None
+    test_setup = read_json(args.test_setup) if args.test_setup else None
     user_prompt = build_user_prompt(
         process_id=process_id,
         process_description=read_text(process_md),
         test_cases=test_cases,
         system_landscape=read_json(args.system_landscape),
+        reusable_execution_contract=reusable_execution_contract,
+        system_contract=system_contract,
+        test_setup=test_setup,
     )
 
     run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -256,7 +309,18 @@ def main() -> int:
             "process_markdown": str(process_md.relative_to(PROJECT_ROOT)),
             "test_cases": str(test_case_file.relative_to(PROJECT_ROOT)),
             "system_landscape": str(args.system_landscape.relative_to(PROJECT_ROOT)),
+            "reusable_execution_contract": (
+                str(args.reusable_execution_contract.relative_to(PROJECT_ROOT))
+                if reusable_execution_contract
+                else None
+            ),
             "system_prompt": str(args.system_prompt.relative_to(PROJECT_ROOT)),
+            "system_contract": (
+                str(args.system_contract.relative_to(PROJECT_ROOT))
+                if args.system_contract
+                else None
+            ),
+            "test_setup": str(args.test_setup.relative_to(PROJECT_ROOT)) if args.test_setup else None,
         },
         "system_prompt": system_prompt,
         "user_prompt": user_prompt,
@@ -279,7 +343,35 @@ def main() -> int:
         return 1
 
     started = time.perf_counter()
-    raw_output = call_openai(system_prompt, user_prompt, args.model, api_key)
+    run_report_base = {
+        "run_id": run_id,
+        "process_id": process_id,
+        "model": args.model,
+        "prompt": str(prompt_path.relative_to(PROJECT_ROOT)),
+    }
+    try:
+        raw_output = call_openai(system_prompt, user_prompt, args.model, api_key)
+    except Exception as exc:  # noqa: BLE001 - CLI/report boundary.
+        report_path = process_output_dir / f"{process_id}_generation_report_{run_id}.json"
+        latest_report_path = process_output_dir / f"{process_id}_generation_report_latest.json"
+        report = {
+            **run_report_base,
+            "duration_ms": round((time.perf_counter() - started) * 1000),
+            "workflow": None,
+            "validation_status": "error",
+            "validation_failures": [],
+            "error": str(exc),
+        }
+        write_json(report_path, report)
+        write_json(latest_report_path, report)
+        print(f"process_id: {process_id}")
+        print(f"model: {args.model}")
+        print("validation: error")
+        print(f"prompt: {prompt_path}")
+        print(f"report: {report_path}")
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
     workflow = extract_json_object(raw_output)
     validation_failures = validate_n8n_workflow(workflow)
 
@@ -293,11 +385,8 @@ def main() -> int:
     write_json(
         report_path,
         {
-            "run_id": run_id,
-            "process_id": process_id,
-            "model": args.model,
+            **run_report_base,
             "duration_ms": round((time.perf_counter() - started) * 1000),
-            "prompt": str(prompt_path.relative_to(PROJECT_ROOT)),
             "workflow": str(workflow_path.relative_to(PROJECT_ROOT)),
             "validation_status": "passed" if not validation_failures else "failed",
             "validation_failures": validation_failures,

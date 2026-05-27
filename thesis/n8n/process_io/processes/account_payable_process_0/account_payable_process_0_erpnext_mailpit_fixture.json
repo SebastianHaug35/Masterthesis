@@ -1,0 +1,174 @@
+{
+  "fixture_id": "account_payable_process_0_erpnext_mailpit_fixture_v1",
+  "process_id": "account_payable_process_0",
+  "scenario_name": "Deterministic ERPNext and Mailpit happy path for account payable process 0",
+  "purpose": "Provide repeatable business data for Hypothesis A using ERPNext as ERP system and Mailpit as local email system.",
+  "reset_policy": {
+    "idempotent_keys": [
+      "company.abbr",
+      "supplier.supplier_name",
+      "item.item_code",
+      "purchase_order.name",
+      "purchase_receipt.name",
+      "mailpit.message_id"
+    ],
+    "expected_before_each_run": "The runner may delete or overwrite records with these deterministic identifiers before reseeding the fixture."
+  },
+  "erpnext": {
+    "base_url": "http://127.0.0.1:8076",
+    "company": {
+      "doctype": "Company",
+      "company_name": "Masterthesis Test GmbH",
+      "abbr": "MTG",
+      "default_currency": "EUR",
+      "country": "Germany"
+    },
+    "supplier": {
+      "doctype": "Supplier",
+      "supplier_name": "Meyer Industrietechnik GmbH",
+      "supplier_group": "All Supplier Groups",
+      "supplier_type": "Company",
+      "supplier_id": "V-10045"
+    },
+    "item": {
+      "doctype": "Item",
+      "item_code": "MAT-AP-0001",
+      "item_name": "Hydraulic pump unit",
+      "description": "Hydraulic pump unit for deterministic account payable test case",
+      "stock_uom": "Nos",
+      "is_stock_item": 1,
+      "is_purchase_item": 1,
+      "valuation_rate": 2450.0
+    },
+    "warehouse": {
+      "doctype": "Warehouse",
+      "warehouse_name": "Stores - MTG",
+      "company": "Masterthesis Test GmbH"
+    },
+    "purchase_order": {
+      "doctype": "Purchase Order",
+      "name": "PO-4500012458",
+      "supplier": "Meyer Industrietechnik GmbH",
+      "company": "Masterthesis Test GmbH",
+      "transaction_date": "2026-04-09",
+      "schedule_date": "2026-04-12",
+      "currency": "EUR",
+      "items": [
+        {
+          "item_code": "MAT-AP-0001",
+          "item_name": "Hydraulic pump unit",
+          "description": "Hydraulic pump unit for deterministic account payable test case",
+          "qty": 1,
+          "uom": "Nos",
+          "rate": 2450.0,
+          "amount": 2450.0,
+          "schedule_date": "2026-04-12",
+          "warehouse": "Stores - MTG"
+        }
+      ],
+      "expected_docstatus": 1,
+      "expected_total": 2450.0
+    },
+    "purchase_receipt": {
+      "doctype": "Purchase Receipt",
+      "name": "GR-2026-00441",
+      "supplier": "Meyer Industrietechnik GmbH",
+      "company": "Masterthesis Test GmbH",
+      "posting_date": "2026-04-10",
+      "items": [
+        {
+          "item_code": "MAT-AP-0001",
+          "qty": 1,
+          "uom": "Nos",
+          "rate": 2450.0,
+          "purchase_order": "PO-4500012458",
+          "warehouse": "Stores - MTG"
+        }
+      ],
+      "expected_docstatus": 1
+    },
+    "expected_purchase_invoice": {
+      "doctype": "Purchase Invoice",
+      "supplier": "Meyer Industrietechnik GmbH",
+      "company": "Masterthesis Test GmbH",
+      "bill_no": "INV-98451",
+      "bill_date": "2026-04-10",
+      "due_date": "2026-05-10",
+      "currency": "EUR",
+      "net_total": 2450.0,
+      "tax_amount": 465.5,
+      "grand_total": 2915.5,
+      "reference_purchase_order": "PO-4500012458",
+      "reference_purchase_receipt": "GR-2026-00441",
+      "expected_docstatus": 1
+    }
+  },
+  "mailpit": {
+    "api_base_url": "http://127.0.0.1:8077",
+    "smtp": {
+      "host": "127.0.0.1",
+      "port": 1025,
+      "secure": false
+    },
+    "incoming_invoice_email": {
+      "message_id": "ap-2026-0001-invoice@test.local",
+      "from": "vendor.billing@test.local",
+      "to": "invoice@test.local",
+      "subject": "Invoice INV-98451 for purchase order PO-4500012458",
+      "body_text": "Please process invoice INV-98451 for PO-4500012458. Net amount: 2450.00 EUR. Tax: 465.50 EUR. Gross amount: 2915.50 EUR. Due date: 2026-05-10.",
+      "expected_metadata": {
+        "invoice_number": "INV-98451",
+        "po_number": "PO-4500012458",
+        "vendor_id": "V-10045",
+        "vendor_name": "Meyer Industrietechnik GmbH",
+        "net_amount": 2450.0,
+        "tax_amount": 465.5,
+        "gross_amount": 2915.5,
+        "currency": "EUR",
+        "due_date": "2026-05-10"
+      }
+    },
+    "expected_result_email": {
+      "from": "noreply@test.local",
+      "to": "accounting@test.local",
+      "subject_contains": [
+        "AP-2026-0001",
+        "completed"
+      ],
+      "body_must_contain": [
+        "PO-4500012458",
+        "INV-98451",
+        "GR-2026-00441",
+        "stamped"
+      ]
+    }
+  },
+  "workflow_input": {
+    "case_id": "AP-2026-0001",
+    "po_number": "PO-4500012458",
+    "receiving_report_id": "GR-2026-00441",
+    "invoice_number": "INV-98451",
+    "mailpit_message_id": "ap-2026-0001-invoice@test.local"
+  },
+  "expected_output": {
+    "case_id": "AP-2026-0001",
+    "workflow_status": "completed",
+    "stamp_status": "stamped",
+    "archive_location": "erpnext://account-payable/AP-2026-0001",
+    "erpnext_purchase_invoice_bill_no": "INV-98451",
+    "notification_email_sent": true
+  },
+  "validation_checks": [
+    "purchase_order_exists_in_erpnext",
+    "purchase_receipt_exists_in_erpnext",
+    "invoice_email_exists_in_mailpit",
+    "vendor_name_matches_between_erpnext_and_invoice_email",
+    "po_number_matches_across_purchase_order_receipt_and_invoice_email",
+    "gross_amount_equals_net_amount_plus_tax_amount",
+    "purchase_invoice_created_or_verified_in_erpnext",
+    "result_email_sent_to_accounting_test_local",
+    "workflow_status_completed",
+    "stamp_status_stamped"
+  ]
+}
+

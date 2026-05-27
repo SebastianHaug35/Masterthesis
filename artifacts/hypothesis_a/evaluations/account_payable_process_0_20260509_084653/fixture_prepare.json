@@ -1,0 +1,9 @@
+{
+  "cmd": [
+    "scripts/hypothesis-a-prepare-erpnext-mailpit-fixture.sh"
+  ],
+  "duration_ms": 1537,
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "summary: 11 ok, 2 created, 1 updated, 0 missing, 0 error\nreport: /root/Masterthesis/artifacts/hypothesis_a/erpnext_mailpit_fixture/account_payable_process_0_erpnext_mailpit_fixture_latest.json\n"
+}

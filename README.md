@@ -61,6 +61,27 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\n8n-stop.ps1
 
 Hinweis: `N8N_RUNNERS_MODE=external` ist im Startskript gesetzt, weil der interne n8n Task Runner auf diesem Rechner mit `spawn EPERM` beendet.
 
+## PlantUML Rendering
+
+Die Architekturdiagramme liegen unter `docs/architecture/*.puml`.
+
+Voraussetzungen:
+
+- Java (JRE/JDK 17 oder neuer) muss im `PATH` verfuegbar sein
+- `plantuml-1.2025.10.jar` muss im Repository-Root liegen (`./plantuml-1.2025.10.jar`)
+
+Rendern aller Diagramme nach `docs/architecture/rendered`:
+
+```bash
+./scripts/render-plantuml.sh
+```
+
+Ein einzelnes Diagramm rendern:
+
+```bash
+./scripts/render-plantuml.sh docs/architecture/testaufbau_hypothesen_flow.puml
+```
+
 ## Simulated Business System fuer Hypothese A
 
 Das lokale simulierte Business-System ersetzt ERP, E-Mail, DMS, Datenbank und Queue durch reproduzierbare HTTP-Endpunkte auf `http://127.0.0.1:8088`.

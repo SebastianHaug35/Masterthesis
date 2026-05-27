@@ -1,0 +1,58 @@
+{
+  "process_id": "account_payable_process_0",
+  "test_environment": "erpnext_mailpit",
+  "fixture_file": "account_payable_process_0_erpnext_mailpit_fixture.json",
+  "test_cases": [
+    {
+      "test_case_id": "account_payable_process_0_erpnext_mailpit_happy_path",
+      "scenario_name": "Complete purchase order, receiving report, vendor invoice email, and final accounting notification",
+      "category": "happy_path",
+      "systems_under_test": [
+        "n8n",
+        "ERPNext",
+        "Mailpit"
+      ],
+      "input_payload": {
+        "case_id": "AP-2026-0001",
+        "po_number": "PO-4500012458",
+        "receiving_report_id": "GR-2026-00441",
+        "invoice_number": "INV-98451",
+        "mailpit_message_id": "ap-2026-0001-invoice@test.local"
+      },
+      "expected_system_effects": {
+        "erpnext": [
+          "Purchase Order PO-4500012458 exists and is submitted",
+          "Purchase Receipt GR-2026-00441 exists and references PO-4500012458",
+          "Purchase Invoice with bill_no INV-98451 exists or is created",
+          "Purchase Invoice references the deterministic supplier and purchase order"
+        ],
+        "mailpit": [
+          "Incoming invoice email from vendor.billing@test.local exists",
+          "Result email to accounting@test.local exists",
+          "Result email contains AP-2026-0001, PO-4500012458, GR-2026-00441, INV-98451, and stamped"
+        ]
+      },
+      "expected_output": {
+        "case_id": "AP-2026-0001",
+        "workflow_status": "completed",
+        "stamp_status": "stamped",
+        "archive_location": "erpnext://account-payable/AP-2026-0001",
+        "erpnext_purchase_invoice_bill_no": "INV-98451",
+        "notification_email_sent": true
+      },
+      "validation_checks": [
+        "purchase_order_exists_in_erpnext",
+        "purchase_receipt_exists_in_erpnext",
+        "invoice_email_exists_in_mailpit",
+        "vendor_name_matches_between_erpnext_and_invoice_email",
+        "po_number_matches_across_purchase_order_receipt_and_invoice_email",
+        "gross_amount_equals_net_amount_plus_tax_amount",
+        "purchase_invoice_created_or_verified_in_erpnext",
+        "result_email_sent_to_accounting_test_local",
+        "workflow_status_completed",
+        "stamp_status_stamped"
+      ]
+    }
+  ]
+}
+

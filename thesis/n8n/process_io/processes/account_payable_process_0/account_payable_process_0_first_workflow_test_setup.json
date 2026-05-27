@@ -1,0 +1,201 @@
+{
+  "process_id": "account_payable_process_0",
+  "test_setup_id": "account_payable_process_0_first_workflow_system_setup_v1",
+  "purpose": "System-oriented test setup for the first generated n8n workflow candidate in Hypothesis A.",
+  "workflow_endpoint": {
+    "n8n_base_url": "http://127.0.0.1:8070",
+    "webhook_path": "account_payable_process_0",
+    "workflow_url": "http://127.0.0.1:8070/webhook/account_payable_process_0"
+  },
+  "correlation_keys": {
+    "case_id": "AP-2026-0001",
+    "po_number": "PO-4500012458",
+    "receiving_report_id": "GR-2026-00441",
+    "invoice_number": "INV-98451",
+    "mailpit_message_id": "ap-2026-0001-invoice@test.local"
+  },
+  "systems": {
+    "erpnext": {
+      "role": "system_of_record_for_procurement_and_accounting_data",
+      "base_url": "http://127.0.0.1:8076",
+      "runtime_base_url_from_n8n": "http://masterthesis-erpnext-frontend-1:8080",
+      "authentication": {
+        "type": "frappe_session_login",
+        "login_endpoint": "/api/method/login",
+        "username": "Administrator",
+        "password": "admin",
+        "note": "Local deterministic test credentials only. The generated workflow must use this only for the local ERPNext test container."
+      },
+      "allowed_api_patterns": [
+        "GET /api/resource/<DocType>",
+        "GET /api/resource/<DocType>/<name>",
+        "POST /api/resource/<DocType>",
+        "PUT /api/resource/<DocType>/<name>",
+        "POST /api/method/<method>"
+      ],
+      "database": {
+        "type": "mariadb",
+        "owner": "ERPNext",
+        "compose_service": "db",
+        "internal_port": 3306,
+        "note": "ERPNext owns this database. Tests should verify ERPNext objects through ERPNext/Frappe APIs instead of writing directly to MariaDB."
+      },
+      "must_exist_before_run": [
+        {
+          "doctype": "Company",
+          "identifier": "Masterthesis Test GmbH"
+        },
+        {
+          "doctype": "Supplier",
+          "identifier": "Meyer Industrietechnik GmbH",
+          "supplier_id": "V-10045"
+        },
+        {
+          "doctype": "Item",
+          "identifier": "MAT-AP-0001"
+        },
+        {
+          "doctype": "Purchase Order",
+          "identifier": "PO-4500012458",
+          "expected_docstatus": 1,
+          "expected_total": 2450.0
+        },
+        {
+          "doctype": "Purchase Receipt",
+          "identifier": "GR-2026-00441",
+          "expected_docstatus": 1,
+          "must_reference": "PO-4500012458"
+        }
+      ],
+      "must_change_or_be_verified_after_run": [
+        {
+          "doctype": "Purchase Invoice",
+          "identifier_field": "bill_no",
+          "identifier": "INV-98451",
+          "expected_docstatus": 1,
+          "must_reference_purchase_order": "PO-4500012458",
+          "must_reference_purchase_receipt": "GR-2026-00441",
+          "expected_supplier": "Meyer Industrietechnik GmbH",
+          "expected_net_total": 2450.0,
+          "expected_tax_amount": 465.5,
+          "expected_grand_total": 2915.5
+        }
+      ]
+    },
+    "mailpit": {
+      "role": "local_email_system_for_inbound_invoice_and_outbound_result_notification",
+      "api_base_url": "http://127.0.0.1:8077",
+      "runtime_api_base_url_from_n8n": "http://masterthesis-mailpit:8025",
+      "smtp": {
+        "host": "masterthesis-mailpit",
+        "port": 1025,
+        "secure": false
+      },
+      "allowed_api_patterns": [
+        "GET /api/v1/messages",
+        "GET /api/v1/message/<id>"
+      ],
+      "must_exist_before_run": [
+        {
+          "type": "inbound_email",
+          "message_id": "ap-2026-0001-invoice@test.local",
+          "from": "vendor.billing@test.local",
+          "to": "invoice@test.local",
+          "subject_contains": [
+            "INV-98451",
+            "PO-4500012458"
+          ],
+          "metadata_must_contain": {
+            "invoice_number": "INV-98451",
+            "po_number": "PO-4500012458",
+            "vendor_id": "V-10045",
+            "gross_amount": 2915.5,
+            "currency": "EUR"
+          }
+        }
+      ],
+      "must_change_after_run": [
+        {
+          "type": "outbound_email",
+          "from": "noreply@test.local",
+          "to": "accounting@test.local",
+          "subject_must_contain": [
+            "AP-2026-0001",
+            "completed"
+          ],
+          "body_must_contain": [
+            "PO-4500012458",
+            "INV-98451",
+            "GR-2026-00441",
+            "stamped"
+          ]
+        }
+      ]
+    },
+    "document_repository": {
+      "role": "document_completeness_stamping_and_archive_state",
+      "implementation_for_first_test": "no_separate_runtime_service",
+      "runtime_rule": "Do not call /document-repository, /dms, or any invented document service. For this first ERPNext/Mailpit test, document stamping is represented only in the final workflow response after ERPNext and Mailpit evidence have been verified.",
+      "must_exist_before_run": [
+        {
+          "document_type": "purchase_order",
+          "case_id": "AP-2026-0001"
+        },
+        {
+          "document_type": "receiving_report",
+          "case_id": "AP-2026-0001"
+        },
+        {
+          "document_type": "vendor_invoice",
+          "case_id": "AP-2026-0001"
+        }
+      ],
+      "must_change_after_run": [
+        {
+          "case_id": "AP-2026-0001",
+          "stamp_status": "stamped",
+          "archive_location": "erpnext://account-payable/AP-2026-0001"
+        }
+      ]
+    },
+    "workflow_state_database": {
+      "role": "test_and_orchestration_state_not_owned_by_erpnext",
+      "implementation_for_first_test": "no_separate_runtime_service",
+      "runtime_rule": "Do not call /workflow-state or any invented state service. The evaluation runner records execution evidence externally.",
+      "recommendation": "For later tests, use a separate lightweight database or persisted JSON/SQLite artifact for workflow case state, correlation IDs, validation results, and audit evidence.",
+      "must_change_after_run": [
+        {
+          "object": "workflow_case",
+          "case_id": "AP-2026-0001",
+          "expected_status": "completed"
+        },
+        {
+          "object": "audit_log",
+          "must_contain_events": [
+            "workflow_triggered",
+            "erpnext_purchase_invoice_verified_or_created",
+            "result_email_sent",
+            "documents_stamped",
+            "case_completed"
+          ]
+        }
+      ]
+    }
+  },
+  "expected_workflow_output": {
+    "case_id": "AP-2026-0001",
+    "workflow_status": "completed",
+    "stamp_status": "stamped",
+    "archive_location": "erpnext://account-payable/AP-2026-0001",
+    "erpnext_purchase_invoice_bill_no": "INV-98451",
+    "notification_email_sent": true
+  },
+  "pass_criteria": [
+    "ERPNext contains or creates the expected Purchase Invoice for INV-98451.",
+    "Mailpit contains the seeded inbound vendor invoice email before the run.",
+    "Mailpit contains the outbound accounting notification after the run.",
+    "The document package is complete before stamping and stamped after finalization.",
+    "The workflow-state database records a completed case and audit evidence.",
+    "The workflow response matches expected_workflow_output."
+  ]
+}

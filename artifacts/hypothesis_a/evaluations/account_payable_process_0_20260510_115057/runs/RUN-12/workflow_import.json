@@ -1,0 +1,566 @@
+{
+  "active": false,
+  "connections": {
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Build Validation Failure Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Respond Failure",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Data Invalid?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Failure Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Stamp Documents",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Inbound Invoice Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Receipt",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Or Create Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Retrieved Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Order": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Inbound Invoice Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Receipt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Or Create Purchase Invoice",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Input Invalid?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Validation Failure Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Record Workflow Triggered",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Record Case Completed": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Record Documents Stamped": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Record Case Completed",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Record Email Sent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Record Documents Stamped",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Record Invoice Verified": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Record Email Sent",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Record Workflow Triggered": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Order",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Result Email": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Record Invoice Verified",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Stamp Documents": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send Result Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Input Invalid?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Retrieved Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Data Invalid?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Input",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026051011505712",
+  "name": "account_payable_process_0_RUN-12",
+  "nodes": [
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1001",
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-12",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1002",
+      "name": "Validate Input",
+      "parameters": {
+        "jsCode": "const body = $json.body ?? $json;\nconst errors = [];\nconst required = ['process_id','test_case_id','mock_system_base_url','input_payload'];\nfor (const key of required) { if (body[key] === undefined || body[key] === null || body[key] === '') errors.push(`missing_${key}`); }\nconst ip = body.input_payload || {};\nfor (const key of ['case_id','invoice_number','mailpit_message_id','po_number','receiving_report_id']) { if (!ip[key]) errors.push(`missing_input_payload_${key}`); }\nif (body.process_id && body.process_id !== 'account_payable_process_0') errors.push('invalid_process_id');\nreturn [{ json: { ...body, validation_errors: errors, workflow_status: errors.length ? 'failed' : 'validated' } }];"
+      },
+      "position": [
+        460,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1003",
+      "name": "Input Invalid?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.validation_errors.length > 0}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        680,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1004",
+      "name": "Build Validation Failure Response",
+      "parameters": {
+        "jsCode": "const body = $json;\nreturn [{ json: { workflow_status: 'failed', validation_errors: body.validation_errors || ['validation_failed'] } }];"
+      },
+      "position": [
+        900,
+        140
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1005",
+      "name": "Respond Failure",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        1120,
+        140
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1006",
+      "name": "Record Workflow Triggered",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"event\": \"workflow_triggered\", \"process_id\": $json.process_id, \"test_case_id\": $json.test_case_id}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/state/event"
+      },
+      "position": [
+        900,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1007",
+      "name": "Get Purchase Order",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/erpnext/purchase-order/{{$json.input_payload.po_number}}"
+      },
+      "position": [
+        1120,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1008",
+      "name": "Get Inbound Invoice Email",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/mailpit/messages/{{$json.input_payload.mailpit_message_id}}"
+      },
+      "position": [
+        1340,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1009",
+      "name": "Get Purchase Receipt",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/erpnext/purchase-receipt/{{$json.input_payload.receiving_report_id}}"
+      },
+      "position": [
+        1560,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1010",
+      "name": "Get Or Create Purchase Invoice",
+      "parameters": {
+        "jsonParameters": true,
+        "method": "GET",
+        "options": {},
+        "responseFormat": "json",
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/erpnext/purchase-invoice/{{$json.input_payload.invoice_number}}"
+      },
+      "position": [
+        1780,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1011",
+      "name": "Validate Retrieved Data",
+      "parameters": {
+        "jsCode": "const input = $json;\nconst errors = [];\nconst po = input.po || input;\nconst receipt = input.receipt || input;\nconst email = input.email || input;\nconst invoice = input.invoice || input;\nif (!po) errors.push('purchase_order_missing');\nif (!receipt) errors.push('purchase_receipt_missing');\nif (!email) errors.push('invoice_email_missing');\nif (!invoice) errors.push('purchase_invoice_missing');\nreturn [{ json: { ...input, validation_errors: errors, workflow_status: errors.length ? 'failed' : 'validated' } }];"
+      },
+      "position": [
+        2000,
+        420
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1012",
+      "name": "Data Invalid?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.validation_errors.length > 0}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        2220,
+        420
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1013",
+      "name": "Stamp Documents",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"po_number\": $json.input_payload.po_number, \"receiving_report_id\": $json.input_payload.receiving_report_id, \"invoice_number\": $json.input_payload.invoice_number, \"action\": \"stamp_and_archive\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/dms/stamp"
+      },
+      "position": [
+        2440,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1014",
+      "name": "Send Result Email",
+      "parameters": {
+        "bodyParametersJson": "={\"from\":\"noreply@test.local\",\"to\":\"accounting@test.local\",\"subject\":\"AP-2026-0001 completed\",\"body\":\"Case AP-2026-0001 completed. PO-4500012458, GR-2026-00441, INV-98451, stamped.\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/mailpit/send"
+      },
+      "position": [
+        2660,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1015",
+      "name": "Record Invoice Verified",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"event\": \"erpnext_purchase_invoice_verified_or_created\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/state/event"
+      },
+      "position": [
+        2880,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1016",
+      "name": "Record Email Sent",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"event\": \"result_email_sent\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/state/event"
+      },
+      "position": [
+        3100,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1017",
+      "name": "Record Documents Stamped",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"event\": \"documents_stamped\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/state/event"
+      },
+      "position": [
+        3320,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1018",
+      "name": "Record Case Completed",
+      "parameters": {
+        "bodyParametersJson": "={\"case_id\": $json.input_payload.case_id, \"event\": \"case_completed\", \"status\": \"completed\"}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {},
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{$json.mock_system_base_url || 'http://127.0.0.1:8088'}}/state/event"
+      },
+      "position": [
+        3540,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1019",
+      "name": "Build Success Response",
+      "parameters": {
+        "jsCode": "const caseId = $json.input_payload.case_id;\nreturn [{ json: { archive_location: `erpnext://account-payable/${caseId}`, case_id: caseId, erpnext_purchase_invoice_bill_no: $json.input_payload.invoice_number, notification_email_sent: true, stamp_status: 'stamped', workflow_status: 'completed' } }];"
+      },
+      "position": [
+        3760,
+        420
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "id": "6f4d3a3b-4c5e-4f0c-b3f8-8f1d8e0d1020",
+      "name": "Respond Success",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={{$json}}"
+      },
+      "position": [
+        3980,
+        420
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 120,
+    "saveManualExecutions": true
+  },
+  "versionId": "hypAproc02026051011505712version"
+}

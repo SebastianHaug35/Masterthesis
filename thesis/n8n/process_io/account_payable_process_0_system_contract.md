@@ -175,6 +175,44 @@ At minimum, one runnable process case should carry data like this:
 }
 ```
 
+## Deterministic ERPNext and Mailpit Fixture
+
+For the ERPNext/Mailpit version of Hypothesis A, the concrete test data is defined in:
+
+```text
+thesis/n8n/process_io/processes/account_payable_process_0/account_payable_process_0_erpnext_mailpit_fixture.json
+```
+
+The corresponding runnable test-case definition is:
+
+```text
+thesis/n8n/process_io/processes/account_payable_process_0/account_payable_process_0_erpnext_mailpit_test_case.json
+```
+
+The fixture uses deterministic identifiers so that each run can reset or overwrite the same records:
+
+| Object | Deterministic identifier |
+| --- | --- |
+| Case | `AP-2026-0001` |
+| Company | `Masterthesis Test GmbH` |
+| Supplier | `Meyer Industrietechnik GmbH` |
+| Supplier ID | `V-10045` |
+| Item | `MAT-AP-0001` |
+| Purchase Order | `PO-4500012458` |
+| Purchase Receipt | `GR-2026-00441` |
+| Vendor Invoice | `INV-98451` |
+| Incoming email sender | `vendor.billing@test.local` |
+| Incoming email recipient | `invoice@test.local` |
+| Result email recipient | `accounting@test.local` |
+
+This makes the test logical and repeatable:
+
+- the same ERPNext business records are used for each run
+- the same local Mailpit invoice email is seeded for each run
+- the same n8n workflow input is used for each run
+- the same expected ERPNext and Mailpit effects are checked after execution
+- no external email account or production ERP data is required
+
 ## Expected State Transitions
 
 | State | Entry condition | Exit condition |

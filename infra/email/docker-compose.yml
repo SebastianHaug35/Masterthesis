@@ -1,0 +1,20 @@
+services:
+  mailpit:
+    image: axllent/mailpit:v1.21
+    container_name: masterthesis-mailpit
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8077:8025"
+    environment:
+      MP_SMTP_BIND_ADDR: "0.0.0.0:1025"
+      MP_UI_BIND_ADDR: "0.0.0.0:8025"
+      MP_MAX_MESSAGES: "5000"
+      MP_DATABASE: "/data/mailpit.db"
+      MP_LABEL: "Masterthesis Local Email System"
+    volumes:
+      - mailpit-data:/data
+
+volumes:
+  mailpit-data:
+

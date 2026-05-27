@@ -1,0 +1,353 @@
+{
+  "active": false,
+  "connections": {
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Return Success",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Checks Passed?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Build Success Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Return Verification Failed",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "ERPNext Login": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get Purchase Invoice",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "Get Mailpit Messages",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Mailpit Messages": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify ERPNext and Mailpit",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Purchase Invoice": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Verify ERPNext and Mailpit",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Request Valid?": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "ERPNext Login",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Return Validation Failed",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validate Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Request Valid?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Verify ERPNext and Mailpit": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Checks Passed?",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validate Request",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "hypAproc02026051010260919",
+  "name": "account_payable_process_0_RUN-19",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "account_payable_process_0/run-19",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        240,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Validate Request",
+      "parameters": {
+        "jsCode": "const body = $json.body || $json;\nconst errors = [];\nif (body.process_id !== 'account_payable_process_0') errors.push('process_id must equal account_payable_process_0');\nif (body.test_case_id !== 'account_payable_process_0_erpnext_mailpit_happy_path') errors.push('test_case_id must equal account_payable_process_0_erpnext_mailpit_happy_path');\nif (!body.input_payload || typeof body.input_payload !== 'object') errors.push('input_payload is required');\nconst p = body.input_payload || {};\nfor (const f of ['case_id','invoice_number','mailpit_message_id','po_number','receiving_report_id']) {\n  if (!p[f]) errors.push(`input_payload.${f} is required`);\n}\nreturn [{ json: { valid: errors.length === 0, validation_errors: errors, request: body } }];"
+      },
+      "position": [
+        460,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Request Valid?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.valid}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        680,
+        300
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "name": "Return Validation Failed",
+      "parameters": {
+        "jsonResponse": "={{ { workflow_status: 'failed', validation_errors: $json.validation_errors } }}",
+        "options": {},
+        "responseCode": 400,
+        "responseData": "json"
+      },
+      "position": [
+        920,
+        140
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "ERPNext Login",
+      "parameters": {
+        "bodyParametersJson": "={{ { usr: 'Administrator', pwd: 'admin' } }}",
+        "jsonParameters": true,
+        "method": "POST",
+        "options": {
+          "ignoreResponseCode": true
+        },
+        "responseFormat": "json",
+        "sendBody": true,
+        "url": "={{($json.request.mock_system_base_url || 'http://127.0.0.1:8076') + '/api/method/login'}}"
+      },
+      "position": [
+        920,
+        260
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Get Purchase Invoice",
+      "parameters": {
+        "jsonParameters": false,
+        "method": "GET",
+        "options": {
+          "ignoreResponseCode": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.request.mock_system_base_url || 'http://127.0.0.1:8076') + '/api/resource/Purchase Invoice?filters=' + encodeURIComponent(JSON.stringify([[\"bill_no\",\"=\",$json.request.input_payload.invoice_number]]))}}"
+      },
+      "position": [
+        1140,
+        260
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Get Mailpit Messages",
+      "parameters": {
+        "jsonParameters": false,
+        "method": "GET",
+        "options": {
+          "ignoreResponseCode": true
+        },
+        "responseFormat": "json",
+        "url": "={{($json.request.mock_system_base_url || 'http://127.0.0.1:8077') + '/api/v1/messages?limit=50'}}"
+      },
+      "position": [
+        1140,
+        420
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "name": "Verify ERPNext and Mailpit",
+      "parameters": {
+        "jsCode": "const req = $node['Validate Request'].json.request;\nconst invoice = $node['Get Purchase Invoice'].json;\nconst mail = $node['Get Mailpit Messages'].json;\nconst errors = [];\nconst items = invoice.data || invoice.message || invoice.data?.data || [];\nconst foundInvoice = Array.isArray(items) ? items.find(i => i.bill_no === req.input_payload.invoice_number) : null;\nif (!foundInvoice) errors.push(`Purchase Invoice with bill_no ${req.input_payload.invoice_number} not found`);\nconst msgs = mail.data || mail.messages || mail.items || [];\nconst outbound = Array.isArray(msgs) ? msgs.find(m => {\n  const subj = (m.subject || '').toString();\n  const from = (m.from || '').toString();\n  const to = (m.to || '').toString();\n  const body = (m.text || m.body || m.preview || '').toString();\n  return from.includes('noreply@test.local') && to.includes('accounting@test.local') && subj.includes(req.input_payload.case_id) && subj.includes('completed') && body.includes(req.input_payload.po_number) && body.includes(req.input_payload.receiving_report_id) && body.includes(req.input_payload.invoice_number) && body.includes('stamped');\n}) : null;\nif (!outbound) errors.push('Outbound accounting notification email not found or incomplete');\nreturn [{ json: { ok: errors.length === 0, validation_errors: errors, request: req, found_invoice: foundInvoice ? true : false, notification_email_sent: !!outbound } }];"
+      },
+      "position": [
+        1360,
+        340
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Checks Passed?",
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.ok}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1580,
+        340
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "name": "Return Verification Failed",
+      "parameters": {
+        "jsonResponse": "={{ { workflow_status: 'failed', validation_errors: $json.validation_errors } }}",
+        "options": {},
+        "responseCode": 400,
+        "responseData": "json"
+      },
+      "position": [
+        1800,
+        200
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    },
+    {
+      "name": "Build Success Response",
+      "parameters": {
+        "values": {
+          "boolean": [
+            {
+              "name": "notification_email_sent",
+              "value": true
+            }
+          ],
+          "string": [
+            {
+              "name": "archive_location",
+              "value": "={{'erpnext://account-payable/' + $node['Validate Request'].json.request.input_payload.case_id}}"
+            },
+            {
+              "name": "case_id",
+              "value": "={{$node['Validate Request'].json.request.input_payload.case_id}}"
+            },
+            {
+              "name": "erpnext_purchase_invoice_bill_no",
+              "value": "={{$node['Validate Request'].json.request.input_payload.invoice_number}}"
+            },
+            {
+              "name": "stamp_status",
+              "value": "stamped"
+            },
+            {
+              "name": "workflow_status",
+              "value": "completed"
+            }
+          ]
+        }
+      },
+      "position": [
+        1800,
+        460
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2
+    },
+    {
+      "name": "Return Success",
+      "parameters": {
+        "jsonResponse": "={{ { archive_location: $json.archive_location, case_id: $json.case_id, erpnext_purchase_invoice_bill_no: $json.erpnext_purchase_invoice_bill_no, notification_email_sent: $json.notification_email_sent, stamp_status: $json.stamp_status, workflow_status: $json.workflow_status } }}",
+        "options": {},
+        "responseCode": 200,
+        "responseData": "json"
+      },
+      "position": [
+        2020,
+        460
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "versionId": "hypAproc02026051010260919version"
+}
